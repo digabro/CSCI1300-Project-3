@@ -10,11 +10,10 @@ private:
     int ItemCost_;
     int ItemIndex_
 public:
-    Inventory();
+    Inventory(string ItemName_,string ItemType_,int ItemCost_,int ItemIndex_);
     string getItemName(int ItemIndex_);
     string getItemType(int ItemIndex_);
     int getItemIndex(string ItemName_);
-    void addItem(string ItemName_,string ItemType_,int ItemCost_,int ItemIndex_);
     void setItemName(string ItemName_,int ItemIndex_);
     void setItemCost(int ItemCost_,int ItemIndex_);
 };
