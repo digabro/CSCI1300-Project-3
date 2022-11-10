@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include "Inventory.h"
+#include "Item.h"
 
 using namespace std;
 
@@ -91,4 +92,7 @@ int Inventory::setCupOfNoodles(int in_cup_of_noodles)//cup of noodles is basical
     return in_cup_of_noodles;
 
 }
-
+void Inventory::addItem(string ItemName,string ItemType,int ItemCost,int damage,int protection,int durability){
+    item_list[num_items]=Item(ItemName,ItemType,ItemCost,num_items,damage,protection,durability);
+    num_items++;
+}

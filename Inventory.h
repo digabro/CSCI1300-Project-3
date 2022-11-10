@@ -2,6 +2,8 @@
 #define INVENTORY
 #include <iostream>
 #include <string>
+#include <vector>
+#include "Item.h"
 using namespace std;
 //should it be inventory or Health_Armor
 class Inventory
@@ -25,6 +27,8 @@ class Inventory
     setEnergyDrink(int num_energy_drink);
     setMuscleMilk(int num_muscle_milk); 
     setCupOfNoodles(int num_cup_of_noodles);
+    //added this for manipulating the item vector
+    addItem(string ItemName_,string ItemType_,int ItemCost_,int ItemIndex_,int damage_,int protection_,int durability_);
 
     private:
     // do we set these values equal to the amount of them we have in our inventory or do we set it to the amount of health/armor or damage it gives you
@@ -38,6 +42,8 @@ class Inventory
     static const int max_energy_drink = 2;
     static const int max_muscle_milk = 1;
     static const int max_cup_of_noodles = 5; 
+    int num_items;
+    vector<Item> item_list; //added list of inventory items
     
 
 /*
