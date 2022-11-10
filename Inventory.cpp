@@ -46,6 +46,7 @@ int Inventory::setBuffBucks(int in_buff_bucks)
 {
     if(in_buff_bucks > max_buff_bucks)
     {
+        cout << max_buff_bucks <<" is the maximum amount of Buff Bucks that can be stored in your inventory." << endl;
         return max_buff_bucks;
     }
     return in_buff_bucks;
@@ -54,6 +55,7 @@ int Inventory::setPedialyte(int in_pedialyte)
 {
     if(iin_pedialyte > max_pedialyte)
     {
+        cout << max_pedialyte <<" is the maximum amount of pedialyte that can be stored in your inventory." << endl;
         return max_pedialyte;
     }
     return in_pedialyte;
@@ -61,8 +63,9 @@ int Inventory::setPedialyte(int in_pedialyte)
 }
 int Inventory::setEnergyDrink(int in_energy_drink)
 {
-    if(in_energy_drink >max_energy_drink)
+    if(in_energy_drink >max_energy_drink)//energy drink is the same thing as redbull
     {
+        cout << max_energy_drink <<" is the maximum amount of Redbull that can be stored in your inventory." << endl;
         return max_energy_drink;
     }
     return in_energy_drink;
@@ -72,15 +75,17 @@ int Inventory::setMuscleMilk(int in_muscle_milk)
 {
     if(in_muscle_milk > max_muscle_milk)
     {
+        cout << max_muscle_milk << " is the maximum amount of muscle milk that can be stored in your inventory." << endl;
         return  max_muscle_milk;
     }
     return in_muscle_milk;
 
 }
-int Inventory::setCupOfNoodles(int in_cup_of_noodles)
+int Inventory::setCupOfNoodles(int in_cup_of_noodles)//cup of noodles is basically the same thing as ramen
 {
     if(in_cup_of_noodles > max_cup_of_noodles)
     {
+        cout << max_cup_of_noodles <<" is the maximum amount of Ramen Chicken Noodle soup that can be stored in your inventory." << endl;
         return max_cup_of_noodles;
     }
     return in_cup_of_noodles;
