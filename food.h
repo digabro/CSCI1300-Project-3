@@ -1,6 +1,7 @@
 #ifndef FOOD_H
 #define FOOD_H
-#include<iostream>
+#include <iostream>
+#include <string>
 #include "inventory.h"
 #using namespace std;
 
