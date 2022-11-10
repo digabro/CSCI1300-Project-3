@@ -2,7 +2,7 @@
 #define ITEM_H
 #include <iostream>
 #using namespace std;
-
+//added this so all items can be under one class for the item vector in the inventory class
 class Item{
 private:
     string ItemType_; //what type of item ex: Weapon,Armor,Food,Random
