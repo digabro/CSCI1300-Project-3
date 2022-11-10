@@ -8,6 +8,10 @@ class Armor : public Inventory{
     private:
         int protection_;
         int durability_;
+        string item_name_;
+        string item_type_;
+        int item_cost_;
+        
     public:
         Armor(string ItemName_,string ItemType_,int ItemCost_,int ItemIndex_,int protection_,int durability_,);//add a armor item
         int getProtection();
