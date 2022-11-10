@@ -3,8 +3,12 @@
 #include <iostream>
 #using namespace std;
 
-addArmor(string ItemName_,string ItemType_,int ItemCost_,int ItemIndex_,int damage_,int durability_,){
-    
+addArmor(string ItemName_,string ItemType_,int ItemCost_,int ItemIndex_,int damage_,int durability,int protection){
+    protection_ = protection;
+    durability_ = durability;
+    item_name_ = ItemName_;
+    item_type_ = ItemType_;
+    item_cost_ = ItemCost_;
 
 }
 int getProtection(){
