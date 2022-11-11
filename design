@@ -36,6 +36,8 @@
                 -hp
                 -inventory 
         >Hp/Armor
+            Total health - 20 
+            Total armor - 10
             Sold at farrand market or recieved as a reward from passing challenges 
             To incentivise completing the challenges reward armor is more powerful than market armor
             -CS Chestplate+6
@@ -60,6 +62,8 @@
             Weapons can be bought in the markets and are used to protect yourself from various enemies
             -Pencils 2 damage  
             -Scissors 3 damage 
+            -Broken Bottle 
+            -Abandoned Paddle 
     
     How are you planning to incorperate the map into your project
         the map is how the player moves around boulder and knows where they are 
