@@ -28,7 +28,7 @@ class Inventory
     void setMuscleMilk(int num_muscle_milk); 
     void setCupOfNoodles(int num_cup_of_noodles);
     //added this for manipulating the item array
-    void addItem(string ItemName_,string ItemType_,int ItemCost_,int ItemIndex_,int damage_,int protection_,int durability_);
+    void addItem(Item item);
     bool buyItem(Item item,int cost);
     // printInventory(); ------------add this in after code skelly
 
