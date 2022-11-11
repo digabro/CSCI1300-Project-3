@@ -4,16 +4,16 @@ using namespace std;
 
 Player::Player()
 {
-    name_ = "";
-    hp_ = 0;
-    armor_ = 0;
+    Person::setName("");
+    Person::setHp(0);
+    Person::setArmor(0);
     skill_level_=0;
 }
 Player::Player(string name, int hp, int armor,int skill)
 {
-    name_ = name;
-    hp_ = hp;
-    armor_ = armor;
+    Person::setName(name);
+    Person::setHp(hp);
+    Person::setArmor(armor);
     skill_level_=skill;
 }
 
@@ -24,7 +24,7 @@ int Player::getMaxSkillLevel(){
   return max_skill_level_;
 }
 
-void Player::setSkillLevel(skillLevel){ 
+void Player::setSkillLevel(int skillLevel){ 
   skill_level_ = skillLevel; 
 }
 

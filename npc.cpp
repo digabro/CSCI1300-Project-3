@@ -4,9 +4,9 @@ using namespace std;
 
 Npc::Npc()
 {
-    name_ = "";
-    hp_ = 0;
-    armor_ = 0;
+    Person::setName("");
+    Person::setHp(0);
+    Person::setArmor(0);
     agression_=false;
     attack1_=0;
     attack2_=0;
@@ -14,16 +14,16 @@ Npc::Npc()
 }
 Npc::Npc(string name, int hp, int armor,bool agression,int att1,int att2, int att3)
 {
-    name_ = name;
-    hp_ = hp;
-    armor_ = armor;
+    Person::setName(name);
+    Person::setHp(hp);
+    Person::setArmor(armor);
     agression_=agression;
     attack1_=att1;
     attack2_=att2;
     attack3_=att3;
 }
 
-int Npc::getAgression(){ 
+bool Npc::getAgression(){ 
   return agression_; 
 }
 int Npc::getAttack1(){ 

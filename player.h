@@ -14,8 +14,7 @@ class Player : public Person{
         int getSkillLevel();
         int getMaxSkillLevel();
 
-        void setSkillLevel();
-        void setMaxSkillLevel();
+        void setSkillLevel(int skillLevel);
 };
 
 #endif
