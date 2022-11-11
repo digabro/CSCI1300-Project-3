@@ -3,7 +3,7 @@
 #include "Item.h"
 using namespace std;
 
-Item(){
+Item::Item(){
     ItemName_="";
     ItemType_="";
     ItemCost_=0;
@@ -11,8 +11,11 @@ Item(){
     damage_=0;
     protection_=0;
     durability_=0;
+    max_quantity_=0;
+    quantity_=0;
+
 }
-Item(string itemName,string itemType,int itemCost,int itemIndex,int damage,int protection,int durability){
+Item::Item(string itemName,string itemType,int itemCost,int itemIndex,int damage,int protection,int durability,int max_quantity,int quantity){
     ItemName_=itemName;
     ItemType_=itemType;
     ItemCost_=itemCost;
@@ -20,15 +23,14 @@ Item(string itemName,string itemType,int itemCost,int itemIndex,int damage,int p
     damage_=damage;
     protection_=protection;
     durability_=durability;
+    max_quantity_=max_quantity;
+    quantity_=quantity;
 }
 string Item::getItemName(){
     return ItemName_;
 }
 string Item::getItemType(){
-    return ItemIndex_;
-}
-int Item::getItemIndex(){
-    return ItemIndex_;
+    return ItemType_;
 }
 int Item::getProtection(){
     return protection_;

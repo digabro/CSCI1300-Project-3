@@ -3,7 +3,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include "Item.h"
+#include "item.h"
 using namespace std;
 //should it be inventory or Health_Armor
 class Inventory

@@ -1,11 +1,11 @@
-#include "Inventory.h"
-#include "Item.h"
+#include <iostream>
+// #include "Inventory.h"
+//#include "Item.h"
 // #include "location.h"
 // #include "person.h"
 // #include "npc.h"
-// #include "player.h"
-#include <iostream>
-#include <string>
+#include "player.h"
+
 
 using namespace std;
  
@@ -27,11 +27,11 @@ int main(){
     sort(arr,15);
     for(int i = 0; i < n; i++)
     {
-      cout << arr[i] << endl;
+        //cout << arr[i] << endl;
     }
-    Inventory testInventory=Inventory();
-    testInventory.addItem(Item());
-
+    // Item testItem = Item();
+    // cout<<testItem.getDamage()<<endl;
+    Player test=Player();
 
 return 0;
 }

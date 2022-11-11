@@ -12,17 +12,17 @@ private:
     int damage_; //if the item does damage, how much damage is done
     int durability_; //how much usage the item can have ----can be removed if we want to
     int protection_; //how much protection a piece of armor has
+    int quantity_;
     int max_quantity_;
 
 public:
     //default constructor
-    Item();//not really needed i dunno if itll be fine to remove this
+    Item();
     //parameterized constructor
     Item(string ItemName_,string ItemType_,int ItemCost_,int ItemIndex_,int damage_,int protection_,int durability_,int max_quantity_,int quantity_);
     //getters
     string getItemName();
     string getItemType();
-    int getItemIndex();
     int getProtection();
     int getDamage();
     int getDurability();
