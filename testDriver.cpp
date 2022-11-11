@@ -1,10 +1,10 @@
 #include <iostream>
 // #include "Inventory.h"
-//#include "Item.h"
+#include "Item.h"
 // #include "location.h"
 // #include "person.h"
 // #include "npc.h"
-#include "player.h"
+// #include "player.h"
 
 
 using namespace std;
@@ -23,15 +23,19 @@ void sort(int arr[], int n)
 
 int main(){
     int n=15;
-    int arr[n] = {7,8,424,6,3,1,5,1,98,10};
+    int arr[] = {7,8,424,6,3,1,5,1,98,10};
     sort(arr,15);
     for(int i = 0; i < n; i++)
     {
         //cout << arr[i] << endl;
     }
-    // Item testItem = Item();
-    // cout<<testItem.getDamage()<<endl;
-    Player test=Player();
+    Item testItem = Item();
+    cout<<testItem.getDamage()<<endl;
+    // Player test=Player();
+
+    /*
+    Sorry 
+    */
 
 return 0;
 }

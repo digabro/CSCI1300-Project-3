@@ -26,7 +26,7 @@ public:
     int getProtection();
     int getDamage();
     int getDurability();
-    int maxQuantity();
+    int getQuantity();
     int getMaxQuantity();
     //setters 
     void setItemName(string ItemName_);
