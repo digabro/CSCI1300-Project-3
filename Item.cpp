@@ -74,8 +74,8 @@ void Item::setDamage(int damage){
 void Item::setDurability(int durability){
     durability_=durability;
 }
-void Item::setProtection(int damage){
-    damage_=damage;
+void Item::setProtection(int protection){
+    protection_=protection;
 }
 void Item::setQuantity(int quantity){
     quantity_=quantity;
