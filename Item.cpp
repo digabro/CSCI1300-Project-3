@@ -31,6 +31,15 @@ int Item::getDamage(){
 int Item::getDurability(){
     return durability_;
 }
+int Item::getQuantity(){
+    return quantity_;
+}
+int Item::getMaxQuantity(){
+    return max_quantity_;
+}
+
+
+
 void Item::setItemName(string itemName){
     ItemName_=itemName;
 }
@@ -45,4 +54,10 @@ void Item::setDurability(int durability){
 }
 void Item::setProtection(int damage){
     damage_=damage;
+}
+void Item::setQuantity(int quantity){
+    quantity_=quantity;
+}
+void Item::setMaxQuantity(int maxQuantity){
+    max_quantity_=maxQuantity;
 }

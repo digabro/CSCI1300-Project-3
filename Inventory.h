@@ -29,6 +29,7 @@ class Inventory
     setCupOfNoodles(int num_cup_of_noodles);
     //added this for manipulating the item vector
     addItem(string ItemName_,string ItemType_,int ItemCost_,int ItemIndex_,int damage_,int protection_,int durability_);
+    buyItem(Item item,int cost);
 
     private:
     // do we set these values equal to the amount of them we have in our inventory or do we set it to the amount of health/armor or damage it gives you
@@ -42,8 +43,8 @@ class Inventory
     static const int max_energy_drink = 2;
     static const int max_muscle_milk = 1;
     static const int max_cup_of_noodles = 5; 
-    int num_items;
-    vector<Item> item_list; //added list of inventory items
+    static const int num_items; //                                  -----add how many total items 
+    Item item_list[num_items]; //added list of inventory items      
     
 
 /*
