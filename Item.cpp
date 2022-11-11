@@ -32,6 +32,12 @@ string Item::getItemName(){
 string Item::getItemType(){
     return ItemType_;
 }
+int Item::getItemCost(){
+    return ItemCost_;
+}
+int Item::getItemIndex(){
+    return ItemIndex_;
+}
 int Item::getProtection(){
     return protection_;
 }
@@ -53,8 +59,14 @@ int Item::getMaxQuantity(){
 void Item::setItemName(string itemName){
     ItemName_=itemName;
 }
+void Item::setItemType(string itemType){
+    ItemType_=itemType;
+}
 void Item::setItemCost(int itemCost){
     ItemCost_=itemCost;
+}
+void Item::setItemIndex(int itemIndex){
+    ItemIndex_=itemIndex;
 }
 void Item::setDamage(int damage){
     damage_=damage;

@@ -23,6 +23,8 @@ public:
     //getters
     string getItemName();
     string getItemType();
+    int getItemIndex();
+    int getItemCost();
     int getProtection();
     int getDamage();
     int getDurability();
@@ -31,6 +33,8 @@ public:
     //setters 
     void setItemName(string ItemName_);
     void setItemCost(int ItemCost_);
+    void setItemType(string itemType);
+    void setItemIndex(int itemIndex);
     void setDamage(int damage_);
     void setDurability(int durability_);
     void setProtection(int damage_);
