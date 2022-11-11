@@ -9,9 +9,13 @@ class Location{
     private:
         string name_;
         int difficulty_;
-        char symbol;
+        char symbol_;
     public:
-
+        Location();
+        Location(string name,int difficulty,char symbol);
+        getName();
+        getDifficulty();
+        getSymbol();
 };
 
 #endif
