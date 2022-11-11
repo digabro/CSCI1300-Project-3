@@ -98,33 +98,41 @@ void Inventory::setCupOfNoodles(int in_cup_of_noodles)//cup of noodles is basica
     return;
 
 }
-void Inventory::addItem(Item item){
-    int index=-1;
-    for (int i=0;i<num_items;i++){
-        if (item_list[i].getItemName() == item.getItemName()){
-            index=i;
-            break;
-        }
-    }
-    if (index!=-1){
-        item_list[index].setQuantity(item_list[index].getQuantity()+ 1);
-    }
-    else if(index==-1){
-        item_list[num_items]=item;
-        item.setQuantity(0);
-    }
-}
 
-bool Inventory::buyItem(Item item,int cost){
-    if (num_buff_bucks >= cost&&item.getQuantity()<item.getMaxQuantity()){
-        addItem(item);
-        return true;
-    }
-    else if(num_buff_bucks<cost){
-        cout<<"You dont have enough Buff Bucks to purchase "<<item.getItemName()<<"."<<endl;
-    }
-    else if(item.getQuantity()>=item.getMaxQuantity()){
-        cout<<"You have purchased the maximum amount of"<<item.getItemName()<<" possible." <<endl;
-    }
-    return false;
-}
+//adding a function to append item array but doesnt currently work
+//is supposed to check if item is in the array and if not add it to the end 
+//if it is in the array its supposed to add one to the item quantity
+
+// void Inventory::addItem(Item item){
+//     int index=-1;
+//     for (int i=0;i<num_items;i++){
+//         if (item_list[i].getItemName() == item.getItemName()){
+//             index=i;
+//             break;
+//         }
+//     }
+//     if (index!=-1){
+//         item_list[index].setQuantity(item_list[index].getQuantity()+ 1);
+//     }
+//     else if(index==-1){
+//         item_list[num_items]=item;
+//         item.setQuantity(0);
+//     }
+// }
+
+//this function is supposed to check if a player has enough room and buff bucks to purchace an item
+//doesnt work becuase addItem() isnt currently functioning 
+
+// bool Inventory::buyItem(Item item,int cost){
+//     if (num_buff_bucks >= cost&&item.getQuantity()<item.getMaxQuantity()){
+//         addItem(item);
+//         return true;
+//     }
+//     else if(num_buff_bucks<cost){
+//         cout<<"You dont have enough Buff Bucks to purchase "<<item.getItemName()<<"."<<endl;
+//     }
+//     else if(item.getQuantity()>=item.getMaxQuantity()){
+//         cout<<"You have purchased the maximum amount of"<<item.getItemName()<<" possible." <<endl;
+//     }
+//     return false;
+// }

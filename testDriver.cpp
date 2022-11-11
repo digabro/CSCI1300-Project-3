@@ -140,14 +140,16 @@ int main(){
     assert(testLoc1.getSymbol()=='W');
 
     //testing add item function 
+    Inventory testInventory3=Inventory();
     Item item1=Item();
-    item1.setName("Item1");
-    Item item1=Item();
-    item1.setName("Item2");
-    Item item1=Item();
-    item1.setName("Item3");
+    item1.setItemName("Item1");
+    Item item2=Item();
+    item2.setItemName("Item2");
+    Item item3=Item();
+    item3.setItemName("Item3");
 
-    item_list=
+    Item item_list[5]={item1,item2};
+    // testInventory3.addItem(item2); ---trying to fix this function
 
 
 return 0;
