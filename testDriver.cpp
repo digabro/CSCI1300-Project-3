@@ -1,9 +1,9 @@
 #include "Inventory.h"
 #include "Item.h"
-#include "location.h"
-#include "person.h"
-#include "npc.h"
-#include "player.h"
+// #include "location.h"
+// #include "person.h"
+// #include "npc.h"
+// #include "player.h"
 #include <iostream>
 #include <string>
 
@@ -29,9 +29,9 @@ int main(){
     {
       cout << arr[i] << endl;
     }
+    Inventory testInventory=Inventory();
+    testInventory.addItem(Item());
 
 
-
-    
 return 0;
 }

@@ -3,7 +3,15 @@
 #include "Item.h"
 using namespace std;
 
-Item(){}//not really needed i dunno if itll be fine to remove this
+Item(){
+    ItemName_="";
+    ItemType_="";
+    ItemCost_=0;
+    ItemIndex_=0;
+    damage_=0;
+    protection_=0;
+    durability_=0;
+}
 Item(string itemName,string itemType,int itemCost,int itemIndex,int damage,int protection,int durability){
     ItemName_=itemName;
     ItemType_=itemType;

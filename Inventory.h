@@ -1,5 +1,5 @@
-#ifndef INVENTORY.H
-#define INVENTORY
+#ifndef INVENTORY_H
+#define INVENTORY_H
 #include <iostream>
 #include <string>
 #include <vector>
