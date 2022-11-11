@@ -92,13 +92,33 @@ int Inventory::setCupOfNoodles(int in_cup_of_noodles)//cup of noodles is basical
     return in_cup_of_noodles;
 
 }
-void Inventory::addItem(string Item){
-    item_list[num_items]=Item(ItemName,ItemType,ItemCost,num_items,damage,protection,durability);
-    
+void Inventory::addItem(Item item){
+    int index=-1;
+    for (int i=0;i<num_items;i++){
+        if (item_list[i].getName()==item.getName()){
+            index=i;
+            break;
+        }
+    }
+    if (index!=-1){
+        item_list[index].setQuantity()=item_list[index].getQuantity()++;
+    }
+    else if(index==-1){
+        item_list[num_items]=item;
+        item.setQuantity()=0;
+    }
 }
 
 bool buyItem(Item item,int cost){
     if (num_buff_bucks>=cost&&item.getQuantity()<item.getMaxQuantity()){
-        Item
+        addItem(item);
+        return true;
     }
+    else if(num_buff_bucks<cost){
+        cout<<"You dont have enough Buff Bucks to purchase "<<item.getName()<<"."<<endl;
+    }
+    else if(item.getQuantity()>=item.getMaxQuantity()){
+        cout<<"You have purchased the maximum amount of"<<item.getName()<<" possible." <<endl;
+    }
+    return false;
 }

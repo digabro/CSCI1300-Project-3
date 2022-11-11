@@ -27,9 +27,10 @@ class Inventory
     setEnergyDrink(int num_energy_drink);
     setMuscleMilk(int num_muscle_milk); 
     setCupOfNoodles(int num_cup_of_noodles);
-    //added this for manipulating the item vector
+    //added this for manipulating the item array
     addItem(string ItemName_,string ItemType_,int ItemCost_,int ItemIndex_,int damage_,int protection_,int durability_);
     buyItem(Item item,int cost);
+    // printInventory(); ------------add this in after code skelly
 
     private:
     // do we set these values equal to the amount of them we have in our inventory or do we set it to the amount of health/armor or damage it gives you
@@ -38,13 +39,14 @@ class Inventory
     int num_energy_drink; // speed/haste potion
     int num_muscle_milk;  // strength potion
     int num_cup_of_noodles; // food
+    int num_items; //amount of items in inventory
     static const int max_buff_bucks = 25000; // max amount of money
     static const int max_pedialyte = 4;
     static const int max_energy_drink = 2;
     static const int max_muscle_milk = 1;
     static const int max_cup_of_noodles = 5; 
-    static const int num_items; //                                  -----add how many total items 
-    Item item_list[num_items]; //added list of inventory items      
+    static const int max_items =; //                                  -----add how many total items 
+    Item item_list[max_items]; //added list of inventory items      
     
 
 /*
