@@ -6,7 +6,7 @@ using namespace std;
 Location::Location(){
   name_="";
   difficulty_=0;
-  symbol_= '';
+  symbol_= ' ';
 }
 Location::Location(string name,int difficulty,char symbol){
   name_=name;

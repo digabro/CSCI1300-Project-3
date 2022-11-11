@@ -43,82 +43,88 @@ int Inventory::getCupOfNoodles()
 }
 
 //mutators
-int Inventory::setBuffBucks(int in_buff_bucks)
+void Inventory::setBuffBucks(int in_buff_bucks)
 {
     if(in_buff_bucks > max_buff_bucks)
     {
         cout << max_buff_bucks <<" is the maximum amount of Buff Bucks that can be stored in your inventory." << endl;
-        return max_buff_bucks;
+        num_buff_bucks = max_buff_bucks;
+        return; 
     }
-    return in_buff_bucks;
+    num_buff_bucks = in_buff_bucks;
+    return;
 }
-int Inventory::setPedialyte(int in_pedialyte)
+void Inventory::setPedialyte(int in_pedialyte)
 {
-    if(iin_pedialyte > max_pedialyte)
+    if(in_pedialyte > max_pedialyte)
     {
         cout << max_pedialyte <<" is the maximum amount of pedialyte that can be stored in your inventory." << endl;
-        return max_pedialyte;
+        num_pedialyte = max_pedialyte;
+        return;
     }
-    return in_pedialyte;
-
+    num_pedialyte = in_pedialyte;
+    return;
 }
-int Inventory::setEnergyDrink(int in_energy_drink)
+void Inventory::setEnergyDrink(int in_energy_drink)
 {
     if(in_energy_drink >max_energy_drink)//energy drink is the same thing as redbull
     {
         cout << max_energy_drink <<" is the maximum amount of Redbull that can be stored in your inventory." << endl;
-        return max_energy_drink;
+        int num_energy_drink = max_energy_drink;
     }
-    return in_energy_drink;
-
+    int num_energy_drink = in_energy_drink;
+    return;
 }
-int Inventory::setMuscleMilk(int in_muscle_milk)
+void Inventory::setMuscleMilk(int in_muscle_milk)
 {
     if(in_muscle_milk > max_muscle_milk)
     {
         cout << max_muscle_milk << " is the maximum amount of muscle milk that can be stored in your inventory." << endl;
-        return  max_muscle_milk;
+        num_muscle_milk = max_muscle_milk;
+        return;
     }
-    return in_muscle_milk;
-
+    num_muscle_milk = in_muscle_milk;
+    return;
 }
-int Inventory::setCupOfNoodles(int in_cup_of_noodles)//cup of noodles is basically the same thing as ramen
+void Inventory::setCupOfNoodles(int in_cup_of_noodles)//cup of noodles is basically the same thing as ramen
 {
     if(in_cup_of_noodles > max_cup_of_noodles)
     {
         cout << max_cup_of_noodles <<" is the maximum amount of Ramen Chicken Noodle soup that can be stored in your inventory." << endl;
-        return max_cup_of_noodles;
+        num_cup_of_noodles = max_cup_of_noodles;
+        return;
     }
-    return in_cup_of_noodles;
+    num_cup_of_noodles = in_cup_of_noodles;
+    return;
 
 }
 void Inventory::addItem(Item item){
     int index=-1;
     for (int i=0;i<num_items;i++){
-        if (item_list[i].getName()==item.getName()){
+        if (item_list[i].getItemName() == item.getItemName()){
             index=i;
             break;
         }
     }
     if (index!=-1){
-        item_list[index].setQuantity()=item_list[index].getQuantity()++;
+        item_list[index].setQuantity(item_list[index].getQuantity()+ 1);
     }
     else if(index==-1){
         item_list[num_items]=item;
-        item.setQuantity()=0;
+        item.setQuantity(0);
     }
 }
 
-bool buyItem(Item item,int cost){
-    if (num_buff_bucks>=cost&&item.getQuantity()<item.getMaxQuantity()){
+bool Inventory::buyItem(Item item,int cost){
+    if (num_buff_bucks >= cost&&item.getQuantity()<item.getMaxQuantity()){
         addItem(item);
         return true;
     }
     else if(num_buff_bucks<cost){
-        cout<<"You dont have enough Buff Bucks to purchase "<<item.getName()<<"."<<endl;
+        cout<<"You dont have enough Buff Bucks to purchase "<<item.getItemName()<<"."<<endl;
     }
     else if(item.getQuantity()>=item.getMaxQuantity()){
-        cout<<"You have purchased the maximum amount of"<<item.getName()<<" possible." <<endl;
+        cout<<"You have purchased the maximum amount of"<<item.getItemName()<<" possible." <<endl;
     }
     return false;
 }
