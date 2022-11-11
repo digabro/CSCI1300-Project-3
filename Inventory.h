@@ -15,21 +15,21 @@ class Inventory
     Inventory(int num_buff_bucks, int num_pedialyte, int num_energy_drink, int num_muscle_milk, int num_cup_of_noodles);
 
     //accessors
-    getBuffBucks();
-    getPedialyte();
-    getEnergyDrink();
-    getMuscleMilk(); 
-    getCupOfNoodles();
+    int getBuffBucks();
+    int getPedialyte();
+    int getEnergyDrink();
+    int getMuscleMilk(); 
+    int getCupOfNoodles();
 
     //mutators
-    setBuffBucks(int num_buff_bucks);
-    setPedialyte(int num_pedialyte);
-    setEnergyDrink(int num_energy_drink);
-    setMuscleMilk(int num_muscle_milk); 
-    setCupOfNoodles(int num_cup_of_noodles);
+    void setBuffBucks(int num_buff_bucks);
+    void setPedialyte(int num_pedialyte);
+    void setEnergyDrink(int num_energy_drink);
+    void setMuscleMilk(int num_muscle_milk); 
+    void setCupOfNoodles(int num_cup_of_noodles);
     //added this for manipulating the item array
-    addItem(string ItemName_,string ItemType_,int ItemCost_,int ItemIndex_,int damage_,int protection_,int durability_);
-    buyItem(Item item,int cost);
+    void addItem(string ItemName_,string ItemType_,int ItemCost_,int ItemIndex_,int damage_,int protection_,int durability_);
+    bool buyItem(Item item,int cost);
     // printInventory(); ------------add this in after code skelly
 
     private:
@@ -45,7 +45,7 @@ class Inventory
     static const int max_energy_drink = 2;
     static const int max_muscle_milk = 1;
     static const int max_cup_of_noodles = 5; 
-    static const int max_items =; //                                  -----add how many total items 
+    static const int max_items =15; 
     Item item_list[max_items]; //added list of inventory items      
     
 

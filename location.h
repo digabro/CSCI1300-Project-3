@@ -13,9 +13,13 @@ class Location{
     public:
         Location();
         Location(string name,int difficulty,char symbol);
-        getName();
-        getDifficulty();
-        getSymbol();
+        string getName();
+        int getDifficulty();
+        char getSymbol();
+
+        void setName(string name);
+        void setDifficulty(int difficulty);
+        void setSymbol(char symbol);
 };
 
 #endif

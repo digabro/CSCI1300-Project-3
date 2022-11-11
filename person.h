@@ -10,13 +10,14 @@ class Person{
         int armor_;
     public:
         Person();
+        Person(string name, int hp, int armor);
         string getName();
         int getHp();
         int getArmor();
 
-        void setName();
-        void setHp();
-        void setArmor();
+        void setName(string name);
+        void setHp(int hp);
+        void setArmor(int armor);
 };
 
 #endif
