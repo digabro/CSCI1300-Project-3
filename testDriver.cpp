@@ -151,9 +151,8 @@ int main(){
     testInventory3.setBuffBucks(20);
     testInventory3.addItem(item2); //trying to fix this function
     assert(testInventory3.getItem(0).getItemName()=="Item2");//getting an item from the item array and calling its name 
-    testInventory3.buyItem(item3);
     item3.setItemCost(10);
-    item3.setMaxQuantity(3);
+    testInventory3.buyItem(item3);
     assert(testInventory3.getBuffBucks()==10);//cost of item3 gets reduced from total buffbucks
 
 

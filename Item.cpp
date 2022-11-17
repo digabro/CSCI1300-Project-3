@@ -11,7 +11,7 @@ Item::Item(){
     damage_=0;
     protection_=0;
     durability_=0;
-    max_quantity_=0;
+    max_quantity_=1;
     quantity_=0;
 
 }
