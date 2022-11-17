@@ -153,7 +153,7 @@ int main(){
     assert(testInventory3.getItem(0).getItemName()=="Item2");//getting an item from the item array and calling its name 
     item3.setItemCost(10);
     testInventory3.buyItem(item3);
-    assert(testInventory3.getBuffBucks()==10);//cost of item3 gets reduced from total buffbucks
+    assert(testInventory3.getBuffBucks()==10);//cost of item3 gets reduced from total buffbucks 20 -> 10
 
 
 return 0;
