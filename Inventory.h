@@ -20,8 +20,12 @@ class Inventory
     int getEnergyDrink();
     int getMuscleMilk(); 
     int getCupOfNoodles();
+    int getNumItems();
+    Item getItem(int index);
+    
 
     //mutators
+    void setNumItems(int items);
     void setBuffBucks(int num_buff_bucks);
     void setPedialyte(int num_pedialyte);
     void setEnergyDrink(int num_energy_drink);
@@ -39,7 +43,7 @@ class Inventory
     int num_energy_drink; // speed/haste potion
     int num_muscle_milk;  // strength potion
     int num_cup_of_noodles; // food
-    int num_items; //amount of items in inventory
+    int num_items=0; //amount of items in inventory
     static const int max_buff_bucks = 25000; // max amount of money
     static const int max_pedialyte = 4;
     static const int max_energy_drink = 2;
