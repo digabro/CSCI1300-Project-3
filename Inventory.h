@@ -33,7 +33,7 @@ class Inventory
     void setCupOfNoodles(int num_cup_of_noodles);
     //added this for manipulating the item array
     void addItem(Item item);
-    bool buyItem(Item item,int cost);
+    bool buyItem(Item item);
     // printInventory(); ------------add this in after code skelly
 
     private:

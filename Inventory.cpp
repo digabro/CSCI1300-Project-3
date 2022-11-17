@@ -135,12 +135,13 @@ void Inventory::addItem(Item item){
 //this function is supposed to check if a player has enough room and buff bucks to purchace an item
 //doesnt work becuase addItem() isnt currently functioning 
 
-bool Inventory::buyItem(Item item,int cost){
-    if (num_buff_bucks >= cost&&item.getQuantity()<item.getMaxQuantity()){
+bool Inventory::buyItem(Item item){
+    if (num_buff_bucks >= item.getItemCost()&&item.getQuantity()<item.getMaxQuantity()){
         addItem(item);
+        num_buff_bucks-=item.getItemCost();
         return true;
     }
-    else if(num_buff_bucks<cost){
+    else if(num_buff_bucks<item.getItemCost()){
         cout<<"You dont have enough Buff Bucks to purchase "<<item.getItemName()<<"."<<endl;
     }
     else if(item.getQuantity()>=item.getMaxQuantity()){
