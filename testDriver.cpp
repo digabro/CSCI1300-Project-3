@@ -107,7 +107,7 @@ int main(){
     assert(testItem1.getDamage()==0);
     assert(testItem1.getProtection()==0);
     assert(testItem1.getDurability()==0);
-    assert(testItem1.getMaxQuantity()==0);
+    assert(testItem1.getMaxQuantity()==1);
     assert(testItem1.getQuantity()==0);
     testItem1.setItemName("Name1");
     testItem1.setItemType("Weapon");
