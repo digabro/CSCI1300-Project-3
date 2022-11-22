@@ -10,6 +10,15 @@
 //g++ -std=c++17 Inventory.cpp Item.cpp location.cpp person.cpp npc.cpp player.cpp inventoryTest.cpp
 using namespace std;
 
+/*
+ * Algorithm: prints inventory based on item type given
+ * Prints item type to display
+ * loop i from 0 to num_items
+ *      Checks if item is given type
+ * prints the item and number of items   
+ * if type is food
+ *      prints food and amounts of food 
+ */
 void printInventory(Inventory inv,string type){
     cout<<type<<" items in your inventory:"<<endl;
     for (int i=0;i<inv.getNumItems();i++){
@@ -25,59 +34,67 @@ void printInventory(Inventory inv,string type){
     }
 }
 
+/**
+ * Displays the Farrand market location
+ * Algorithm: Gets item index and checks if player is able to purchase the item
+ * Welcomes player to the market and displays avaliable items 
+ * checks if the player has enough money
+ *      if not prints they dont have enough money 
+ * if they havent purchased the max amount of items allows them to purchase one
+ * and then repeats back to the top until the player exits 
+*/
 void farrandMarket(Inventory inv){
     int item;
     int num;
-    bool validInput=true;
     bool farrMark=true;
     while (farrMark){
+        bool validInput=true;
         cout<<"Welcome to Farrand Market\nItems to buy:"<<endl;
         cout<<"1.Pedialyte - $3\n2.Energy Drink - $3\n3.Muscle Milk - $3";
         cout<<"\n4.Cup of Noodles - $3\n5.Exit\nSelect an item: ";
-        cin>>item;
         while(validInput){
-            if (item<1||item>5){
-                cout<<"Invalid Input. Please enter a number 1-5: ";
-                cin>>item;
+            cin>>item;
+            if (inv.getBuffBucks()<3&&item<=4&&item>=1){
+                cout<<"You do not have enough Buff Bucks to purchase this.\n"<<endl;
+                break;
             }
-            else{
-                validInput=false;
-            }
-        }
-        if(item>=1&&item<=5){
             switch(item){
                 case 1:{
-                    inv.setPedialyte(inv.getPedialyte()+1);
-                    if (inv.getPedialyte()+1<=4){
+                    if (inv.setPedialyte(inv.getPedialyte()+1)){
                         inv.setBuffBucks(inv.getBuffBucks()-3);
                         cout<<"Successfully Purchased\n"<<endl;
+                        validInput=false;
                     }
                 }break;
                 case 2:{
-                    inv.setEnergyDrink(inv.getEnergyDrink()+1);
-                    if (inv.getEnergyDrink()+1<=2){
+                    if (inv.setEnergyDrink(inv.getEnergyDrink()+1)){
                         inv.setBuffBucks(inv.getBuffBucks()-3);
                         cout<<"Successfully Purchased\n"<<endl;
+                        validInput=false;
                     }
                 }break;
                 case 3:{
-                    inv.setMuscleMilk(inv.getMuscleMilk()+1);
-                    if (inv.getMuscleMilk()+1<=1){
+                    if (inv.setMuscleMilk(inv.getMuscleMilk()+1)){
                         inv.setBuffBucks(inv.getBuffBucks()-3);
                         cout<<"Successfully Purchased\n"<<endl;
+                        validInput=false;
                     }
                 }break;
                 case 4:{
-                    inv.setCupOfNoodles(inv.getCupOfNoodles()+1);
-                    if (inv.getCupOfNoodles()+1<=5){
+                    if (inv.setCupOfNoodles(inv.getCupOfNoodles()+1)){
                         inv.setBuffBucks(inv.getBuffBucks()-3);
                         cout<<"Successfully Purchased\n"<<endl;
+                        validInput=false;
                     }
                 }break;
                 case 5:{
                     cout<<"Thank you for visiting Farrand Market"<<endl;
                     farrMark=false;
+                    validInput=false;
                 }break;
+                default:{
+                    cout<<"Invalid Input. Please enter a number 1-5: ";
+                }
             } 
         }
     }
