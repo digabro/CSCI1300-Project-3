@@ -34,10 +34,11 @@ void farrandMarket(Inventory inv){
         cout<<"Welcome to Farrand Market\nItems to buy:"<<endl;
         cout<<"1.Pedialyte - $3\n2.Energy Drink - $3\n3.Muscle Milk - $3";
         cout<<"\n4.Cup of Noodles - $3\n5.Exit\nSelect an item: ";
+        cin>>item;
         while(validInput){
-            cin>>item;
             if (item<1||item>5){
                 cout<<"Invalid Input. Please enter a number 1-5: ";
+                cin>>item;
             }
             else{
                 validInput=false;
@@ -49,24 +50,28 @@ void farrandMarket(Inventory inv){
                     inv.setPedialyte(inv.getPedialyte()+1);
                     if (inv.getPedialyte()+1<=4){
                         inv.setBuffBucks(inv.getBuffBucks()-3);
+                        cout<<"Successfully Purchased\n"<<endl;
                     }
                 }break;
                 case 2:{
                     inv.setEnergyDrink(inv.getEnergyDrink()+1);
                     if (inv.getEnergyDrink()+1<=2){
                         inv.setBuffBucks(inv.getBuffBucks()-3);
+                        cout<<"Successfully Purchased\n"<<endl;
                     }
                 }break;
                 case 3:{
                     inv.setMuscleMilk(inv.getMuscleMilk()+1);
                     if (inv.getMuscleMilk()+1<=1){
                         inv.setBuffBucks(inv.getBuffBucks()-3);
+                        cout<<"Successfully Purchased\n"<<endl;
                     }
                 }break;
                 case 4:{
                     inv.setCupOfNoodles(inv.getCupOfNoodles()+1);
                     if (inv.getCupOfNoodles()+1<=5){
                         inv.setBuffBucks(inv.getBuffBucks()-3);
+                        cout<<"Successfully Purchased\n"<<endl;
                     }
                 }break;
                 case 5:{
@@ -114,7 +119,7 @@ int main(){
     inv.setBuffBucks(20);
     inv.buyItem(hoodie);
     
-    printInventory(inv,"Food");
+    //printInventory(inv,"Food");
     farrandMarket(inv);
     return 0;
 }
