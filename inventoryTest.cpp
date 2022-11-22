@@ -39,37 +39,41 @@ void farrandMarket(Inventory inv){
             if (item<1||item>5){
                 cout<<"Invalid Input. Please enter a number 1-5: ";
             }
-            else if(item>=1&&item<=5){
-                switch(item){
-                    case 1:{
-                        inv.setPedialyte(inv.getPedialyte()+1);
-                        if (inv.getPedialyte()+1<=4){
-                            inv.setBuffBucks(inv.getBuffBucks()-3);
-                        }
-                    }break;
-                    case 2:{
-                        inv.setEnergyDrink(inv.getEnergyDrink()+1);
-                        if (inv.getEnergyDrink()+1<=2){
-                            inv.setBuffBucks(inv.getBuffBucks()-3);
-                        }
-                    }break;
-                    case 3:{
-                        inv.setMuscleMilk(inv.getMuscleMilk()+1);
-                        if (inv.getMuscleMilk()+1<=1){
-                            inv.setBuffBucks(inv.getBuffBucks()-3);
-                        }
-                    }break;
-                    case 4:{
-                        inv.setCupOfNoodles(inv.getCupOfNoodles()+1);
-                        if (inv.getCupOfNoodles()+1<=5){
-                            inv.setBuffBucks(inv.getBuffBucks()-3);
-                        }
-                    }break;
-                    case 5:{
-                        farrMark=false;
-                    }break;
-                } 
+            else{
+                validInput=false;
             }
+        }
+        if(item>=1&&item<=5){
+            switch(item){
+                case 1:{
+                    inv.setPedialyte(inv.getPedialyte()+1);
+                    if (inv.getPedialyte()+1<=4){
+                        inv.setBuffBucks(inv.getBuffBucks()-3);
+                    }
+                }break;
+                case 2:{
+                    inv.setEnergyDrink(inv.getEnergyDrink()+1);
+                    if (inv.getEnergyDrink()+1<=2){
+                        inv.setBuffBucks(inv.getBuffBucks()-3);
+                    }
+                }break;
+                case 3:{
+                    inv.setMuscleMilk(inv.getMuscleMilk()+1);
+                    if (inv.getMuscleMilk()+1<=1){
+                        inv.setBuffBucks(inv.getBuffBucks()-3);
+                    }
+                }break;
+                case 4:{
+                    inv.setCupOfNoodles(inv.getCupOfNoodles()+1);
+                    if (inv.getCupOfNoodles()+1<=5){
+                        inv.setBuffBucks(inv.getBuffBucks()-3);
+                    }
+                }break;
+                case 5:{
+                    cout<<"Thank you for visiting Farrand Market"<<endl;
+                    farrMark=false;
+                }break;
+            } 
         }
     }
 }
@@ -111,5 +115,6 @@ int main(){
     inv.buyItem(hoodie);
     
     printInventory(inv,"Food");
+    farrandMarket(inv);
     return 0;
 }
