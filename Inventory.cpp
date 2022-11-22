@@ -68,48 +68,49 @@ void Inventory::setBuffBucks(int in_buff_bucks)
     num_buff_bucks = in_buff_bucks;
     return;
 }
-void Inventory::setPedialyte(int in_pedialyte)
+bool Inventory::setPedialyte(int in_pedialyte)
 {
     if(in_pedialyte > max_pedialyte)
     {
         cout << max_pedialyte <<" is the maximum amount of pedialyte that can be stored in your inventory." << endl;
         num_pedialyte = max_pedialyte;
-        return;
+        return false;
     }
     num_pedialyte = in_pedialyte;
-    return;
+    return true;
 }
-void Inventory::setEnergyDrink(int in_energy_drink)
+bool Inventory::setEnergyDrink(int in_energy_drink)
 {
     if(in_energy_drink >max_energy_drink)//energy drink is the same thing as redbull
     {
         cout << max_energy_drink <<" is the maximum amount of Redbull that can be stored in your inventory." << endl;
         int num_energy_drink = max_energy_drink;
+        return false;
     }
     int num_energy_drink = in_energy_drink;
-    return;
+    return true;
 }
-void Inventory::setMuscleMilk(int in_muscle_milk)
+bool Inventory::setMuscleMilk(int in_muscle_milk)
 {
     if(in_muscle_milk > max_muscle_milk)
     {
         cout << max_muscle_milk << " is the maximum amount of muscle milk that can be stored in your inventory." << endl;
         num_muscle_milk = max_muscle_milk;
-        return;
+        return false;
     }
     num_muscle_milk = in_muscle_milk;
-    return;
+    return false;
 }
-void Inventory::setCupOfNoodles(int in_cup_of_noodles)//cup of noodles is basically the same thing as ramen
+bool Inventory::setCupOfNoodles(int in_cup_of_noodles)//cup of noodles is basically the same thing as ramen
 {
     if(in_cup_of_noodles > max_cup_of_noodles)
     {
         cout << max_cup_of_noodles <<" is the maximum amount of Ramen Chicken Noodle soup that can be stored in your inventory." << endl;
         num_cup_of_noodles = max_cup_of_noodles;
-        return;
+        return false;
     }
     num_cup_of_noodles = in_cup_of_noodles;
-    return;
+    return false;
 
 }
 
