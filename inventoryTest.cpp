@@ -34,7 +34,7 @@ void printInventory(Inventory inv,string type){
     }
 }
 
-/**
+/*
  * Displays the Farrand market location
  * Algorithm: Gets item index and checks if player is able to purchase the item
  * Welcomes player to the market and displays avaliable items 
