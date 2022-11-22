@@ -49,7 +49,7 @@ class Inventory
     static const int max_energy_drink = 2;
     static const int max_muscle_milk = 1;
     static const int max_cup_of_noodles = 5; 
-    static const int max_items =15; 
+    static const int max_items =12; 
     Item item_list[max_items]; //added list of inventory items      
     
 

@@ -48,6 +48,12 @@ Item Inventory::getItem(int index){
     if(index>=0&&index<=num_items){
         return item_list[index];
     }
+    else if(index<0){
+        getItem(index+1);
+    }
+    else{
+        getItem(index-1);
+    }
 }
 
 //mutators
