@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cassert>
+#include <stdlib.h>
 #include "Inventory.h"
 #include "Item.h"
 #include "location.h"
@@ -49,51 +50,56 @@ void farrandMarket(Inventory inv){
     bool farrMark=true;
     while (farrMark){
         bool validInput=true;
-        cout<<"Welcome to Farrand Market\nItems to buy:"<<endl;
+        cout<<"Welcome to Farrand Market\nCurrent money: "<<inv.getBuffBucks()<<"\n\nItems to buy:"<<endl;
         cout<<"1.Pedialyte - $3\n2.Energy Drink - $3\n3.Muscle Milk - $3";
         cout<<"\n4.Cup of Noodles - $3\n5.Exit\nSelect an item: ";
         while(validInput){
             cin>>item;
             if (inv.getBuffBucks()<3&&item<=4&&item>=1){
+                system("clear");
                 cout<<"You do not have enough Buff Bucks to purchase this.\n"<<endl;
                 break;
             }
             switch(item){
                 case 1:{
+                        system("clear");
                     if (inv.setPedialyte(inv.getPedialyte()+1)){
                         inv.setBuffBucks(inv.getBuffBucks()-3);
-                        cout<<"Successfully Purchased\n"<<endl;
-                        validInput=false;
+                        cout<<"Successfully Purchased 1 Pedialyte\n"<<endl;
                     }
+                    validInput=false;
                 }break;
                 case 2:{
+                        system("clear");
                     if (inv.setEnergyDrink(inv.getEnergyDrink()+1)){
                         inv.setBuffBucks(inv.getBuffBucks()-3);
-                        cout<<"Successfully Purchased\n"<<endl;
-                        validInput=false;
+                        cout<<"Successfully Purchased 1 Energy Drink\n"<<endl;
                     }
+                    validInput=false;
                 }break;
                 case 3:{
+                        system("clear");
                     if (inv.setMuscleMilk(inv.getMuscleMilk()+1)){
                         inv.setBuffBucks(inv.getBuffBucks()-3);
-                        cout<<"Successfully Purchased\n"<<endl;
-                        validInput=false;
+                        cout<<"Successfully Purchased 1 Muscle Milk\n"<<endl;
                     }
+                    validInput=false;
                 }break;
                 case 4:{
+                    system("clear");
                     if (inv.setCupOfNoodles(inv.getCupOfNoodles()+1)){
                         inv.setBuffBucks(inv.getBuffBucks()-3);
-                        cout<<"Successfully Purchased\n"<<endl;
-                        validInput=false;
+                        cout<<"Successfully Purchased 1 Cup Of Noodles\n"<<endl;
                     }
+                    validInput=false;
                 }break;
                 case 5:{
-                    cout<<"Thank you for visiting Farrand Market"<<endl;
+                    cout<<"Thank you for visiting Farrand Market\n"<<endl;
                     farrMark=false;
                     validInput=false;
                 }break;
                 default:{
-                    cout<<"Invalid Input. Please enter a number 1-5: ";
+                    cout<<"Invalid Input"<<endl;
                 }
             } 
         }
@@ -134,7 +140,6 @@ int main(){
     inv.addItem(bottle);
     inv.addItem(paddle);
     inv.setBuffBucks(20);
-    inv.buyItem(hoodie);
     
     //printInventory(inv,"Food");
     farrandMarket(inv);
