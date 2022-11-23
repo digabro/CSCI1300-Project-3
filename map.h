@@ -16,7 +16,7 @@ private:
     const char EXIT = 'E';       // marker for dungeon exit
 
     static const int num_rows_ = 12; // number of rows in map
-    static const int num_cols_ = 12; // number of columns in map
+    static const int num_cols_ = 20; // number of columns in map
     static const int max_npcs_ = 5;  // max non-player characters
     static const int max_rooms_ = 5; // max number of rooms
 
