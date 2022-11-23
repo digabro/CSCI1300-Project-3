@@ -27,10 +27,10 @@ class Inventory
     //mutators
     void setNumItems(int items);
     void setBuffBucks(int num_buff_bucks);
-    void setPedialyte(int num_pedialyte);
-    void setEnergyDrink(int num_energy_drink);
-    void setMuscleMilk(int num_muscle_milk); 
-    void setCupOfNoodles(int num_cup_of_noodles);
+    bool setPedialyte(int num_pedialyte);
+    bool setEnergyDrink(int num_energy_drink);
+    bool setMuscleMilk(int num_muscle_milk); 
+    bool setCupOfNoodles(int num_cup_of_noodles);
     //added this for manipulating the item array
     void addItem(Item item);
     bool buyItem(Item item);
@@ -49,7 +49,7 @@ class Inventory
     static const int max_energy_drink = 2;
     static const int max_muscle_milk = 1;
     static const int max_cup_of_noodles = 5; 
-    static const int max_items =15; 
+    static const int max_items =12; 
     Item item_list[max_items]; //added list of inventory items      
     
 
