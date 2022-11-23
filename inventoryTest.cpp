@@ -24,14 +24,14 @@ void printInventory(Inventory inv,string type){
     cout<<type<<" items in your inventory:"<<endl;
     for (int i=0;i<inv.getNumItems();i++){
         if (inv.getItem(i).getItemType()==type){
-            cout<<inv.getItem(i).getItemName()<<" - "<<inv.getItem(i).getQuantity()<<endl;
+            cout<<inv.getItem(i).getItemName()<<" - "<<inv.getItem(i).getQuantity()<<"/"<<inv.getItem(i).getMaxQuantity()<<endl;
         }
     }
     if (type=="Food"){
-        cout<<"Pedialyte - "<<inv.getPedialyte()<<endl;
-        cout<<"Energy Drink - "<<inv.getEnergyDrink()<<endl;
-        cout<<"Muscle Milk - "<<inv.getMuscleMilk()<<endl;
-        cout<<"Cup of Noodles - "<<inv.getCupOfNoodles()<<endl;
+        cout<<"Pedialyte - "<<inv.getPedialyte()<<"/4"<<endl;
+        cout<<"Energy Drink - "<<inv.getEnergyDrink()<<"/2"<<endl;
+        cout<<"Muscle Milk - "<<inv.getMuscleMilk()<<"/1"<<endl;
+        cout<<"Cup of Noodles - "<<inv.getCupOfNoodles()<<"/5"<<endl;
     }
 }
 
@@ -141,7 +141,7 @@ int main(){
     inv.addItem(paddle);
     inv.setBuffBucks(20);
     
-    //printInventory(inv,"Food");
+    // printInventory(inv,"Weapon");
     farrandMarket(inv);
     return 0;
 }
