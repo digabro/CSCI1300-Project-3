@@ -123,7 +123,7 @@ while(option != 'Q')
             cout << "Better luck next time!" << endl;
             return 0;
         }
-        case default:{
+        default:{
             cout << "Invalid input. Please try again." << endl;
         }
     }
