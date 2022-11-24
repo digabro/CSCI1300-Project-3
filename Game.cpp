@@ -1,13 +1,50 @@
-// #include "Inventory.h"
+#include "Inventory.h"
 #include "Item.h"
 #include "location.h"
-// #include "map.h"
+#include "map.h"
 #include "npc.h"
 #include "person.h"
 #include "player.h"
 #include <iostream>
+#include <cstdlib>
 #include <fstream>
 using namespace std;
+
+bool printInventory(Inventory inv,string type){
+    int count=0;
+    cout<<endl<<type<<" items in your inventory:"<<endl;
+    for (int i=0;i<inv.getNumItems();i++){
+        if (inv.getItem(i).getItemType()==type){
+            count++;
+            cout<<count<<". "<<inv.getItem(i).getItemName()<<" - "<<inv.getItem(i).getQuantity()<<"/"<<inv.getItem(i).getMaxQuantity()<<endl;
+        }
+    }
+    if (type=="Food"){
+        if (inv.getPedialyte()>0){
+            cout<<"1. "<<"Pedialyte - "<<inv.getPedialyte()<<"/4"<<endl;
+            count++;
+        }
+        if (inv.getEnergyDrink()>0){
+            cout<<"2. "<<"Energy Drink - "<<inv.getEnergyDrink()<<"/2"<<endl;
+            count++;
+        }
+        if (inv.getMuscleMilk()>0){
+            cout<<"3. "<<"Muscle Milk - "<<inv.getMuscleMilk()<<"/1"<<endl;
+            count++;
+        }
+        if (inv.getCupOfNoodles()>0){
+            cout<<"4. "<<"Cup of Noodles - "<<inv.getCupOfNoodles()<<"/5"<<endl;
+            count++;
+        }
+        
+    }
+    if (count>0){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
 
 void printFile(string file_name){
     ifstream inFile;
@@ -39,9 +76,11 @@ int main(){
 // cout << "   |_____|  [___]|__]'.__.'     `.__.'  [___| |__][___] \__/   '.__.'[___]   [\__) )[___]\__/[\_:__/   |____||____|'.__.'_/[\__) )\__/[___]'.__.'"  << endl;
 
 char option;
+Map map=Map();
+Inventory inventory =Inventory(50,0,0,0,0);
 while(option != 'Q')
 {
-    //display map
+    map.displayMap();
 
     cout << "======Main Menu======" << endl;
     cout << "W: Move Upwards" << endl; 
@@ -95,12 +134,20 @@ while(option != 'Q')
         break;
         case 'E': 
         case 'e':{
-            /*
-            Inventory display 
-            print out how much of each item and each item's maxes
-            Would you like to use something?
-            pick item you would like to use
-            */
+            string temp;
+            system("clear");
+            cout<<"======Inventory======"<<endl;
+            if(!printInventory(inventory,"Weapon")){
+                cout<<"No Weapons Stored in Inventory."<<endl;
+            }
+            if(!printInventory(inventory,"Armor")){
+                cout<<"No Armor Stored in Inventory."<<endl;
+            }
+            if(!printInventory(inventory,"Food")){
+                cout<<"No Food Stored in Inventory."<<endl;
+            }
+            cout<<"\nClick any button to continue..."<<endl;
+            cin>>temp;
         }
         break;
         case 'I':
@@ -127,6 +174,7 @@ while(option != 'Q')
             cout << "Invalid input. Please try again." << endl;
         }
     }
+    system("clear"); //clears terminal before each new print so it doenst get messy
 }
 return 0;
 }
