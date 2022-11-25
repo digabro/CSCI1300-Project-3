@@ -212,6 +212,13 @@ while(option != 'Q')
                 }
             }
 
+            //will likely move random things to a function to make it easier but gotta go for now
+            int randNum = rand() % 100;//rand num from 0 to 99
+            if (randNum>=0&&randNum<5){//found money
+                int randmoney=rand()%10;//0 to 9 bucks --can be changed if you want
+                system("clear");
+                cout<<"While Investigating, you found $"<<randmoney<<".00"<<endl;
+            }
 
             /*
             Open investigate menu(maybe make inv)
