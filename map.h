@@ -10,7 +10,7 @@ class Map
 private:
     const char UNEXPLORED = '-'; // marker for unexplored spaces
     const char EXPLORED = ' ';   // marker for explored spaces
-    const char ROOM = 'R';       // marker for room locations
+    const char ROOM = 'M';       // marker for room locations
     const char NPC = 'N';        // marker for NPC locations
     const char PARTY = 'X';      // marker for party position
     const char EXIT = 'E';       // marker for dungeon exit
