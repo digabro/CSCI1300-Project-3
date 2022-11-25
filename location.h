@@ -9,17 +9,18 @@ class Location{
     private:
         string name_;
         int difficulty_;
-        char symbol_;
+        int coords[2];//(row,col)
     public:
         Location();
-        Location(string name,int difficulty,char symbol);
+        Location(string name,int difficulty);
         string getName();
         int getDifficulty();
-        char getSymbol();
+        int getRow();
+        int getCol();
 
         void setName(string name);
         void setDifficulty(int difficulty);
-        void setSymbol(char symbol);
+        void setLocation(int row,int col);
 };
 
 #endif
