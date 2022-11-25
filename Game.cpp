@@ -65,6 +65,70 @@ void printFile(string file_name){
     return;
 }
 
+void farrandMarket(Inventory inv){
+    int item;
+    int num;
+    bool farrMark=true;
+    while (farrMark){
+        bool validInput=true;
+        cout<<"Welcome to Farrand Market\nCurrent money: "<<inv.getBuffBucks()<<"\n\nItems to buy:"<<endl;
+        cout<<"1.Pedialyte - $3\n2.Energy Drink - $3\n3.Muscle Milk - $3";
+        cout<<"\n4.Cup of Noodles - $3\n5.Exit\nSelect an item: ";
+        while(validInput){
+            cin>>item;
+            if (inv.getBuffBucks()<3&&item<=4&&item>=1){
+                system("clear");
+                cout<<"You do not have enough Buff Bucks to purchase this.\n"<<endl;
+                break;
+            }
+            switch(item){
+                case 1:{
+                        system("clear");
+                    if (inv.setPedialyte(inv.getPedialyte()+1)){
+                        inv.setBuffBucks(inv.getBuffBucks()-3);
+                        cout<<"Successfully Purchased 1 Pedialyte\n"<<endl;
+                    }
+                    validInput=false;
+                }break;
+                case 2:{
+                        system("clear");
+                    if (inv.setEnergyDrink(inv.getEnergyDrink()+1)){
+                        inv.setBuffBucks(inv.getBuffBucks()-3);
+                        cout<<"Successfully Purchased 1 Energy Drink\n"<<endl;
+                    }
+                    validInput=false;
+                }break;
+                case 3:{
+                        system("clear");
+                    if (inv.setMuscleMilk(inv.getMuscleMilk()+1)){
+                        inv.setBuffBucks(inv.getBuffBucks()-3);
+                        cout<<"Successfully Purchased 1 Muscle Milk\n"<<endl;
+                    }
+                    validInput=false;
+                }break;
+                case 4:{
+                    system("clear");
+                    if (inv.setCupOfNoodles(inv.getCupOfNoodles()+1)){
+                        inv.setBuffBucks(inv.getBuffBucks()-3);
+                        cout<<"Successfully Purchased 1 Cup Of Noodles\n"<<endl;
+                    }
+                    validInput=false;
+                }break;
+                case 5:{
+                    system("clear");
+                    cout<<"Thank you for visiting Farrand Market\n"<<endl;
+                    farrMark=false;
+                    validInput=false;
+                }break;
+                default:{
+                    cout<<"Invalid Input"<<endl;
+                }
+            } 
+        }
+    }
+}
+
+
 int main(){
 
 
@@ -78,6 +142,14 @@ int main(){
 char option;
 Map mapObject=Map();
 Inventory inventory =Inventory(50,0,0,0,0);
+
+mapObject.addRoom(6,15);//farrand market
+int numRooms=1;
+Location rooms[numRooms]; //can change number of rooms 
+//adding rooms to array
+rooms[0]=Location("Farrand",0);
+
+
 while(option != 'Q')
 {
     mapObject.displayMap();
@@ -127,9 +199,20 @@ while(option != 'Q')
             }
             cout<<"\nClick any button to continue..."<<endl;
             cin>>temp;
+            system("clear");
         }
         break;
         case 'i':{
+            //when the player investigates a space check if its a room to run the room code
+            if(mapObject.isRoomLocation(mapObject.getPlayerRow(),mapObject.getPlayerCol())){
+                for(int i=0;i<numRooms;i++){
+                    if (rooms[i].getName()=="Farrand"){//bruh i forgor you cant do switch with string 
+                        farrandMarket(inventory);
+                    }
+                }
+            }
+
+
             /*
             Open investigate menu(maybe make inv)
             * search for money
@@ -151,6 +234,11 @@ while(option != 'Q')
             cout << "Invalid input. Please try again." << endl;
         }
     }
+    //if the input was any movement key, check if the space that was moved onto is an enemy space
+    if(mapObject.isNPCLocation(mapObject.getPlayerRow(),mapObject.getDungeonExitCol())){
+
+    }
+
 }
 return 0;
 }
