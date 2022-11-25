@@ -76,11 +76,11 @@ int main(){
 // cout << "   |_____|  [___]|__]'.__.'     `.__.'  [___| |__][___] \__/   '.__.'[___]   [\__) )[___]\__/[\_:__/   |____||____|'.__.'_/[\__) )\__/[___]'.__.'"  << endl;
 
 char option;
-Map map=Map();
+Map mapObject=Map();
 Inventory inventory =Inventory(50,0,0,0,0);
 while(option != 'Q')
 {
-    map.displayMap();
+    mapObject.displayMap();
 
     cout << "======Main Menu======" << endl;
     cout << "W: Move Upwards" << endl; 
@@ -93,46 +93,25 @@ while(option != 'Q')
     cout << "Q: Quit game" << endl;
     cout << "Choose one of the options above." << endl;
     cin >> option;
-    switch(option)
+    system("clear");
+    switch(tolower(option))
     {
-        case 'W':
         case 'w':{
-            /*
-            mapObject.move(w);
-            if(isOnMap() == true)
-            if player location matches certain event locations then continue to that event
-            if not check random likely event   
-            */
+            mapObject.move('w');
         }
         break;
-        case 'A':
         case 'a':{
-            /*
-            mapObject.move(a);
-            if(isOnamp() == true)
-            continue
-            */
+            mapObject.move('a');
         }
         break;
-        case 'S': 
         case 's':{
-            /*
-            mapObject.move(s);
-            if(isOnmap() == true)
-            continue
-            */
+            mapObject.move('s');
         }
         break;
-        case 'D':
         case 'd':{
-            /*
-            mapObject.move(d);
-            if(isOnmap() == true)
-            continue
-            */
+            mapObject.move('d');
         }
         break;
-        case 'E': 
         case 'e':{
             string temp;
             system("clear");
@@ -150,7 +129,6 @@ while(option != 'Q')
             cin>>temp;
         }
         break;
-        case 'I':
         case 'i':{
             /*
             Open investigate menu(maybe make inv)
@@ -160,21 +138,19 @@ while(option != 'Q')
             */
         }
         break;
-        case 'R': 
         case 'r':{
             printFile("rules.txt");
         }
         break;
-        case 'Q':
         case 'q':{
             cout << "Better luck next time!" << endl;
             return 0;
-        }
+        }break;
         default:{
+            system("clear");
             cout << "Invalid input. Please try again." << endl;
         }
     }
-    system("clear"); //clears terminal before each new print so it doenst get messy
 }
 return 0;
 }
