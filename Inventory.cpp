@@ -49,10 +49,10 @@ Item Inventory::getItem(int index){
         return item_list[index];
     }
     else if(index<0){
-        getItem(index+1);
+        return getItem(index+1); // change: added return
     }
     else{
-        getItem(index-1);
+        return getItem(index-1); // change: added return
     }
 }
 
