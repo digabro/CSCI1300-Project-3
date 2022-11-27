@@ -1,6 +1,7 @@
 Welcome to the college of Computer Science. Here's a quiz if you really
 know your stuff.(Select the answer that makes the most sense.)
 
+History
 Welcome to the college of History. Today we will be learning the history of
 this school and Boulder, Colorado. 
 
