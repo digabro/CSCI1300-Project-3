@@ -143,11 +143,7 @@ char option;
 Map mapObject=Map();
 Inventory inventory =Inventory(50,0,0,0,0);
 
-mapObject.addRoom(6,15);//farrand market
-int numRooms=1;
-Location rooms[numRooms]; //can change number of rooms 
-//adding rooms to array
-rooms[0]=Location("Farrand",0);
+mapObject.addMarket(6,15);//farrand market
 
 
 while(option != 'Q')
@@ -204,12 +200,8 @@ while(option != 'Q')
         break;
         case 'i':{
             //when the player investigates a space check if its a room to run the room code
-            if(mapObject.isRoomLocation(mapObject.getPlayerRow(),mapObject.getPlayerCol())){
-                for(int i=0;i<numRooms;i++){
-                    if (rooms[i].getName()=="Farrand"){//bruh i forgor you cant do switch with string 
-                        farrandMarket(inventory);
-                    }
-                }
+            if(mapObject.isMarketLocation(mapObject.getPlayerRow(),mapObject.getPlayerCol())){
+                farrandMarket(inventory);
             }
 
             //will likely move random things to a function to make it easier but gotta go for now
