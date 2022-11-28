@@ -7,6 +7,7 @@
 #include "player.h"
 #include <iostream>
 #include <cstdlib>
+#include <ctime>
 #include <fstream>
 using namespace std;
 
@@ -130,6 +131,34 @@ void farrandMarket(Inventory inv){
     }
 }
 
+bool isNearEnemy(int row,int col,Map map){
+    if (map.isBanditCampLocation(map.getPlayerRow(),(map.getPlayerCol()+1))||map.isCultistLocation(map.getPlayerRow(),(map.getPlayerCol()+1))){
+        return true;
+    }
+    else if (map.isBanditCampLocation((map.getPlayerRow()+1),map.getPlayerCol())||map.isCultistLocation((map.getPlayerRow()+1),map.getPlayerCol())){
+        return true;
+    }
+    else if (map.isBanditCampLocation(map.getPlayerRow(),(map.getPlayerCol()-1))||map.isCultistLocation(map.getPlayerRow(),(map.getPlayerCol()-1))){
+        return true;
+    }
+    else if (map.isBanditCampLocation((map.getPlayerRow()-1),map.getPlayerCol())||map.isCultistLocation((map.getPlayerRow()-1),map.getPlayerCol())){
+        return true;
+    }
+    else if (map.isBanditCampLocation((map.getPlayerRow()+1),(map.getPlayerCol()+1))||map.isCultistLocation((map.getPlayerRow()+1),(map.getPlayerCol()+1))){
+        return true;
+    }
+    else if (map.isBanditCampLocation((map.getPlayerRow()-1),(map.getPlayerCol()-1))||map.isCultistLocation((map.getPlayerRow()-1),map.getPlayerCol()-1)){
+        return true;
+    }
+    else if (map.isBanditCampLocation((map.getPlayerRow()-1),(map.getPlayerCol()+1))||map.isCultistLocation((map.getPlayerRow()-1),(map.getPlayerCol()+1))){
+        return true;
+    }
+    else if (map.isBanditCampLocation((map.getPlayerRow()+1),(map.getPlayerCol()-1))||map.isBanditCampLocation((map.getPlayerRow()+1),(map.getPlayerCol()-1))){
+        return true;
+    }
+    return false;
+}
+
 
 int main(){
 
@@ -174,12 +203,30 @@ inventory.addItem(paddle);
 
 mapObject.addMarket(6,15);//farrand market
 
+srand(time(NULL));
+//adding bandit camps
+int bRow,bCol;
+for (int i=0;i<(rand()%2)+1;i++){//can be changed to i<2 so its not a random amount of bandit camps
+    bRow = (rand()%11);
+    bCol = (rand()%29);
+    mapObject.addBanditCamp(bRow,bCol);
+}
+//adding cultist camps
+for (int i=0;i<(rand()%4)+1;i++){//can be changed to i<5 so its not a random amount of cultists
+    bRow = (rand()%11);
+    bCol = (rand()%29);
+    mapObject.addCultist(bRow,bCol);
+}
+//adding schools
+for (int i=0;i<4;i++){
+    bRow = (rand()%5)+6;
+    bCol = (rand()%14)+15;
+    mapObject.addSchool(bRow,bCol);
+}
+
 
 while(option != 'Q')
 {
-
-
-
     mapObject.displayMap();
 
     cout << "======Main Menu======" << endl;
@@ -235,7 +282,11 @@ while(option != 'Q')
             if(mapObject.isMarketLocation(mapObject.getPlayerRow(),mapObject.getPlayerCol())){
                 farrandMarket(inventory);
             }
-
+            mapObject.exploreSpace(mapObject.getPlayerRow(),mapObject.getPlayerCol());
+            
+            
+            
+            
             //will likely move random things to a function to make it easier but gotta go for now
             int randNum = rand() % 100;//rand num from 0 to 99
             if (randNum>=0&&randNum<5){//found money
@@ -266,7 +317,10 @@ while(option != 'Q')
         }
     }
     //if the input was any movement key, check if the space that was moved onto is an enemy space
-    if(mapObject.isNPCLocation(mapObject.getPlayerRow(),mapObject.getDungeonExitCol())){
+    if(isNearEnemy(mapObject.getPlayerRow(),mapObject.getPlayerCol(),mapObject)){
+        //insert either bandit or cultist code here
+    }
+    if(!mapObject.isFreeSpace(mapObject.getPlayerRow(),mapObject.getDungeonExitCol())&&!mapObject.isMarketLocation(mapObject.getPlayerRow(),mapObject.getDungeonExitCol())){
 
     }
 
