@@ -16,7 +16,7 @@ private:
     const char BANDIT_CAMP = 'B';
     const char KING_WOOK = 'W';
     const char SCHOOL = 'S';
-    const char FIANL_BATTLE = 'F';
+    const char FINAL_BATTLE = 'F';
     
     const char NPC = 'N';        // marker for NPC locations
     const char PARTY = 'X';      // marker for party position

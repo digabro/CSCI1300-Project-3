@@ -583,7 +583,7 @@ bool Map::addFinalBattle(int row, int col)
     final_battle_positions[final_battle_count_][0] = row;
     final_battle_positions[final_battle_count_][1] = col;
     final_battle_count_++;
-    map_data_[row][col] = FIANL_BATTLE;
+    map_data_[row][col] = FINAL_BATTLE;
     return true;
 }
 
