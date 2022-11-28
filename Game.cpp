@@ -159,9 +159,39 @@ bool isNearEnemy(int row,int col,Map map){
     return false;
 }
 
+void randomChances(Map map,Inventory inv,Item bottle){//use the bottle item when calling, needs it as an input to add it to the inventory as its not a global variable
+    string animalList[4]={" Black Bear"," Mountain Lion"," Coyote","n Elk"};//supposed to have space before and "n elk"
+    // if(!map.isExplored(map.getPlayerRow(),map.getPlayerCol())){
+        int randNum = rand() % 100;//rand num from 0 to 99
+        if (randNum>=0&&randNum<5){//found money
+            int randmoney=(rand()%9)+1;//1 to 10 bucks --can be changed if you want
+            system("clear");
+            cout<<"While investigating, you found $"<<randmoney<<".00"<<endl;
+            inv.setBuffBucks(inv.getBuffBucks()+randmoney);
+        }
+        else if (randNum>=5&&randNum<25){//found broken bottle
+            system("clear");
+            if (bottle.getQuantity()< bottle.getMaxQuantity()){
+                inv.buyItem(bottle);
+                cout<<"While investigating, you found a broken bottle"<<endl;
+            }
+        }
+        else if (randNum>=25&&randNum<45){//found raccoon
+            system("clear");
+            cout<<"While investigating, you encountered a raccoon"<<endl;
+            //add in raccoon code
+        }
+        else if (randNum>=45&&randNum<55){//found broken bottle
+            system("clear");
+            string animal = animalList[(rand()%4)];
+            cout<<"While investigating, you encountered a"<<animal<<endl;
+            //add in animal code
+        }
+    // }
+}
 
 int main(){
-
+std::srand(time(NULL));//without the std:: this line was calling an error, not too sure why std:: fixed it
 
 // cout << "  _________  __              _____  _____          _                                 _   _              ____  ____                 _    __        " << endl; 
 // cout << " |  _   _  |[  |            |_   _||_   _|        (_)                               (_) / |_           |_   ||   _|               / |_ [  |       " << endl;
@@ -203,7 +233,6 @@ inventory.addItem(paddle);
 
 mapObject.addMarket(6,15);//farrand market
 
-srand(time(NULL));
 //adding bandit camps
 int bRow,bCol;
 for (int i=0;i<(rand()%2)+1;i++){//can be changed to i<2 so its not a random amount of bandit camps
@@ -263,6 +292,7 @@ while(option != 'Q')
             string temp;
             system("clear");
             cout<<"======Inventory======"<<endl;
+            cout<<"Buff Bucks: $"<<inventory.getBuffBucks()<<".00"<<endl;
             if(!printInventory(inventory,"Weapon")){
                 cout<<"No Weapons Stored in Inventory."<<endl;
             }
@@ -283,17 +313,7 @@ while(option != 'Q')
                 farrandMarket(inventory);
             }
             mapObject.exploreSpace(mapObject.getPlayerRow(),mapObject.getPlayerCol());
-            
-            
-            
-            
-            //will likely move random things to a function to make it easier but gotta go for now
-            int randNum = rand() % 100;//rand num from 0 to 99
-            if (randNum>=0&&randNum<5){//found money
-                int randmoney=rand()%10;//0 to 9 bucks --can be changed if you want
-                system("clear");
-                cout<<"While Investigating, you found $"<<randmoney<<".00"<<endl;
-            }
+            randomChances(mapObject,inventory,bottle);
 
             /*
             Open investigate menu(maybe make inv)
