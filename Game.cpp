@@ -161,7 +161,7 @@ bool isNearEnemy(int row,int col,Map map){
 
 void randomChances(Map map,Inventory inv,Item bottle){//use the bottle item when calling, needs it as an input to add it to the inventory as its not a global variable
     string animalList[4]={" Black Bear"," Mountain Lion"," Coyote","n Elk"};//supposed to have space before and "n elk"
-    // if(!map.isExplored(map.getPlayerRow(),map.getPlayerCol())){
+    if(!map.isExplored(map.getPlayerRow(),map.getPlayerCol())){
         int randNum = rand() % 100;//rand num from 0 to 99
         if (randNum>=0&&randNum<5){//found money
             int randmoney=(rand()%9)+1;//1 to 10 bucks --can be changed if you want
@@ -187,7 +187,7 @@ void randomChances(Map map,Inventory inv,Item bottle){//use the bottle item when
             cout<<"While investigating, you encountered a"<<animal<<endl;
             //add in animal code
         }
-    // }
+    }
 }
 
 int main(){
