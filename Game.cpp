@@ -15,8 +15,10 @@ bool printInventory(Inventory inv,string type){
     cout<<endl<<type<<" items in your inventory:"<<endl;
     for (int i=0;i<inv.getNumItems();i++){
         if (inv.getItem(i).getItemType()==type){
-            count++;
-            cout<<count<<". "<<inv.getItem(i).getItemName()<<" - "<<inv.getItem(i).getQuantity()<<"/"<<inv.getItem(i).getMaxQuantity()<<endl;
+            if (inv.getItem(i).getQuantity()>0){
+                count++;
+                cout<<count<<". "<<inv.getItem(i).getItemName()<<" - "<<inv.getItem(i).getQuantity()<<"/"<<inv.getItem(i).getMaxQuantity()<<endl;
+            }
         }
     }
     if (type=="Food"){
@@ -142,12 +144,42 @@ int main(){
 char option;
 Map mapObject=Map();
 Inventory inventory =Inventory(50,0,0,0,0);
+//adding armor items to inventory array with quantity of 0
+Item csChestplate =Item("CS Chestplate","Armor",0,inventory.getNumItems(),0,6,60,1,0);
+Item englishHelm =Item("English Helmet","Armor",0,inventory.getNumItems(),0,4,40,1,0);
+Item historyHelm =Item("History Helmet","Armor",0,inventory.getNumItems(),0,4,40,1,0);
+Item cowboyHat =Item("Cowboy Hat","Armor",0,inventory.getNumItems(),0,4,40,1,0);
+Item hoodie =Item("Hoodie","Armor",9,inventory.getNumItems(),0,3,30,1,0);
+Item sweatpants =Item("Sweatpants","Armor",6,inventory.getNumItems(),0,2,20,1,0);
+Item sandals =Item("Sandals","Armor",3,inventory.getNumItems(),0,1,10,1,0);
+Item sunglasses =Item("Sunglasses","Armor",3,inventory.getNumItems(),0,1,10,1,0);
+//adding weapon items to inventory array with quantity of 0
+Item pencils =Item("Pencils","Weapon",0,inventory.getNumItems(),2,0,-1,1,0);
+Item scissors =Item("Scissors","Weapon",0,inventory.getNumItems(),3,0,-1,1,0);
+Item bottle =Item("Broken Bottle","Weapon",0,inventory.getNumItems(),1,0,-1,1,0);
+Item paddle =Item("Abandoned Paddle","Weapon",0,inventory.getNumItems(),1,0,-1,1,0);
+inventory.addItem(csChestplate);
+inventory.addItem(englishHelm);
+inventory.addItem(historyHelm);
+inventory.addItem(cowboyHat);
+inventory.addItem(hoodie);
+inventory.addItem(sweatpants);
+inventory.addItem(sandals);
+inventory.addItem(sunglasses);
+inventory.addItem(pencils);
+inventory.addItem(scissors);
+inventory.addItem(bottle);
+inventory.addItem(paddle);
+
 
 mapObject.addMarket(6,15);//farrand market
 
 
 while(option != 'Q')
 {
+
+
+
     mapObject.displayMap();
 
     cout << "======Main Menu======" << endl;

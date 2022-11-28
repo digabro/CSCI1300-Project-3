@@ -39,10 +39,10 @@ class Inventory
     private:
     // do we set these values equal to the amount of them we have in our inventory or do we set it to the amount of health/armor or damage it gives you
     int num_buff_bucks; // in game currency
-    int num_pedialyte; // health potion regenerate vitamins and minerals lost during sickness
-    int num_energy_drink; // speed/haste potion
-    int num_muscle_milk;  // strength potion
-    int num_cup_of_noodles; // food
+    int num_pedialyte=0; // health potion regenerate vitamins and minerals lost during sickness
+    int num_energy_drink=0; // speed/haste potion
+    int num_muscle_milk=0;  // strength potion
+    int num_cup_of_noodles=0; // food
     int num_items=0; //amount of items in inventory
     static const int max_buff_bucks = 25000; // max amount of money
     static const int max_pedialyte = 4;
