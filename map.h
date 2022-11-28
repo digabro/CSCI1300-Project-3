@@ -48,14 +48,14 @@ private:
     int market_positions_[max_markets_][2];   // stores the (row,col) positions of rooms present on map
     char map_data_[num_rows_][num_cols_]; // stores the character that will be shown at a given (row,col)
 
-    int npc_count_;  // stores number of misfortunes currently on map
-    int room_count_;
-    int market_count_; // stores number of sites currently on map
-    int school_count_;
-    int bandit_camp_count_;
-    int cultist_count_;
-    int king_wook_count_;
-    int final_battle_count_;
+    int npc_count_=0;  // stores number of misfortunes currently on map
+    int room_count_=0;
+    int market_count_=0; // stores number of sites currently on map
+    int school_count_=0;
+    int bandit_camp_count_=0;
+    int cultist_count_=0;
+    int king_wook_count_=0;
+    int final_battle_count_=0;
 public:
     Map();
 
