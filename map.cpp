@@ -1,4 +1,4 @@
-#include "Map.h"
+#include "map.h"
 
 using namespace std;
 
@@ -40,12 +40,12 @@ void Map::resetMap()
     }
     npc_count_ = 0;
 
-    for (int i = 0; i < max_rooms_; i++)
+    for (int i = 0; i < max_markets_; i++)
     {
-        room_positions_[i][0] = -1;
-        room_positions_[i][1] = -1;
+        market_positions_[i][0] = -1;
+        market_positions_[i][1] = -1;
     }
-    room_count_ = 0;
+    market_count_ = 0;
 
     for (int i = 0; i < num_rows_; i++)
     {
@@ -72,7 +72,7 @@ int Map::getPlayerCol()
 // return current room count
 int Map::getRoomCount()
 {
-    return room_count_;
+    return market_count_;
 }
 
 // return dungeon exit row
@@ -169,8 +169,24 @@ bool Map::isNPCLocation(int row, int col)
     return false;
 }
 
+bool Map::isRoomLocation(int row, int col)
+{
+    if (!isOnMap(row, col))
+    {
+        return false;
+    }
+    for (int i = 0; i < room_count_; i++)
+    {
+        if (row == room_positions_[i][0] && col == room_positions_[i][1])
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
 /*
- * Algorithm: Checks if the location is an room location
+ * Algorithm: Checks if the location is a Market location
  * if (row, col) is not within the map boundaries
  *      return false
  * loop i from 0 to room_count_
@@ -182,15 +198,92 @@ bool Map::isNPCLocation(int row, int col)
  * Parameters: none
  * Return: boolean (bool)
  */
-bool Map::isRoomLocation(int row, int col)
+bool Map::isMarketLocation(int row, int col)
 {
     if (!isOnMap(row, col))
     {
         return false;
     }
-    for (int i = 0; i < room_count_; i++)
+    for (int i = 0; i < market_count_; i++)
     {
-        if (row == room_positions_[i][0] && col == room_positions_[i][1])
+        if (row == market_positions_[i][0] && col == market_positions_[i][1])
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
+bool Map::isSchoolLocation(int row, int col)
+{
+    if (!isOnMap(row, col))
+    {
+        return false;
+    }
+    for (int i = 0; i < school_count_; i++)
+    {
+        if (row == school_positions_[i][0] && col == school_positions_[i][1])
+        {
+            return true;
+        }
+    }
+    return false;
+}
+bool Map::isBanditCampLocation(int row, int col)
+{
+    if (!isOnMap(row, col))
+    {
+        return false;
+    }
+    for (int i = 0; i < bandit_camp_count_; i++)
+    {
+        if (row == bandit_camp_positions_[i][0] && col == bandit_camp_positions_[i][1])
+        {
+            return true;
+        }
+    }
+    return false;
+}
+bool Map::isCultistLocation(int row, int col)
+{
+    if (!isOnMap(row, col))
+    {
+        return false;
+    }
+    for (int i = 0; i < cultist_count_; i++)
+    {
+        if (row == cultist_positions_[i][0] && col == cultist_positions_[i][1])
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
+bool Map::isKingWookLocation(int row, int col)
+{
+    if (!isOnMap(row, col))
+    {
+        return false;
+    }
+    for (int i = 0; i < king_wook_count_; i++)
+    {
+        if (row == king_wook_positions[i][0] && col == king_wook_positions[i][1])
+        {
+            return true;
+        }
+    }
+    return false;
+}
+bool Map::isFinalBattleLocation(int row, int col)
+{
+    if (!isOnMap(row, col))
+    {
+        return false;
+    }
+    for (int i = 0; i < final_battle_count_; i++)
+    {
+        if (row == final_battle_positions[i][0] && col == final_battle_positions[i][1])
         {
             return true;
         }
@@ -261,7 +354,7 @@ bool Map::isDungeonExit(int row, int col)
  * Parameters: row (int), col (int)
  * Return: boolean (bool)
  */
-bool Map::isFreeSpace(int row, int col)
+bool Map::isFreeSpace(int row, int col) // add isSchool location and other ones
 {
     if (!isOnMap(row, col))
     {
@@ -271,7 +364,27 @@ bool Map::isFreeSpace(int row, int col)
     {
         return false;
     }
-    if (isRoomLocation(row, col))
+    if (isMarketLocation(row, col))
+    {
+        return false;
+    }
+    if (isSchoolLocation(row, col))
+    {
+        return false;
+    }
+    if (isBanditCampLocation(row, col))
+    {
+        return false;
+    }
+    if (isCultistLocation(row, col))
+    {
+        return false;
+    }
+    if (isKingWookLocation(row, col))
+    {
+        return false;
+    }
+    if (isMarketLocation(row, col))
     {
         return false;
     }
@@ -316,21 +429,6 @@ bool Map::addNPC(int row, int col)
     return true;
 }
 
-/*
- * Algorithm: Create a room on the map
- * if room_count_ is more than or equal to number of rooms
- *      return false
- * if (row,col) is not a free space
- *      return false
- * if next row in room_positions_ matrix is -1 -1
- *      store row, col and type values in the current row of room_positions_ matrix
- *      increment room_count_
- *      Set (row,col) value in map_data_ to 'R'
- *      return true
- *
- * Parameters: row (int), col (int)
- * Return: boolean (bool)
- */
 bool Map::addRoom(int row, int col)
 {
 
@@ -349,6 +447,143 @@ bool Map::addRoom(int row, int col)
     room_positions_[room_count_][1] = col;
     room_count_++;
     map_data_[row][col] = ROOM;
+    return true;
+}
+
+/*
+ * Algorithm: Create a room on the map
+ * if room_count_ is more than or equal to number of rooms
+ *      return false
+ * if (row,col) is not a free space
+ *      return false
+ * if next row in room_positions_ matrix is -1 -1
+ *      store row, col and type values in the current row of room_positions_ matrix
+ *      increment room_count_
+ *      Set (row,col) value in map_data_ to 'R'
+ *      return true
+ *
+ * Parameters: row (int), col (int)
+ * Return: boolean (bool)
+ */
+bool Map::addMarket(int row, int col)
+{
+
+    if (market_count_ >= max_markets_)
+    {
+        return false;
+    }
+
+    // location must be blank to spawn
+    if (!isFreeSpace(row, col))
+    {
+        return false;
+    }
+
+    market_positions_[market_count_][0] = row;
+    market_positions_[market_count_][1] = col;
+    market_count_++;
+    map_data_[row][col] = MARKET;
+    return true;
+}
+
+bool Map::addSchool(int row, int col)
+{
+
+    if (school_count_ >= max_schools_)
+    {
+        return false;
+    }
+
+    // location must be blank to spawn
+    if (!isFreeSpace(row, col))
+    {
+        return false;
+    }
+
+    school_positions_[school_count_][0] = row;
+    school_positions_[school_count_][1] = col;
+    school_count_++;
+    map_data_[row][col] = SCHOOL;
+    return true;
+}
+bool Map::addBanditCamp(int row, int col)
+{
+
+    if (bandit_camp_count_ >= max_bandit_camp_)
+    {
+        return false;
+    }
+
+    // location must be blank to spawn
+    if (!isFreeSpace(row, col))
+    {
+        return false;
+    }
+
+    bandit_camp_positions_[bandit_camp_count_][0] = row;
+    bandit_camp_positions_[bandit_camp_count_][1] = col;
+    bandit_camp_count_++;
+    map_data_[row][col] = BANDIT_CAMP;
+    return true;
+}
+bool Map::addCultist(int row, int col)
+{
+
+    if (cultist_count_ >= max_cultist_)
+    {
+        return false;
+    }
+
+    // location must be blank to spawn
+    if (!isFreeSpace(row, col))
+    {
+        return false;
+    }
+
+    cultist_positions_[cultist_count_][0] = row;
+    cultist_positions_[cultist_count_][1] = col;
+    cultist_count_++;
+    map_data_[row][col] = CULTIST;
+    return true;
+}
+bool Map::addKingWook(int row, int col)
+{
+
+    if (king_wook_count_ >= max_king_wook_)
+    {
+        return false;
+    }
+
+    // location must be blank to spawn
+    if (!isFreeSpace(row, col))
+    {
+        return false;
+    }
+
+    king_wook_positions[max_king_wook_ - 1][0] = row; // flag
+    king_wook_positions[max_king_wook_ - 1][1] = col; // flag
+    king_wook_count_++;
+    map_data_[row][col] = KING_WOOK;
+    return true;
+}
+bool Map::addFinalBattle(int row, int col)
+{
+
+    if (final_battle_count_ >= max_final_battle_)
+    {
+        return false;
+    }
+
+    // location must be blank to spawn
+    if (!isFreeSpace(row, col))
+    {
+        return false;
+    }
+
+    final_battle_positions[final_battle_count_][0] = row;
+    final_battle_positions[final_battle_count_][1] = col;
+    final_battle_count_++;
+    map_data_[row][col] = FINAL_BATTLE;
     return true;
 }
 
@@ -405,20 +640,20 @@ bool Map::removeNPC(int row, int col)
  * Parameters: row (int), col (int)
  * Return: boolean (bool)
  */
-bool Map::removeRoom(int row, int col)
+bool Map::removeBanditCamp(int row, int col)
 {
-    for (int i = 0; i < room_count_; i++)
+    for (int i = 0; i < bandit_camp_count_; i++)
     {
-        if (room_positions_[i][0] == row && room_positions_[i][1] == col)
+        if (bandit_camp_positions_[i][0] == row && bandit_camp_positions_[i][1] == col)
         {
             // swap i'th room with last room
-            room_positions_[i][0] = room_positions_[room_count_ - 1][0];
-            room_positions_[i][1] = room_positions_[room_count_ - 1][1];
+            bandit_camp_positions_[i][0] = bandit_camp_positions_[bandit_camp_count_ - 1][0];
+            bandit_camp_positions_[i][1] = bandit_camp_positions_[bandit_camp_count_ - 1][1];
             // reset last room
-            room_positions_[room_count_ - 1][0] = -1;
-            room_positions_[room_count_ - 1][1] = -1;
+            bandit_camp_positions_[bandit_camp_count_ - 1][0] = -1;
+            bandit_camp_positions_[bandit_camp_count_ - 1][1] = -1;
             // decrement room_count_
-            room_count_--;
+            bandit_camp_count_--;
             // set map data to explored
             map_data_[row][col] = EXPLORED;
             return true;
