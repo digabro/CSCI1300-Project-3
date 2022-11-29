@@ -69,32 +69,20 @@ void printFile(string file_name){
     return;
 }
 
-bool isNearEnemy(int row,int col,Map map){//make return char
-    if (map.isBanditCampLocation(map.getPlayerRow(),(map.getPlayerCol()+1))||map.isCultistLocation(map.getPlayerRow(),(map.getPlayerCol()+1))){
-        return true;
+char isNearEnemy(int row,int col,Map map){//make return char
+    if (map.isBanditCampLocation(map.getPlayerRow(),(map.getPlayerCol()+1))||map.isBanditCampLocation((map.getPlayerRow()+1),map.getPlayerCol())||map.isBanditCampLocation(map.getPlayerRow(),(map.getPlayerCol()-1))||map.isBanditCampLocation((map.getPlayerRow()-1),map.getPlayerCol())){
+        return 'B';//cardinal directions
     }
-    else if (map.isBanditCampLocation((map.getPlayerRow()+1),map.getPlayerCol())||map.isCultistLocation((map.getPlayerRow()+1),map.getPlayerCol())){
-        return true;
+    else if (map.isBanditCampLocation((map.getPlayerRow()+1),(map.getPlayerCol()+1))||map.isBanditCampLocation((map.getPlayerRow()+1),(map.getPlayerCol()-1))||map.isBanditCampLocation((map.getPlayerRow()-1),(map.getPlayerCol()+1))||map.isBanditCampLocation((map.getPlayerRow()-1),(map.getPlayerCol()-1))){
+        return 'B';//diagnal directions
     }
-    else if (map.isBanditCampLocation(map.getPlayerRow(),(map.getPlayerCol()-1))||map.isCultistLocation(map.getPlayerRow(),(map.getPlayerCol()-1))){
-        return true;
+    else if (map.isCultistLocation(map.getPlayerRow(),(map.getPlayerCol()+1))||map.isCultistLocation((map.getPlayerRow()+1),map.getPlayerCol())||map.isCultistLocation(map.getPlayerRow(),(map.getPlayerCol()-1))||map.isCultistLocation((map.getPlayerRow()-1),map.getPlayerCol())){
+        return 'C';//cardinal directions
     }
-    else if (map.isBanditCampLocation((map.getPlayerRow()-1),map.getPlayerCol())||map.isCultistLocation((map.getPlayerRow()-1),map.getPlayerCol())){
-        return true;
+    else if (map.isCultistLocation((map.getPlayerRow()+1),(map.getPlayerCol()+1))||map.isCultistLocation((map.getPlayerRow()+1),(map.getPlayerCol()-1))||map.isCultistLocation((map.getPlayerRow()-1),(map.getPlayerCol()+1))||map.isCultistLocation((map.getPlayerRow()-1),(map.getPlayerCol()-1))){
+        return 'C';//diagnal directions
     }
-    else if (map.isBanditCampLocation((map.getPlayerRow()+1),(map.getPlayerCol()+1))||map.isCultistLocation((map.getPlayerRow()+1),(map.getPlayerCol()+1))){
-        return true;
-    }
-    else if (map.isBanditCampLocation((map.getPlayerRow()-1),(map.getPlayerCol()-1))||map.isCultistLocation((map.getPlayerRow()-1),map.getPlayerCol()-1)){
-        return true;
-    }
-    else if (map.isBanditCampLocation((map.getPlayerRow()-1),(map.getPlayerCol()+1))||map.isCultistLocation((map.getPlayerRow()-1),(map.getPlayerCol()+1))){
-        return true;
-    }
-    else if (map.isBanditCampLocation((map.getPlayerRow()+1),(map.getPlayerCol()-1))||map.isCultistLocation((map.getPlayerRow()+1),(map.getPlayerCol()-1))){
-        return true;
-    }
-    return false;
+    return 'N';
 }
 
 void randomChances(Map map,Inventory inv,Item bottle){//use the bottle item when calling, needs it as an input to add it to the inventory as its not a global variable
