@@ -10,6 +10,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
+#include <climits>
 #include <fstream>
 using namespace std;
 
@@ -168,7 +169,7 @@ void organizeLogs(){
         for (int i=0;i<4;i++){
             tempLog.push_back(splitArr[i]);
         }
-        tempLog.push_back(to_string((((stod(tempLog[1])/20.0)*0.3)+((stod(tempLog[2])/10.0)*0.3)+(stod(tempLog[3])/50.0)*0.4)*14.3));//remaining hp 20% skill 30% buffbucks 50% 
+        tempLog.push_back(to_string((((stod(tempLog[1])/20.0)*0.3)+((stod(tempLog[2])/10.0)*0.3)+(stod(tempLog[3])/20.0)*0.4)*14.3));//remaining hp 20% skill 30% buffbucks 50% 
         logLines.push_back(tempLog);
         tempLog.clear();
     }
@@ -216,19 +217,19 @@ int main(){
     getline(cin,name);
     system("clear");
     Player player=Player(name,20,0,0);
-    Inventory inventory =Inventory(50,0,0,0,0);
+    Inventory inventory =Inventory(20,0,0,0,0);
     //adding armor items to inventory array with quantity of 0
     Item csChestplate =Item("CS Chestplate","Armor",0,inventory.getNumItems(),0,6,60,1,0);
     Item biologyHelm =Item("Biology Helmet","Armor",0,inventory.getNumItems(),0,4,40,1,0);
     Item historyHelm =Item("History Helmet","Armor",0,inventory.getNumItems(),0,4,40,1,0);
     Item cowboyHat =Item("Cowboy Hat","Armor",0,inventory.getNumItems(),0,4,40,1,0);
-    Item hoodie =Item("Hoodie","Armor",9,inventory.getNumItems(),0,3,30,1,0);
-    Item sweatpants =Item("Sweatpants","Armor",6,inventory.getNumItems(),0,2,20,1,0);
-    Item sandals =Item("Sandals","Armor",3,inventory.getNumItems(),0,1,10,1,0);
-    Item sunglasses =Item("Sunglasses","Armor",3,inventory.getNumItems(),0,1,10,1,0);
+    Item hoodie =Item("Hoodie","Armor",18,inventory.getNumItems(),0,3,30,1,0);
+    Item sweatpants =Item("Sweatpants","Armor",12,inventory.getNumItems(),0,2,20,1,0);
+    Item sandals =Item("Sandals","Armor",6,inventory.getNumItems(),0,1,10,1,0);
+    Item sunglasses =Item("Sunglasses","Armor",6,inventory.getNumItems(),0,1,10,1,0);
     //adding weapon items to inventory array with quantity of 0
-    Item pencils =Item("Pencils","Weapon",0,inventory.getNumItems(),2,0,-1,1,0);
-    Item scissors =Item("Scissors","Weapon",0,inventory.getNumItems(),3,0,-1,1,0);
+    Item pencils =Item("Pencils","Weapon",2,inventory.getNumItems(),2,0,-1,4,0);
+    Item scissors =Item("Scissors","Weapon",2,inventory.getNumItems(),3,0,-1,4,0);
     Item bottle =Item("Broken Bottle","Weapon",0,inventory.getNumItems(),1,0,-1,1,0);
     Item paddle =Item("Abandoned Paddle","Weapon",0,inventory.getNumItems(),1,0,-1,1,0);
     inventory.addItem(csChestplate);
@@ -246,6 +247,7 @@ int main(){
 
 
     mapObject.addMarket(6,15);//farrand market
+    mapObject.addMarket(2,10);//wallgreens market
 
     //adding bandit camps
     int bRow,bCol;
@@ -325,22 +327,22 @@ int main(){
             }
             break;
             case 'i':{
-                //when the player investigates a space check if its a room to run the room code
+                //farrand market
                 if(mapObject.isMarketLocation(mapObject.getPlayerRow(),mapObject.getPlayerCol())&&mapObject.getPlayerRow()==6&&mapObject.getPlayerCol()==15){
                     int item=0;
                     int num;
                     bool farrMark=true;
                     while (farrMark){
                         cout<<"Welcome to Farrand Market\nCurrent money: "<<inventory.getBuffBucks()<<"\n\nItems to buy:"<<endl;
-                        cout<<"1.Pedialyte - $3\n2.Energy Drink - $3\n3.Muscle Milk - $3";
-                        cout<<"\n4.Cup of Noodles - $3\n5.Exit\nSelect an item: ";
+                        cout<<"1.Pedialyte - $6\n2.Energy Drink - $6\n3.Muscle Milk - $6";
+                        cout<<"\n4.Cup of Noodles - $6\n5.Exit\nSelect an item: ";
                         if(!(cin>>item)){
                             system("clear");
                             cout<<"Invalid Input"<<endl;
                             cin.clear();
                             cin.ignore(INT_MAX,'\n');//https://stackoverflow.com/questions/257091/how-do-i-flush-the-cin-buffer – error with clearing cin buffer
                         }
-                        if (inventory.getBuffBucks()<3&&item<=4&&item>=1){
+                        if (inventory.getBuffBucks()<6&&item<=4&&item>=1){
                             system("clear");
                             cout<<"You do not have enough Buff Bucks to purchase this.\n"<<endl;
                             break;
@@ -349,28 +351,28 @@ int main(){
                             case 1:{
                                     system("clear");
                                 if (inventory.setPedialyte(inventory.getPedialyte()+1)){
-                                    inventory.setBuffBucks(inventory.getBuffBucks()-3);
+                                    inventory.setBuffBucks(inventory.getBuffBucks()-6);
                                     cout<<"Successfully Purchased 1 Pedialyte\n"<<endl;
                                 }
                             }break;
                             case 2:{
                                     system("clear");
                                 if (inventory.setEnergyDrink(inventory.getEnergyDrink()+1)){
-                                    inventory.setBuffBucks(inventory.getBuffBucks()-3);
+                                    inventory.setBuffBucks(inventory.getBuffBucks()-6);
                                     cout<<"Successfully Purchased 1 Energy Drink\n"<<endl;
                                 }
                             }break;
                             case 3:{
                                     system("clear");
                                 if (inventory.setMuscleMilk(inventory.getMuscleMilk()+1)){
-                                    inventory.setBuffBucks(inventory.getBuffBucks()-3);
+                                    inventory.setBuffBucks(inventory.getBuffBucks()-6);
                                     cout<<"Successfully Purchased 1 Muscle Milk\n"<<endl;
                                 }
                             }break;
                             case 4:{
                                 system("clear");
                                 if (inventory.setCupOfNoodles(inventory.getCupOfNoodles()+1)){
-                                    inventory.setBuffBucks(inventory.getBuffBucks()-3);
+                                    inventory.setBuffBucks(inventory.getBuffBucks()-6);
                                     cout<<"Successfully Purchased 1 Cup Of Noodles\n"<<endl;
                                 }
                             }break;
@@ -378,6 +380,54 @@ int main(){
                                 system("clear");
                                 cout<<"Thank you for visiting Farrand Market\n"<<endl;
                                 farrMark=false;
+                            }break;
+                        } 
+                    }
+                }
+                //wallgreens
+                if(mapObject.isMarketLocation(mapObject.getPlayerRow(),mapObject.getPlayerCol())&&mapObject.getPlayerRow()==2&&mapObject.getPlayerCol()==10){
+                    int item=0;
+                    int num;
+                    bool wallgreens=true;
+                    while (wallgreens){
+                        cout<<"Welcome to Wallgreens\nCurrent money: "<<inventory.getBuffBucks()<<"\n\nItems to buy:"<<endl;
+                        cout<<"1.Hoodie - $18\n2.Sweatpants - $12\n3.Sandals - $6";
+                        cout<<"\n4.Sunglasses - $6\n5.Pencil - $2\n6.Scissors - $2\n7.Exit\nSelect an item: ";
+                        if(!(cin>>item)){
+                            system("clear");
+                            cout<<"Invalid Input"<<endl;
+                            cin.clear();
+                            cin.ignore(INT_MAX,'\n');//https://stackoverflow.com/questions/257091/how-do-i-flush-the-cin-buffer – error with clearing cin buffer
+                        }
+                        switch(item){
+                            case 1:{
+                                    system("clear");
+                                    inventory.buyItem(hoodie);
+                            }break;
+                            case 2:{
+                                    system("clear");
+                                    inventory.buyItem(sweatpants);
+                            }break;
+                            case 3:{
+                                    system("clear");
+                                    inventory.buyItem(sandals);
+                            }break;
+                            case 4:{
+                                system("clear");
+                                inventory.buyItem(sunglasses);
+                            }break;
+                            case 5:{
+                                system("clear");
+                                inventory.buyItem(pencils);
+                            }break;
+                            case 6:{
+                                system("clear");
+                                inventory.buyItem(pencils);
+                            }break;
+                            case 7:{
+                                system("clear");
+                                cout<<"Thank you for visiting Wallgreens\n"<<endl;
+                                wallgreens=false;
                             }break;
                         } 
                     }
