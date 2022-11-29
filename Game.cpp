@@ -8,6 +8,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
+#include <climits>
 #include <fstream>
 using namespace std;
 
@@ -90,7 +91,7 @@ bool isNearEnemy(int row,int col,Map map){
     else if (map.isBanditCampLocation((map.getPlayerRow()-1),(map.getPlayerCol()+1))||map.isCultistLocation((map.getPlayerRow()-1),(map.getPlayerCol()+1))){
         return true;
     }
-    else if (map.isBanditCampLocation((map.getPlayerRow()+1),(map.getPlayerCol()-1))||map.isBanditCampLocation((map.getPlayerRow()+1),(map.getPlayerCol()-1))){
+    else if (map.isBanditCampLocation((map.getPlayerRow()+1),(map.getPlayerCol()-1))||map.isCultistLocation((map.getPlayerRow()+1),(map.getPlayerCol()-1))){
         return true;
     }
     return false;
@@ -127,22 +128,74 @@ void randomChances(Map map,Inventory inv,Item bottle){//use the bottle item when
     }
 }
 
+void sendScore(string file_name,Player player, Inventory inv){
+    ofstream outFile;
+    outFile.open(file_name,ios_base::app);
+    outFile<<player.getName()<<","<<player.getHp()<<","<<player.getSkillLevel()<<","<<inv.getBuffBucks();//player aspects
+    for (int i=0;i<inv.getNumItems();i++){
+        outFile<<","<<inv.getItem(i).getItemName()<<","<<inv.getItem(i).getQuantity();
+    }
+    outFile<<",Pedialyte,"<<inv.getPedialyte()<<",Energy drink,"<<inv.getEnergyDrink()<<",Muscle milk,"<<inv.getMuscleMilk()<<",Noodles,"<<inv.getCupOfNoodles()<<endl;
+}
+
+int split(string input, char sep, string arr[], int size){
+    int min=0, prevIndex, index=-1, count=1;
+    bool empty=true;
+    for (int i=0;i<input.length();i++){//repeats for every char in the input string 
+        if (input[i]==sep){//if it equals the seperation char 
+            count++;//add one to count
+        }
+    }
+    min=0;
+    for(int s=0;s<size;s++){//repeats for every seperation wanted
+        for (int i=min;i<=input.length();i++){
+            if (i==input.length()){
+                prevIndex=index;
+                index=i;
+            }
+            if (input[i]==sep){
+                prevIndex=index;
+                index=i;
+                empty=false;
+                break;
+            }
+        }
+        if (empty){//if the substring isnt in the string
+            arr[s]=input;//set the array to the string 
+            return 1;//return 1
+        }
+        
+        arr[s]=input.substr(prevIndex+1, (index-prevIndex-1));
+        min=index+1;
+    }
+    if (size<count){return -1;}//if the string has more values than asked to seperate, return -1
+    if (input.empty()){return 0;}//if the input string is empty return 0
+    return count;
+}
+
+
 int main(){
-std::srand(time(NULL));//without the std:: this line was calling an error, not too sure why std:: fixed it
+srand(time(NULL));
 
-// cout << "  _________  __              _____  _____          _                                 _   _              ____  ____                 _    __        " << endl; 
-// cout << " |  _   _  |[  |            |_   _||_   _|        (_)                               (_) / |_           |_   ||   _|               / |_ [  |       " << endl;
-// cout << " |_/ | | \_||  |--.  .---.    | |    | |  _ .--.   __  _   __  .---.  _ .--.  .--.   __ `| |-' _   __    | |__| |   __   _   .--.`| |-'| | .---. " << endl;
-// cout << "     | |     | .-. |/ /__\\   | '    ' | [ `.-. | [  |[ \ [  ]/ /__\\[ `/'`\]( (`\] [  | | |  [ \ [  ]   |  __  |  [  | | | ( (`\]| |  | |/ /__\\"  << endl;
-// cout << "    _| |_    | | | || \__.,    \ \__/ /  | |  | |  | | \ \/ / | \__., | |     `'.'.  | | | |,  \ '/ /   _| |  | |_ | \_/  |, `'.'.| |, | || \__.,"  << endl;
-// cout << "   |_____|  [___]|__]'.__.'     `.__.'  [___| |__][___] \__/   '.__.'[___]   [\__) )[___]\__/[\_:__/   |____||____|'.__.'_/[\__) )\__/[___]'.__.'"  << endl;
-
+cout<<"  _______ _            _    _       _                    _ _           _    _           _   _" <<endl;     
+cout<<" |__   __| |          | |  | |     (_)                  (_) |         | |  | |         | | | |  "  <<endl; 
+cout<<"    | |  | |__   ___  | |  | |_ __  ___   _____ _ __ ___ _| |_ _   _  | |__| |_   _ ___| |_| | ___ "<<endl;
+cout<<"    | |  | \'_ \\ / _ \\ | |  | | \'_ \\| \\ \\ / / _ \\ \'__/ __| | __| | | | |  __  | | | / __| __| |/ _ \\"<<endl;
+cout<<"    | |  | | | |  __/ | |__| | | | | |\\ V /  __/ |  \\__ \\ | |_| |_| | | |  | | |_| \\__ \\ |_| |  __/"<<endl;
+cout<<"    |_|  |_| |_|\\___|  \\____/|_| |_|_| \\_/ \\___|_|  |___/_|\\__|\\__, | |_|  |_|\\__,_|___/\\__|_|\\___|" <<endl;
+cout<<"                                                                __/ |                              "<<endl;
+cout<<"                                                               |____|                               "<<endl;
 char option;
 Map mapObject=Map();
+Player player=Player();
+cout<<"Please enter your name: ";
+string name;
+cin>>name;
+player.setName(name);
 Inventory inventory =Inventory(50,0,0,0,0);
 //adding armor items to inventory array with quantity of 0
 Item csChestplate =Item("CS Chestplate","Armor",0,inventory.getNumItems(),0,6,60,1,0);
-Item englishHelm =Item("English Helmet","Armor",0,inventory.getNumItems(),0,4,40,1,0);
+Item biologyHelm =Item("Biology Helmet","Armor",0,inventory.getNumItems(),0,4,40,1,0);
 Item historyHelm =Item("History Helmet","Armor",0,inventory.getNumItems(),0,4,40,1,0);
 Item cowboyHat =Item("Cowboy Hat","Armor",0,inventory.getNumItems(),0,4,40,1,0);
 Item hoodie =Item("Hoodie","Armor",9,inventory.getNumItems(),0,3,30,1,0);
@@ -155,7 +208,7 @@ Item scissors =Item("Scissors","Weapon",0,inventory.getNumItems(),3,0,-1,1,0);
 Item bottle =Item("Broken Bottle","Weapon",0,inventory.getNumItems(),1,0,-1,1,0);
 Item paddle =Item("Abandoned Paddle","Weapon",0,inventory.getNumItems(),1,0,-1,1,0);
 inventory.addItem(csChestplate);
-inventory.addItem(englishHelm);
+inventory.addItem(biologyHelm);
 inventory.addItem(historyHelm);
 inventory.addItem(cowboyHat);
 inventory.addItem(hoodie);
@@ -247,65 +300,59 @@ while(option != 'Q')
         case 'i':{
             //when the player investigates a space check if its a room to run the room code
             if(mapObject.isMarketLocation(mapObject.getPlayerRow(),mapObject.getPlayerCol())&&mapObject.getPlayerRow()==6&&mapObject.getPlayerCol()==15){
-                int item;
+                int item=0;
                 int num;
                 bool farrMark=true;
                 while (farrMark){
-                    bool validInput=true;
                     cout<<"Welcome to Farrand Market\nCurrent money: "<<inventory.getBuffBucks()<<"\n\nItems to buy:"<<endl;
                     cout<<"1.Pedialyte - $3\n2.Energy Drink - $3\n3.Muscle Milk - $3";
                     cout<<"\n4.Cup of Noodles - $3\n5.Exit\nSelect an item: ";
-                    while(validInput){
-                        cin>>item;
-                        if (inventory.getBuffBucks()<3&&item<=4&&item>=1){
-                            system("clear");
-                            cout<<"You do not have enough Buff Bucks to purchase this.\n"<<endl;
-                            break;
-                        }
-                        switch(item){
-                            case 1:{
-                                    system("clear");
-                                if (inventory.setPedialyte(inventory.getPedialyte()+1)){
-                                    inventory.setBuffBucks(inventory.getBuffBucks()-3);
-                                    cout<<"Successfully Purchased 1 Pedialyte\n"<<endl;
-                                }
-                                validInput=false;
-                            }break;
-                            case 2:{
-                                    system("clear");
-                                if (inventory.setEnergyDrink(inventory.getEnergyDrink()+1)){
-                                    inventory.setBuffBucks(inventory.getBuffBucks()-3);
-                                    cout<<"Successfully Purchased 1 Energy Drink\n"<<endl;
-                                }
-                                validInput=false;
-                            }break;
-                            case 3:{
-                                    system("clear");
-                                if (inventory.setMuscleMilk(inventory.getMuscleMilk()+1)){
-                                    inventory.setBuffBucks(inventory.getBuffBucks()-3);
-                                    cout<<"Successfully Purchased 1 Muscle Milk\n"<<endl;
-                                }
-                                validInput=false;
-                            }break;
-                            case 4:{
-                                system("clear");
-                                if (inventory.setCupOfNoodles(inventory.getCupOfNoodles()+1)){
-                                    inventory.setBuffBucks(inventory.getBuffBucks()-3);
-                                    cout<<"Successfully Purchased 1 Cup Of Noodles\n"<<endl;
-                                }
-                                validInput=false;
-                            }break;
-                            case 5:{
-                                system("clear");
-                                cout<<"Thank you for visiting Farrand Market\n"<<endl;
-                                farrMark=false;
-                                validInput=false;
-                            }break;
-                            default:{
-                                cout<<"Invalid Input"<<endl;
-                            }
-                        } 
+                    if(!(cin>>item)){
+                        system("clear");
+                        cout<<"Invalid Input"<<endl;
+                        cin.clear();
+                        cin.ignore(INT_MAX,'\n');//https://stackoverflow.com/questions/257091/how-do-i-flush-the-cin-buffer – error with clearing cin buffer
                     }
+                    if (inventory.getBuffBucks()<3&&item<=4&&item>=1){
+                        system("clear");
+                        cout<<"You do not have enough Buff Bucks to purchase this.\n"<<endl;
+                        break;
+                    }
+                    switch(item){
+                        case 1:{
+                                system("clear");
+                            if (inventory.setPedialyte(inventory.getPedialyte()+1)){
+                                inventory.setBuffBucks(inventory.getBuffBucks()-3);
+                                cout<<"Successfully Purchased 1 Pedialyte\n"<<endl;
+                            }
+                        }break;
+                        case 2:{
+                                system("clear");
+                            if (inventory.setEnergyDrink(inventory.getEnergyDrink()+1)){
+                                inventory.setBuffBucks(inventory.getBuffBucks()-3);
+                                cout<<"Successfully Purchased 1 Energy Drink\n"<<endl;
+                            }
+                        }break;
+                        case 3:{
+                                system("clear");
+                            if (inventory.setMuscleMilk(inventory.getMuscleMilk()+1)){
+                                inventory.setBuffBucks(inventory.getBuffBucks()-3);
+                                cout<<"Successfully Purchased 1 Muscle Milk\n"<<endl;
+                            }
+                        }break;
+                        case 4:{
+                            system("clear");
+                            if (inventory.setCupOfNoodles(inventory.getCupOfNoodles()+1)){
+                                inventory.setBuffBucks(inventory.getBuffBucks()-3);
+                                cout<<"Successfully Purchased 1 Cup Of Noodles\n"<<endl;
+                            }
+                        }break;
+                        case 5:{
+                            system("clear");
+                            cout<<"Thank you for visiting Farrand Market\n"<<endl;
+                            farrMark=false;
+                        }break;
+                    } 
                 }
             }
             mapObject.exploreSpace(mapObject.getPlayerRow(),mapObject.getPlayerCol());
@@ -321,10 +368,15 @@ while(option != 'Q')
         break;
         case 'r':{
             printFile("rules.txt");
+            string temp;
+            cout<<"\nClick any button to continue..."<<endl;
+            cin>>temp;
+            system("clear");
         }
         break;
         case 'q':{
             cout << "Better luck next time!" << endl;
+            sendScore("playerLogs",player,inventory);
             return 0;
         }break;
         default:{
