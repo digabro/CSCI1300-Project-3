@@ -128,11 +128,7 @@ void randomChances(Map map,Inventory inv,Item bottle){//use the bottle item when
 void sendScore(string file_name,Player player, Inventory inv){
     ofstream outFile;
     outFile.open(file_name,ios_base::app);
-    outFile<<player.getName()<<","<<player.getHp()<<","<<player.getSkillLevel()<<","<<inv.getBuffBucks();//player aspects
-    for (int i=0;i<inv.getNumItems();i++){
-        outFile<<","<<inv.getItem(i).getItemName()<<","<<inv.getItem(i).getQuantity();
-    }
-    outFile<<",Pedialyte,"<<inv.getPedialyte()<<",Energy drink,"<<inv.getEnergyDrink()<<",Muscle milk,"<<inv.getMuscleMilk()<<",Noodles,"<<inv.getCupOfNoodles()<<endl;
+    outFile<<player.getName()<<","<<player.getHp()<<","<<player.getSkillLevel()<<","<<inv.getBuffBucks()<<endl;//player aspects
 }
 
 int split(string input, char sep, string arr[], int size){
@@ -170,10 +166,43 @@ int split(string input, char sep, string arr[], int size){
     return count;
 }
 
+void organizeLogs(){
+    string splitArr[4];
+    string line;
+    ifstream inFile;
+    inFile.open("playerLogs");
+    vector<vector<string>> logLines;
+    vector<string> tempLog;
+    while(!inFile.eof()){
+        getline(inFile,line);
+        split(line,',',splitArr,4);
+        for (int i=0;i<4;i++){
+            tempLog.push_back(splitArr[i]);
+        }
+        tempLog.push_back(to_string((((stod(tempLog[1])/20.0)*0.3)+((stod(tempLog[2])/10.0)*0.3)+(stod(tempLog[3])/50.0)*0.4)*14.3));//remaining hp 20% skill 30% buffbucks 50% 
+        logLines.push_back(tempLog);
+        tempLog.clear();
+    }
+    for (int i=0;i<(logLines.size()-1);i++){
+        for (int j=1;j<(logLines.size()-1);j++){
+            if (stoi(logLines[j][4])>=stoi(logLines[j-1][4])){
+                tempLog=logLines[j-1];
+                logLines[j-1]=logLines[j];
+                logLines[j]=tempLog;
+            }
+        }
+    }
+    inFile.close();
+    ofstream outFile;
+    outFile.open("scoreboard");
+    for (int i=0;i<5;i++){
+        outFile<<(i+1)<<". "<<logLines[i][0]<<" | Total Points: "<<stoi(logLines[i][4])<<" | HealthPoints: "<<logLines[i][1]<<" | SkillPoints: "<<logLines[i][2]<<" | BuffBucks: "<<logLines[i][3]<<endl;
+    }
+    outFile.close();
+}
 
 int main(){
     srand(time(NULL));
-
     cout<<"  _______ _            _    _       _                    _ _           _    _           _   _" <<endl;     
     cout<<" |__   __| |          | |  | |     (_)                  (_) |         | |  | |         | | | |  "  <<endl; 
     cout<<"    | |  | |__   ___  | |  | |_ __  ___   _____ _ __ ___ _| |_ _   _  | |__| |_   _ ___| |_| | ___ "<<endl;
@@ -184,11 +213,10 @@ int main(){
     cout<<"                                                               |____|"<<endl;
     char option;
     Map mapObject=Map();
-    Player player=Player();
     cout<<"Please enter your name: ";
     string name;
     cin>>name;
-    player.setName(name);
+    Player player=Player(name,20,0,0);
     Inventory inventory =Inventory(50,0,0,0,0);
     //adding armor items to inventory array with quantity of 0
     Item csChestplate =Item("CS Chestplate","Armor",0,inventory.getNumItems(),0,6,60,1,0);
@@ -253,6 +281,7 @@ int main(){
         cout << "E: Inventory" << endl; 
         cout << "I: Investigate" << endl;
         cout << "R: Rules and directions" << endl;
+        cout << "C: Scoreboard" << endl;
         cout << "Q: Quit game" << endl;
         cout << "Choose one of the options above." << endl;
         cin >> option;
@@ -376,6 +405,15 @@ int main(){
                 sendScore("playerLogs",player,inventory);
                 return 0;
             }break;
+            case 'c':{
+                //system("clear");
+                string temp;
+                organizeLogs();
+                printFile("scoreboard");
+                cout<<"\nClick any button to continue..."<<endl;
+                cin>>temp;
+                system("clear");
+            }
             default:{
                 system("clear");
                 cout << "Invalid input. Please try again." << endl;
