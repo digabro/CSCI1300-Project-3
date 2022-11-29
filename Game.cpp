@@ -472,11 +472,24 @@ int main(){
             }
         }
         //if the input was any movement key, check if the space that was moved onto is an enemy space
+        int encounterChance=rand()%100;
         if(isNearEnemy(mapObject.getPlayerRow(),mapObject.getPlayerCol(),mapObject)=='B'){
-            //insert either bandit
+            if(encounterChance>=0&&encounterChance<10){//bandit leader attacks
+                //bandit leader attack code here
+            }
+            else if(encounterChance>=10&&encounterChance<40){//normal bandit attacks
+                //normal bandit attack code here
+            }
         }
         //again for cult
-
+        if(isNearEnemy(mapObject.getPlayerRow(),mapObject.getPlayerCol(),mapObject)=='C'){
+            if(encounterChance>=0&&encounterChance<10){//cultist leader attacks
+                //cultist leader attack code here
+            }
+            else if(encounterChance>=10&&encounterChance<40){//normal cultist attacks
+                //normal cultist attack code here
+            }
+        }
     }
     return 0;
 }
