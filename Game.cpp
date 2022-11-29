@@ -183,11 +183,20 @@ void organizeLogs(){
     inFile.close();
     ofstream outFile;
     outFile.open("scoreboard");
-    for (int i=0;i<5;i++){
-        outFile<<(i+1)<<". "<<logLines[i][0]<<" | Total Points: "<<stoi(logLines[i][4])<<" | HealthPoints: "<<logLines[i][1]<<" | SkillPoints: "<<logLines[i][2]<<" | BuffBucks: "<<logLines[i][3]<<endl;
+    int numRep=5;
+    if(logLines.size()<5){
+        numRep=logLines.size()-1;
+    }
+    for (int i=0;i<numRep;i++){
+        outFile<<(i+1)<<". "<<logLines[i][0]<<" | Total: "<<stoi(logLines[i][4])<<" | Health: "<<logLines[i][1]<<" | Skill: "<<logLines[i][2]<<" | BuffBucks: "<<logLines[i][3]<<endl;
     }
     outFile.close();
 }
+
+
+
+
+
 
 int main(){
     srand(time(NULL));
@@ -203,7 +212,8 @@ int main(){
     Map mapObject=Map();
     cout<<"Please enter your name: ";
     string name;
-    cin>>name;
+    getline(cin,name);
+    system("clear");
     Player player=Player(name,20,0,0);
     Inventory inventory =Inventory(50,0,0,0,0);
     //adding armor items to inventory array with quantity of 0
@@ -397,6 +407,7 @@ int main(){
                 //system("clear");
                 string temp;
                 organizeLogs();
+                cout<<"======Scoreboard======"<<endl;
                 printFile("scoreboard");
                 cout<<"\nClick any button to continue..."<<endl;
                 cin>>temp;
