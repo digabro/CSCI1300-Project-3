@@ -1,3 +1,5 @@
+//Lachlan Kotarski and Diego Olin 
+
 #include "npc.h"
 #include <iostream>
 using namespace std;

@@ -1,3 +1,5 @@
+//Lachlan Kotarski and Diego Olin 
+
 #include "Inventory.h"
 #include "Item.h"
 #include "location.h"
@@ -270,7 +272,9 @@ int main(){
     while(option != 'Q')
     {
         mapObject.displayMap();
-
+        cout << "\n======Status======" << endl;
+        cout << "Health Pts: "<<player.getHp()<<" | Armor: "<<player.getArmor()<<endl<<"Buff Bucks: "<<inventory.getBuffBucks();
+        cout << " | Skill: "<< player.getSkillLevel()<<endl<<endl; 
         cout << "======Main Menu======" << endl;
         cout << "W: Move Upwards" << endl; 
         cout << "A: Move Left" << endl; 

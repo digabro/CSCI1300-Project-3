@@ -1,3 +1,5 @@
+//Lachlan Kotarski and Diego Olin 
+
 #ifndef INVENTORY_H
 #define INVENTORY_H
 #include <iostream>

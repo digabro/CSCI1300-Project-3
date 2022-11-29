@@ -1,3 +1,5 @@
+//Lachlan Kotarski and Diego Olin 
+
 #include "map.h"
 
 using namespace std;

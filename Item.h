@@ -1,3 +1,5 @@
+//Lachlan Kotarski and Diego Olin 
+
 #ifndef ITEM_H
 #define ITEM_H
 #include <iostream>
