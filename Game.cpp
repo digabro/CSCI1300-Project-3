@@ -69,7 +69,7 @@ void printFile(string file_name){
     return;
 }
 
-bool isNearEnemy(int row,int col,Map map){
+bool isNearEnemy(int row,int col,Map map){//make return char
     if (map.isBanditCampLocation(map.getPlayerRow(),(map.getPlayerCol()+1))||map.isCultistLocation(map.getPlayerRow(),(map.getPlayerCol()+1))){
         return true;
     }
@@ -388,9 +388,7 @@ while(option != 'Q')
     if(isNearEnemy(mapObject.getPlayerRow(),mapObject.getPlayerCol(),mapObject)){
         //insert either bandit or cultist code here
     }
-    if(!mapObject.isFreeSpace(mapObject.getPlayerRow(),mapObject.getDungeonExitCol())&&!mapObject.isMarketLocation(mapObject.getPlayerRow(),mapObject.getDungeonExitCol())){
-
-    }
+    
 
 }
 return 0;
