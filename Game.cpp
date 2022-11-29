@@ -109,10 +109,7 @@ void randomChances(Map map,Inventory inv,Item bottle){//use the bottle item when
         }
         else if (randNum>=5&&randNum<25){//found broken bottle
             system("clear");
-            if (bottle.getQuantity()< bottle.getMaxQuantity()){
-                inv.buyItem(bottle);
-                cout<<"While investigating, you found a broken bottle"<<endl;
-            }
+            cout<<"While investigating, you found a broken bottle"<<endl;
         }
         else if (randNum>=25&&randNum<45){//found raccoon
             system("clear");
@@ -183,8 +180,8 @@ int main(){
     cout<<"    | |  | \'_ \\ / _ \\ | |  | | \'_ \\| \\ \\ / / _ \\ \'__/ __| | __| | | | |  __  | | | / __| __| |/ _ \\"<<endl;
     cout<<"    | |  | | | |  __/ | |__| | | | | |\\ V /  __/ |  \\__ \\ | |_| |_| | | |  | | |_| \\__ \\ |_| |  __/"<<endl;
     cout<<"    |_|  |_| |_|\\___|  \\____/|_| |_|_| \\_/ \\___|_|  |___/_|\\__|\\__, | |_|  |_|\\__,_|___/\\__|_|\\___|" <<endl;
-    cout<<"                                                                __/ |                              "<<endl;
-    cout<<"                                                               |____|                               "<<endl;
+    cout<<"                                                                __/ |"<<endl;
+    cout<<"                                                               |____|"<<endl;
     char option;
     Map mapObject=Map();
     Player player=Player();
@@ -385,10 +382,10 @@ int main(){
             }
         }
         //if the input was any movement key, check if the space that was moved onto is an enemy space
-        if(isNearEnemy(mapObject.getPlayerRow(),mapObject.getPlayerCol(),mapObject)){
-            //insert either bandit or cultist code here
+        if(isNearEnemy(mapObject.getPlayerRow(),mapObject.getPlayerCol(),mapObject)=='B'){
+            //insert either bandit
         }
-        
+        //again for cult
 
     }
     return 0;
