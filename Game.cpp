@@ -175,221 +175,221 @@ int split(string input, char sep, string arr[], int size){
 
 
 int main(){
-srand(time(NULL));
+    srand(time(NULL));
 
-cout<<"  _______ _            _    _       _                    _ _           _    _           _   _" <<endl;     
-cout<<" |__   __| |          | |  | |     (_)                  (_) |         | |  | |         | | | |  "  <<endl; 
-cout<<"    | |  | |__   ___  | |  | |_ __  ___   _____ _ __ ___ _| |_ _   _  | |__| |_   _ ___| |_| | ___ "<<endl;
-cout<<"    | |  | \'_ \\ / _ \\ | |  | | \'_ \\| \\ \\ / / _ \\ \'__/ __| | __| | | | |  __  | | | / __| __| |/ _ \\"<<endl;
-cout<<"    | |  | | | |  __/ | |__| | | | | |\\ V /  __/ |  \\__ \\ | |_| |_| | | |  | | |_| \\__ \\ |_| |  __/"<<endl;
-cout<<"    |_|  |_| |_|\\___|  \\____/|_| |_|_| \\_/ \\___|_|  |___/_|\\__|\\__, | |_|  |_|\\__,_|___/\\__|_|\\___|" <<endl;
-cout<<"                                                                __/ |                              "<<endl;
-cout<<"                                                               |____|                               "<<endl;
-char option;
-Map mapObject=Map();
-Player player=Player();
-cout<<"Please enter your name: ";
-string name;
-cin>>name;
-player.setName(name);
-Inventory inventory =Inventory(50,0,0,0,0);
-//adding armor items to inventory array with quantity of 0
-Item csChestplate =Item("CS Chestplate","Armor",0,inventory.getNumItems(),0,6,60,1,0);
-Item biologyHelm =Item("Biology Helmet","Armor",0,inventory.getNumItems(),0,4,40,1,0);
-Item historyHelm =Item("History Helmet","Armor",0,inventory.getNumItems(),0,4,40,1,0);
-Item cowboyHat =Item("Cowboy Hat","Armor",0,inventory.getNumItems(),0,4,40,1,0);
-Item hoodie =Item("Hoodie","Armor",9,inventory.getNumItems(),0,3,30,1,0);
-Item sweatpants =Item("Sweatpants","Armor",6,inventory.getNumItems(),0,2,20,1,0);
-Item sandals =Item("Sandals","Armor",3,inventory.getNumItems(),0,1,10,1,0);
-Item sunglasses =Item("Sunglasses","Armor",3,inventory.getNumItems(),0,1,10,1,0);
-//adding weapon items to inventory array with quantity of 0
-Item pencils =Item("Pencils","Weapon",0,inventory.getNumItems(),2,0,-1,1,0);
-Item scissors =Item("Scissors","Weapon",0,inventory.getNumItems(),3,0,-1,1,0);
-Item bottle =Item("Broken Bottle","Weapon",0,inventory.getNumItems(),1,0,-1,1,0);
-Item paddle =Item("Abandoned Paddle","Weapon",0,inventory.getNumItems(),1,0,-1,1,0);
-inventory.addItem(csChestplate);
-inventory.addItem(biologyHelm);
-inventory.addItem(historyHelm);
-inventory.addItem(cowboyHat);
-inventory.addItem(hoodie);
-inventory.addItem(sweatpants);
-inventory.addItem(sandals);
-inventory.addItem(sunglasses);
-inventory.addItem(pencils);
-inventory.addItem(scissors);
-inventory.addItem(bottle);
-inventory.addItem(paddle);
-
-
-mapObject.addMarket(6,15);//farrand market
-
-//adding bandit camps
-int bRow,bCol;
-for (int i=0;i<(rand()%2)+1;i++){//can be changed to i<2 so its not a random amount of bandit camps
-    bRow = (rand()%11);
-    bCol = (rand()%29);
-    mapObject.addBanditCamp(bRow,bCol);
-}
-//adding cultist camps
-for (int i=0;i<(rand()%4)+1;i++){//can be changed to i<5 so its not a random amount of cultists
-    bRow = (rand()%11);
-    bCol = (rand()%29);
-    mapObject.addCultist(bRow,bCol);
-}
-//adding schools
-for (int i=0;i<4;i++){
-    bRow = (rand()%5)+6;
-    bCol = (rand()%14)+15;
-    mapObject.addSchool(bRow,bCol);
-}
+    cout<<"  _______ _            _    _       _                    _ _           _    _           _   _" <<endl;     
+    cout<<" |__   __| |          | |  | |     (_)                  (_) |         | |  | |         | | | |  "  <<endl; 
+    cout<<"    | |  | |__   ___  | |  | |_ __  ___   _____ _ __ ___ _| |_ _   _  | |__| |_   _ ___| |_| | ___ "<<endl;
+    cout<<"    | |  | \'_ \\ / _ \\ | |  | | \'_ \\| \\ \\ / / _ \\ \'__/ __| | __| | | | |  __  | | | / __| __| |/ _ \\"<<endl;
+    cout<<"    | |  | | | |  __/ | |__| | | | | |\\ V /  __/ |  \\__ \\ | |_| |_| | | |  | | |_| \\__ \\ |_| |  __/"<<endl;
+    cout<<"    |_|  |_| |_|\\___|  \\____/|_| |_|_| \\_/ \\___|_|  |___/_|\\__|\\__, | |_|  |_|\\__,_|___/\\__|_|\\___|" <<endl;
+    cout<<"                                                                __/ |                              "<<endl;
+    cout<<"                                                               |____|                               "<<endl;
+    char option;
+    Map mapObject=Map();
+    Player player=Player();
+    cout<<"Please enter your name: ";
+    string name;
+    cin>>name;
+    player.setName(name);
+    Inventory inventory =Inventory(50,0,0,0,0);
+    //adding armor items to inventory array with quantity of 0
+    Item csChestplate =Item("CS Chestplate","Armor",0,inventory.getNumItems(),0,6,60,1,0);
+    Item biologyHelm =Item("Biology Helmet","Armor",0,inventory.getNumItems(),0,4,40,1,0);
+    Item historyHelm =Item("History Helmet","Armor",0,inventory.getNumItems(),0,4,40,1,0);
+    Item cowboyHat =Item("Cowboy Hat","Armor",0,inventory.getNumItems(),0,4,40,1,0);
+    Item hoodie =Item("Hoodie","Armor",9,inventory.getNumItems(),0,3,30,1,0);
+    Item sweatpants =Item("Sweatpants","Armor",6,inventory.getNumItems(),0,2,20,1,0);
+    Item sandals =Item("Sandals","Armor",3,inventory.getNumItems(),0,1,10,1,0);
+    Item sunglasses =Item("Sunglasses","Armor",3,inventory.getNumItems(),0,1,10,1,0);
+    //adding weapon items to inventory array with quantity of 0
+    Item pencils =Item("Pencils","Weapon",0,inventory.getNumItems(),2,0,-1,1,0);
+    Item scissors =Item("Scissors","Weapon",0,inventory.getNumItems(),3,0,-1,1,0);
+    Item bottle =Item("Broken Bottle","Weapon",0,inventory.getNumItems(),1,0,-1,1,0);
+    Item paddle =Item("Abandoned Paddle","Weapon",0,inventory.getNumItems(),1,0,-1,1,0);
+    inventory.addItem(csChestplate);
+    inventory.addItem(biologyHelm);
+    inventory.addItem(historyHelm);
+    inventory.addItem(cowboyHat);
+    inventory.addItem(hoodie);
+    inventory.addItem(sweatpants);
+    inventory.addItem(sandals);
+    inventory.addItem(sunglasses);
+    inventory.addItem(pencils);
+    inventory.addItem(scissors);
+    inventory.addItem(bottle);
+    inventory.addItem(paddle);
 
 
-while(option != 'Q')
-{
-    mapObject.displayMap();
+    mapObject.addMarket(6,15);//farrand market
 
-    cout << "======Main Menu======" << endl;
-    cout << "W: Move Upwards" << endl; 
-    cout << "A: Move Left" << endl; 
-    cout << "S: Move Downwards" << endl; 
-    cout << "D: Move Right" << endl; 
-    cout << "E: Inventory" << endl; 
-    cout << "I: Investigate" << endl;
-    cout << "R: Rules and directions" << endl;
-    cout << "Q: Quit game" << endl;
-    cout << "Choose one of the options above." << endl;
-    cin >> option;
-    system("clear");
-    switch(tolower(option))
+    //adding bandit camps
+    int bRow,bCol;
+    for (int i=0;i<(rand()%2)+1;i++){//can be changed to i<2 so its not a random amount of bandit camps
+        bRow = (rand()%11);
+        bCol = (rand()%29);
+        mapObject.addBanditCamp(bRow,bCol);
+    }
+    //adding cultist camps
+    for (int i=0;i<(rand()%4)+1;i++){//can be changed to i<5 so its not a random amount of cultists
+        bRow = (rand()%11);
+        bCol = (rand()%29);
+        mapObject.addCultist(bRow,bCol);
+    }
+    //adding schools
+    for (int i=0;i<4;i++){
+        bRow = (rand()%5)+6;
+        bCol = (rand()%14)+15;
+        mapObject.addSchool(bRow,bCol);
+    }
+
+
+    while(option != 'Q')
     {
-        case 'w':{
-            mapObject.move('w');
-        }
-        break;
-        case 'a':{
-            mapObject.move('a');
-        }
-        break;
-        case 's':{
-            mapObject.move('s');
-        }
-        break;
-        case 'd':{
-            mapObject.move('d');
-        }
-        break;
-        case 'e':{
-            string temp;
-            system("clear");
-            cout<<"======Inventory======"<<endl;
-            cout<<"Buff Bucks: $"<<inventory.getBuffBucks()<<".00"<<endl;
-            if(!printInventory(inventory,"Weapon")){
-                cout<<"No Weapons Stored in Inventory."<<endl;
+        mapObject.displayMap();
+
+        cout << "======Main Menu======" << endl;
+        cout << "W: Move Upwards" << endl; 
+        cout << "A: Move Left" << endl; 
+        cout << "S: Move Downwards" << endl; 
+        cout << "D: Move Right" << endl; 
+        cout << "E: Inventory" << endl; 
+        cout << "I: Investigate" << endl;
+        cout << "R: Rules and directions" << endl;
+        cout << "Q: Quit game" << endl;
+        cout << "Choose one of the options above." << endl;
+        cin >> option;
+        system("clear");
+        switch(tolower(option))
+        {
+            case 'w':{
+                mapObject.move('w');
             }
-            if(!printInventory(inventory,"Armor")){
-                cout<<"No Armor Stored in Inventory."<<endl;
+            break;
+            case 'a':{
+                mapObject.move('a');
             }
-            if(!printInventory(inventory,"Food")){
-                cout<<"No Food Stored in Inventory."<<endl;
+            break;
+            case 's':{
+                mapObject.move('s');
             }
-            cout<<"\nClick any button to continue..."<<endl;
-            cin>>temp;
-            system("clear");
-        }
-        break;
-        case 'i':{
-            //when the player investigates a space check if its a room to run the room code
-            if(mapObject.isMarketLocation(mapObject.getPlayerRow(),mapObject.getPlayerCol())&&mapObject.getPlayerRow()==6&&mapObject.getPlayerCol()==15){
-                int item=0;
-                int num;
-                bool farrMark=true;
-                while (farrMark){
-                    cout<<"Welcome to Farrand Market\nCurrent money: "<<inventory.getBuffBucks()<<"\n\nItems to buy:"<<endl;
-                    cout<<"1.Pedialyte - $3\n2.Energy Drink - $3\n3.Muscle Milk - $3";
-                    cout<<"\n4.Cup of Noodles - $3\n5.Exit\nSelect an item: ";
-                    if(!(cin>>item)){
-                        system("clear");
-                        cout<<"Invalid Input"<<endl;
-                        cin.clear();
-                        cin.ignore(INT_MAX,'\n');//https://stackoverflow.com/questions/257091/how-do-i-flush-the-cin-buffer – error with clearing cin buffer
-                    }
-                    if (inventory.getBuffBucks()<3&&item<=4&&item>=1){
-                        system("clear");
-                        cout<<"You do not have enough Buff Bucks to purchase this.\n"<<endl;
-                        break;
-                    }
-                    switch(item){
-                        case 1:{
-                                system("clear");
-                            if (inventory.setPedialyte(inventory.getPedialyte()+1)){
-                                inventory.setBuffBucks(inventory.getBuffBucks()-3);
-                                cout<<"Successfully Purchased 1 Pedialyte\n"<<endl;
-                            }
-                        }break;
-                        case 2:{
-                                system("clear");
-                            if (inventory.setEnergyDrink(inventory.getEnergyDrink()+1)){
-                                inventory.setBuffBucks(inventory.getBuffBucks()-3);
-                                cout<<"Successfully Purchased 1 Energy Drink\n"<<endl;
-                            }
-                        }break;
-                        case 3:{
-                                system("clear");
-                            if (inventory.setMuscleMilk(inventory.getMuscleMilk()+1)){
-                                inventory.setBuffBucks(inventory.getBuffBucks()-3);
-                                cout<<"Successfully Purchased 1 Muscle Milk\n"<<endl;
-                            }
-                        }break;
-                        case 4:{
-                            system("clear");
-                            if (inventory.setCupOfNoodles(inventory.getCupOfNoodles()+1)){
-                                inventory.setBuffBucks(inventory.getBuffBucks()-3);
-                                cout<<"Successfully Purchased 1 Cup Of Noodles\n"<<endl;
-                            }
-                        }break;
-                        case 5:{
-                            system("clear");
-                            cout<<"Thank you for visiting Farrand Market\n"<<endl;
-                            farrMark=false;
-                        }break;
-                    } 
+            break;
+            case 'd':{
+                mapObject.move('d');
+            }
+            break;
+            case 'e':{
+                string temp;
+                system("clear");
+                cout<<"======Inventory======"<<endl;
+                cout<<"Buff Bucks: $"<<inventory.getBuffBucks()<<".00"<<endl;
+                if(!printInventory(inventory,"Weapon")){
+                    cout<<"No Weapons Stored in Inventory."<<endl;
                 }
+                if(!printInventory(inventory,"Armor")){
+                    cout<<"No Armor Stored in Inventory."<<endl;
+                }
+                if(!printInventory(inventory,"Food")){
+                    cout<<"No Food Stored in Inventory."<<endl;
+                }
+                cout<<"\nClick any button to continue..."<<endl;
+                cin>>temp;
+                system("clear");
             }
-            mapObject.exploreSpace(mapObject.getPlayerRow(),mapObject.getPlayerCol());
-            randomChances(mapObject,inventory,bottle);
+            break;
+            case 'i':{
+                //when the player investigates a space check if its a room to run the room code
+                if(mapObject.isMarketLocation(mapObject.getPlayerRow(),mapObject.getPlayerCol())&&mapObject.getPlayerRow()==6&&mapObject.getPlayerCol()==15){
+                    int item=0;
+                    int num;
+                    bool farrMark=true;
+                    while (farrMark){
+                        cout<<"Welcome to Farrand Market\nCurrent money: "<<inventory.getBuffBucks()<<"\n\nItems to buy:"<<endl;
+                        cout<<"1.Pedialyte - $3\n2.Energy Drink - $3\n3.Muscle Milk - $3";
+                        cout<<"\n4.Cup of Noodles - $3\n5.Exit\nSelect an item: ";
+                        if(!(cin>>item)){
+                            system("clear");
+                            cout<<"Invalid Input"<<endl;
+                            cin.clear();
+                            cin.ignore(INT_MAX,'\n');//https://stackoverflow.com/questions/257091/how-do-i-flush-the-cin-buffer – error with clearing cin buffer
+                        }
+                        if (inventory.getBuffBucks()<3&&item<=4&&item>=1){
+                            system("clear");
+                            cout<<"You do not have enough Buff Bucks to purchase this.\n"<<endl;
+                            break;
+                        }
+                        switch(item){
+                            case 1:{
+                                    system("clear");
+                                if (inventory.setPedialyte(inventory.getPedialyte()+1)){
+                                    inventory.setBuffBucks(inventory.getBuffBucks()-3);
+                                    cout<<"Successfully Purchased 1 Pedialyte\n"<<endl;
+                                }
+                            }break;
+                            case 2:{
+                                    system("clear");
+                                if (inventory.setEnergyDrink(inventory.getEnergyDrink()+1)){
+                                    inventory.setBuffBucks(inventory.getBuffBucks()-3);
+                                    cout<<"Successfully Purchased 1 Energy Drink\n"<<endl;
+                                }
+                            }break;
+                            case 3:{
+                                    system("clear");
+                                if (inventory.setMuscleMilk(inventory.getMuscleMilk()+1)){
+                                    inventory.setBuffBucks(inventory.getBuffBucks()-3);
+                                    cout<<"Successfully Purchased 1 Muscle Milk\n"<<endl;
+                                }
+                            }break;
+                            case 4:{
+                                system("clear");
+                                if (inventory.setCupOfNoodles(inventory.getCupOfNoodles()+1)){
+                                    inventory.setBuffBucks(inventory.getBuffBucks()-3);
+                                    cout<<"Successfully Purchased 1 Cup Of Noodles\n"<<endl;
+                                }
+                            }break;
+                            case 5:{
+                                system("clear");
+                                cout<<"Thank you for visiting Farrand Market\n"<<endl;
+                                farrMark=false;
+                            }break;
+                        } 
+                    }
+                }
+                mapObject.exploreSpace(mapObject.getPlayerRow(),mapObject.getPlayerCol());
+                randomChances(mapObject,inventory,bottle);
 
-            /*
-            Open investigate menu(maybe make inv)
-            * search for money
-            * search for wildlife
-            * search for supplies 
-            */
+                /*
+                Open investigate menu(maybe make inv)
+                * search for money
+                * search for wildlife
+                * search for supplies 
+                */
+            }
+            break;
+            case 'r':{
+                printFile("rules.txt");
+                string temp;
+                cout<<"\nClick any button to continue..."<<endl;
+                cin>>temp;
+                system("clear");
+            }
+            break;
+            case 'q':{
+                cout << "Better luck next time!" << endl;
+                sendScore("playerLogs",player,inventory);
+                return 0;
+            }break;
+            default:{
+                system("clear");
+                cout << "Invalid input. Please try again." << endl;
+            }
         }
-        break;
-        case 'r':{
-            printFile("rules.txt");
-            string temp;
-            cout<<"\nClick any button to continue..."<<endl;
-            cin>>temp;
-            system("clear");
+        //if the input was any movement key, check if the space that was moved onto is an enemy space
+        if(isNearEnemy(mapObject.getPlayerRow(),mapObject.getPlayerCol(),mapObject)){
+            //insert either bandit or cultist code here
         }
-        break;
-        case 'q':{
-            cout << "Better luck next time!" << endl;
-            sendScore("playerLogs",player,inventory);
-            return 0;
-        }break;
-        default:{
-            system("clear");
-            cout << "Invalid input. Please try again." << endl;
-        }
-    }
-    //if the input was any movement key, check if the space that was moved onto is an enemy space
-    if(isNearEnemy(mapObject.getPlayerRow(),mapObject.getPlayerCol(),mapObject)){
-        //insert either bandit or cultist code here
-    }
-    
+        
 
-}
-return 0;
+    }
+    return 0;
 }
