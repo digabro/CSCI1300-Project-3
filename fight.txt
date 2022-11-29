@@ -1,0 +1,75 @@
+Different fighting sequences: 
+Cultist  
+NPC Class: 
+Agression: 1
+Attack 1: 
+Attack 2:
+Attack 3: 
+Person Class: 
+name:
+hp:
+armor: 
+Player: 
+skill level: depends
+
+Bandit  
+NPC Class-
+Agression: 1
+Attack 1: Brute Charge - 6 Hp
+Attack 2: Fist Fighting - 4Hp
+Attack 3: Body slam from above - 8 Hp
+dodge ability: 0
+Person Class- 
+name: Bandit
+hp: 25 Hp
+armor: 0 Hp
+Player-
+skill level: Higher since they're on the Hill 
+
+Bandit Leader
+NPC Class-
+Agression: 1
+Attack 1: Brute Charge - 10 Hp
+Attack 2: Fist Fighting - 8 Hp
+Attack 3: Body slam from above - 12 Hp
+dodge ability: 1
+Person Class- 
+name: BanditLeader
+hp: 25 Hp
+armor: 10 Hp
+Player-
+skill level: Highest of bandits 
+
+if bandit leader is killed, remove Bandit camp
+
+Wildlife
+NPC Class- 
+Agression: 1
+Attack 1: Raccon nip - 4 Hp + unless the dude has armor, -1 each wildlife attack time because rabies 
+Attack 2: Moose charge - 6 Hp 
+Attack 3: Squirrel acorn throw - 3 Hp
+dodge: ability: 1
+Person Class- 
+name: Wildlife
+hp: 10
+armor: 0
+Player-
+skill level: depends what your location is
+
+King Wook 
+NPC Class-
+Agression: 0
+Attack 1: Fire ball - 7 Hp
+Attack 2: Earth Ground Slam - 10 Hp
+Attack 3: Force Field - 0 Hp - protects player for two turns
+Person Class: 
+name:
+hp:
+armor: 
+Player: 
+skill level: depends
+
+v/////Y/
+x////v/
+vvvvvvv
+raplphie 1 spaces

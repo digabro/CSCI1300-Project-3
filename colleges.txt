@@ -1,9 +1,169 @@
 Welcome to the college of Computer Science. Here's a quiz if you really
 know your stuff.(Select the answer that makes the most sense.)
 
+1. What does this code do? 
+
+cout << "Hello, World!"; 
+
+a. Prints out Hello World! and ends the line.
+b. Prints out Hello, World!
+c. Prints out Hello World!
+d. Prints out Hello, World! and ends the line. 
+
+2. What does this code snippet do?
+
+string string = "Hello, World!";
+for(int i = 0; i < string.length(); i++)
+{
+   if(string.substr(i,1) == "a" || string.substr(i,1) == "e" || string.substr(i,1) == "i" || string.substr(i,1) == "o" || string.substr(i,1) == "u"){
+      cout << string.substr(i,1) << ": Vowel " << endl;
+   }
+   else{
+      cout << string.substr(i,1) << endl;
+   }
+}
+
+a. Prints out each letter of the string: "Hello, World!" on each line of the terminal. 
+b. Prints out each letter of the string: "Hello, World!" and prints out " : Vowel" after each letter that is a vowel.
+c. prints out "Hello, World!"
+d. Prints out each letter of the string: "Hello world!" and prints out " : Vowel" after each letter that is a vowel.
+
+3. What does the library fstream do? 
+
+a. creates a water stream that carries many 'f's
+b. creates a livestream that is titled 'f'
+c. a library with a class that creates a input file stream object and output file stream object that allows
+   the code to read through the file and use the info or allows code to outputs information to a file. 
+d. none of the above. 
+
+Congrats! You passed the Computer Science class! 
+
+
 Welcome to the college of History. Today we will be learning the history of
 this school and Boulder, Colorado. 
 
 1. With Coors and Anheuser-Busch nearby, plus 20 local microbreweries, this 
    area has become the largest beer-producing triangle in the world.
-2. 
+
+2. When was the town of Bolder built?
+
+a. 1878
+b. 1865
+c. 1892
+d. 1871
+
+3. What year was the University of Colorado-Boulder founded?
+
+a. 1676
+b. 1870
+c. 1895
+d. 1909
+
+4. When was the first Ralphie Buffalo introduced to the university?
+
+a. 1919
+b. 1957
+c. 1892
+d. 1909
+
+5. Why are the flat irons named the flat irons?
+
+a. The pioneers saw that it was flat and filled with with iron.
+b. The pioneers thought that it looked flat like an iron used to iron clothes.
+c. The pioneers thought they were magnetic and thought their magnetic field would protect them from the sun.
+d. When Boulder was founded, there was a large iron deposit found in the mountains. 
+
+6. Who was Alfred Pecker?
+
+a. He was a settler on an expedition and became a cannibal after the trip went sour.
+b. Famous rooster.
+c. Famous Boulderite.
+d. none of the above.
+
+7. Which musician referenced Boulder in one of his songs?
+
+a. Johnny Cash.
+b. The Highway Men.
+c. Both a & b.
+d. none of the above.
+
+Congrats! You passed History class! 
+You've recieved a cowboy hat with 5 aromor points!
+
+
+Welcome to the college of Biotech. Today we will be learning the history of
+this school and Boulder, Colorado.
+
+1. ___________ is the powerhouse of the cell.
+
+a. Mitochondria
+b. Nucleus
+c. DNA
+d. ATP
+
+2. Is it okay to shake a baby?
+
+a. Hell yeah.
+b. NO.
+c. I mean don't knock it unitl you try it...
+d. Don't do it unless your doctor tells you to do so. 
+
+3. What is the thigh bone called?
+
+a. phlanges
+b. fibula
+c. tibia
+d. femur
+
+4. What does the frontal lobe do?
+
+a. Motor function
+b. controls the eyes
+c. controls the mouth 
+d. main computing
+
+Congrats! You passed the Biotech class! 
+
+
+Welcome to the college of Mathematics. Here's a quiz if you really
+know your stuff.(Select the answer that makes the most sense.)
+
+1. Solve 4 x 4.
+   Answer: 
+
+2. Solve 9 x 9.
+   Answer: 
+
+3. Solve 6 x 6. 
+   Answer:
+
+4. If f(x) = 4x^5 + 7x^3 - 2x, solve f`(x). Pick one of the answers below.
+
+a. f`(x) = 20x + 22x^2 - 4.
+b. F(x) = x^5 + (7/4)x^4 -x^2 + c.
+c. f`(x) = 20x^4 + 21x^2 - 2. 
+d. f`(x) = x^5 + (7/4)x^4 -x^2 + c.
+
+5. Solve 2 + 2. 
+   Answer: 4
+
+6. Solve 2 - 2. 
+   Answer: 
+
+7. Solve 7 x 0. 
+   Answer:
+
+8. Solve 7 x 1. 
+   Answer:
+
+9. Solve 7 x 0.001. 
+   Answer:
+
+10. Solve 100 - 4(7-5)^2.
+    Answer: 
+
+Congrats! You passed Math class! 
+You've recieved Leggings worth 6 armor points!
+
+
+So if you pass 3/4 of the classes then you have completed school requirments
