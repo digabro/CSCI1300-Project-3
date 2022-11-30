@@ -1,3 +1,5 @@
+//Lachlan Kotarski and Diego Olin 
+
 #include <iostream>
 #include <string>
 #include "Inventory.h"

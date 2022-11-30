@@ -1,3 +1,5 @@
+//Lachlan Kotarski and Diego Olin 
+
 #include <iostream>
 #include <cassert>
 #include "Inventory.h"
@@ -131,13 +133,10 @@ int main(){
     Location testLoc1=Location();  //testing location class
     assert(testLoc1.getName()=="");
     assert(testLoc1.getDifficulty()==0);
-    assert(testLoc1.getSymbol()==' ');
     testLoc1.setName("Location1");
     testLoc1.setDifficulty(2);
-    testLoc1.setSymbol('W');
     assert(testLoc1.getName()=="Location1");
     assert(testLoc1.getDifficulty()==2);
-    assert(testLoc1.getSymbol()=='W');
 
     //testing add item function 
     Inventory testInventory3=Inventory();

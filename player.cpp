@@ -1,3 +1,5 @@
+//Lachlan Kotarski and Diego Olin 
+
 #include "player.h"
 #include <iostream>
 using namespace std;
