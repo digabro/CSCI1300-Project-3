@@ -20,12 +20,8 @@ public:
   Npc();
   Npc(string name, int hp, int armor,bool agression,int att1,int att2, int att3,string att1_N,string att2_N,string att3_N);
   bool getAgression();
-  int getAttack1();
-  int getAttack2();
-  int getAttack3();
-  string getAttack1Name();
-  string getAttack2Name();
-  string getAttack3Name();
+  int getAttack(int num);
+  string getAttackName(int num);
 
   void setAgression(bool agression);
   void setAttack1(int attack1);
