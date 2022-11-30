@@ -24,7 +24,7 @@ class Inventory
     int getCupOfNoodles();
     int getNumItems();
     Item getItem(int index);
-    
+    bool isActive(string item);
 
     //mutators
     void setNumItems(int items);
@@ -33,6 +33,8 @@ class Inventory
     bool setEnergyDrink(int num_energy_drink);
     bool setMuscleMilk(int num_muscle_milk); 
     bool setCupOfNoodles(int num_cup_of_noodles);
+    bool activateFood(string item);
+    void deactivateFood(string item);
     //added this for manipulating the item array
     void addItem(Item item);
     bool buyItem(Item item);
@@ -46,22 +48,26 @@ class Inventory
     int num_muscle_milk;  // strength potion
     int num_cup_of_noodles; // food
     int num_items=0; //amount of items in inventory
+    bool pedialyte_active_;
+    bool energy_drink_active_;
+    bool muscle_milk_active_;
+    bool cup_of_noodles_active_;
     static const int max_buff_bucks = 25000; // max amount of money
     static const int max_pedialyte = 4;
     static const int max_energy_drink = 2;
     static const int max_muscle_milk = 1;
     static const int max_cup_of_noodles = 5; 
-    static const int max_items =12; 
+    static const int max_items =16; 
     Item item_list[max_items]; //added list of inventory items      
     
 
-/*
-should would stack items and make unstackable items like minecraft or should 
-we make different slots for each kind of items there are in the game.
-Ex:
-Inventory(int num_buff_bucks, int num_pedialyte, int num_energy_drink, int num_muscle_milk, int num_cup_of_noodles);
-i think we need to set a max for each item in the private part of the inventory class. 
-*/
+    /*
+    should would stack items and make unstackable items like minecraft or should 
+    we make different slots for each kind of items there are in the game.
+    Ex:
+    Inventory(int num_buff_bucks, int num_pedialyte, int num_energy_drink, int num_muscle_milk, int num_cup_of_noodles);
+    i think we need to set a max for each item in the private part of the inventory class. 
+    */
 
 };
 #endif

@@ -14,6 +14,10 @@ Inventory::Inventory()
     int num_energy_drink = 0; // speed/haste potion
     int num_muscle_milk = 0;  // strength potion
     int num_cup_of_noodles = 0; // food
+    pedialyte_active_=false;
+    energy_drink_active_=false;
+    muscle_milk_active_=false;
+    cup_of_noodles_active_=false;
 } 
 Inventory::Inventory(int in_buff_bucks, int in_pedialyte, int in_energy_drink, int in_muscle_milk, int in_cup_of_noodles)
 {
@@ -22,6 +26,10 @@ Inventory::Inventory(int in_buff_bucks, int in_pedialyte, int in_energy_drink, i
     num_energy_drink = in_energy_drink;
     num_muscle_milk = in_muscle_milk;  
     num_cup_of_noodles = in_cup_of_noodles;
+    pedialyte_active_=false;
+    energy_drink_active_=false;
+    muscle_milk_active_=false;
+    cup_of_noodles_active_=false;
 }
 int Inventory::getBuffBucks()
 {
@@ -157,5 +165,62 @@ bool Inventory::buyItem(Item item){
     else if(item.getQuantity()>=item.getMaxQuantity()){
         cout<<"You have purchased the maximum amount of"<<item.getItemName()<<" possible." <<endl;
     }
+    return false;
+}
+
+
+bool Inventory::activateFood(string item){
+    if(item=="Pedialyte"){
+        pedialyte_active_=true;
+    }
+    else if(item=="Cup Of Noodles"){
+        cup_of_noodles_active_=true;
+    }
+    else if(item=="Muscle Milk"){
+        muscle_milk_active_=true;
+    }
+    else if(item=="Energy Drink"){
+        energy_drink_active_=true;
+    }
+    else{
+        return false;
+    }
+    return true;
+}
+void Inventory::deactivateFood(string item){
+    if(item=="Pedialyte"){
+        pedialyte_active_==false;
+    }
+    else if(item=="Cup Of Noodles"){
+        cup_of_noodles_active_==false;
+    }
+    else if(item=="Muscle Milk"){
+        muscle_milk_active_==false;
+    }
+    else if(item=="Energy Drink"){
+        energy_drink_active_==false;
+    }
+}
+bool Inventory::isActive(string item){
+    if(item=="Pedialyte"){
+        if(pedialyte_active_){
+            return true;
+        }
+    }
+    else if(item=="Cup Of Noodles"){
+        if(cup_of_noodles_active_){
+            return true;
+        }
+    }
+    else if(item=="Muscle Milk"){
+        if(muscle_milk_active_){
+            return true;
+        }
+    }
+    else if(item=="Energy Drink"){
+        if(energy_drink_active_){
+            return true;
+        }
+    } 
     return false;
 }
