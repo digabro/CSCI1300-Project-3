@@ -148,6 +148,7 @@ bool Inventory::buyItem(Item item){
     if (num_buff_bucks >= item.getItemCost()&&item.getQuantity()<item.getMaxQuantity()){
         addItem(item);
         num_buff_bucks-=item.getItemCost();
+        cout<<"Successfully Purchased 1 "<<item.getItemName()<<endl<<endl;
         return true;
     }
     else if(num_buff_bucks<item.getItemCost()){
