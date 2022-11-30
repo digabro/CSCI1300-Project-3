@@ -33,7 +33,6 @@ bool printHistoryQuestions()
 
     int num_history_qs = 6;
     int num_history_cols = 6;
-    int i = 0; 
     string answer;
     // answers to each question
     int score = 0;
@@ -86,15 +85,195 @@ for(int i = 0; i < num_history_qs; i++){
         }
     }  
 }
+return false;
+}
+
+bool printBusinessQuestions()
+{
+
+    const static int num_business_qs = 3;
+    const static int num_business_cols = 6;
+    string answer;
+    // answers to each question
+    int score = 0;
+    // allows us to create variables arrays with these variables as the arguments in the function. 
+
+    // business college:     Q#&Q  a   b   c   d   A
+    string business[num_business_qs][num_business_cols] =
+   {{"1. When should you invest?","a. When the stock starts high.","b. When the stock starts low","c. When the stock is green which means go.","d. When the stock is unhappy.","b"}, 
+    {"2. Is 1 greater than 0?","a. Yes","b. No","c. Maybe","d. Is this test curved?","a"},
+    {"3. What letter does Blue start with?","a. B","b. g","c. z","d. 3","a"}};
+for(int i = 0; i < num_business_qs; i++){
+    if(i == 0){
+        cout << "Welcome to the college of Business. Here's a quiz if you really know your stuff.(Select the answer that makes the most sense.)" << endl;
+        cout << endl;
+    }
+    for(int j = 0; j < num_business_cols - 1; j++){// doesn't print answer
+        cout << business[i][j] << endl; 
+        if(j==0)
+        {
+            cout << endl;
+        }
+        if(j==4)
+        {
+            cout << endl;
+        }
+    }
+    cin >> answer;
+    while(isValidAnswer(answer) == 0){
+        cout << "Invalid Input. Please try again." << endl;
+        cin >> answer;
+    }
+    if(isAnswerRight(answer, i, num_business_cols - 1, business) == 1){
+        score = score + 1;
+    }
+    if(i == num_business_qs - 1)
+    {
+        cout << "You scored " << score << "/3 on the Business quiz. Which means you ";
+        if(score >= 2){
+            cout << "passed the quiz!" << endl;
+            cout << endl; 
+            return true;  
+        }
+        else{
+            cout << "didn't pass the quiz, please try again." << endl;
+            cout << endl;
+            return false;
+        }
+    }  
+}
+return false;
+}
+
+bool printBiologyQuestions()
+{
+    const static int num_biology_qs = 4;
+    const static int num_biology_cols = 6;
+    string answer;
+    // answers to each question
+    int score = 0;
+    // allows us to create variables arrays with these variables as the arguments in the function. 
+
+    // business college:     Q#&Q  a   b   c   d   A
+    string biology[num_biology_qs][num_biology_cols] =
+   {{"1. ___________ is the powerhouse of the cell.","a. Mitochondria","b. Nucleus","c. DNA","d. ATP","a"}, 
+    {"2. Is it okay to shake a baby?","a. Hell yeah.","b. NO.","c. I mean don't knock it unitl you try it...","d. None of the above.","b"},
+    {"3. What is the thigh bone called?","a. phlanges","b. fibula","c. tibia","d. femur","d"},
+    {"4. What does the frontal lobe do?","a. Motor function","b. controls the eyes","c. controls the mouth ","d. main computing","a"}};
+for(int i = 0; i < num_biology_qs; i++){
+    if(i == 0){
+        cout << "Welcome to the college of Pre-Med. Today we will be learning the history of this school and Boulder, Colorado." << endl;
+        cout << endl;
+    }
+    for(int j = 0; j < num_biology_cols - 1; j++){// doesn't print answer
+        cout << biology[i][j] << endl; 
+        if(j==0)
+        {
+            cout << endl;
+        }
+        if(j==4)
+        {
+            cout << endl;
+        }
+    }
+    cin >> answer;
+    while(isValidAnswer(answer) == 0){
+        cout << "Invalid Input. Please try again." << endl;
+        cin >> answer;
+    }
+    if(isAnswerRight(answer, i, num_biology_cols - 1, biology) == 1){
+        score = score + 1;
+    }
+    if(i == num_biology_qs - 1)
+    {
+        cout << "You scored " << score << "/4 on the Biology quiz. Which means you ";
+        if(score >= 3){
+            cout << "passed the quiz!" << endl;
+            cout << endl; 
+            return true;  
+        }
+        else{
+            cout << "didn't pass the quiz, please try again." << endl;
+            cout << endl;
+            return false;
+        }
+    }  
+}
+return false;
+}
+
+bool printMathQuestions()
+{
+    const static int num_math_qs = 10;
+    const static int num_math_cols = 6;
+    string answer;
+    // answers to each question
+    int score = 0;
+    // allows us to create variables arrays with these variables as the arguments in the function. 
+
+    // business college:     Q#&Q  a   b   c   d   A
+    string math[num_math_qs][num_math_cols] =
+   {{"1. Solve 4 x 4.","a. 1","b. 4","c. 16","d. 20","c"}, 
+    {"2. Solve 9 x 9.","a. 63","b. 72","c. 81","d. 90","c"},
+    {"3. Solve 6 x 6.","a. 36","b. 33","c. 27","dd. 39","a"},
+    {"4. If f(x) = 4x^5 + 7x^3 - 2x, solve f`(x). Pick one of the answers below.","a. f`(x) = 20x + 22x^2 - 4.","b. F(x) = x^5 + (7/4)x^4 -x^2 + c.","c. f`(x) = 20x^4 + 21x^2 - 2. ","d. f`(x) = x^5 + (7/4)x^4 -x^2 + c.","c"},
+    {"5. Solve 2 + 2. ","a. 1","b. 2","c. 4","d. 5","c"},
+    {"6. Solve 2 - 2. ","a. -1","b. 0","c. 1.99","d. 2.01","b"},
+    {"7. Solve 7 x 0. ","a. 7","b. 0","c. 1","d. none of the above","b"},
+    {"8. Solve 7 x 1. ","a. 7","b. 1","c. 0 ","d. none of the above.","a"},
+    {"9. Solve 7 x 0.001.","a. 0.07","b. 1","c. 0.7","d. 0.007","d"},
+    {"10. Solve 100 - 4(7-5)^2.","a. 4","b. 36","c. 84","d. 0","c"}};
+for(int i = 0; i < num_math_qs; i++){
+    if(i == 0){
+        cout << "Welcome to the college of Mathematics. Here's a quiz if you really know your stuff. (Select the answer that makes the most sense)" << endl;
+        cout << endl;
+    }
+    for(int j = 0; j < num_math_cols - 1; j++){// doesn't print answer
+        cout << math[i][j] << endl; 
+        if(j==0)
+        {
+            cout << endl;
+        }
+        if(j==4)
+        {
+            cout << endl;
+        }
+    }
+    cin >> answer;
+    while(isValidAnswer(answer) == 0){
+        cout << "Invalid Input. Please try again." << endl;
+        cin >> answer;
+    }
+    if(isAnswerRight(answer, i, num_math_cols - 1, math) == 1){
+        score = score + 1;
+    }
+    if(i == num_math_qs - 1)
+    {
+        cout << "You scored " << score << "/10 on the Math quiz. Which means you ";
+        if(score >= 7){
+            cout << "passed the quiz!" << endl;
+            cout << endl; 
+            return true;  
+        }
+        else{
+            cout << "didn't pass the quiz, please try again." << endl;
+            cout << endl;
+            return false;
+        }
+    }  
+}
+return false;
 }
 
 
 
 
 
+
+
 int main(){
-    
-    printHistoryQuestions();
+
+    printMathQuestions();
 
     return 0;
 }
