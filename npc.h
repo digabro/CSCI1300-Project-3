@@ -12,18 +12,27 @@ private:
   int attack1_;
   int attack2_;
   int attack3_;
+  string attack1_Name_;
+  string attack2_Name_;
+  string attack3_Name_;
 
 public:
   Npc();
-  Npc(string name, int hp, int armor,bool agression,int att1,int att2, int att3);
+  Npc(string name, int hp, int armor,bool agression,int att1,int att2, int att3,string att1_N,string att2_N,string att3_N);
   bool getAgression();
   int getAttack1();
   int getAttack2();
   int getAttack3();
+  string getAttack1Name();
+  string getAttack2Name();
+  string getAttack3Name();
 
   void setAgression(bool agression);
   void setAttack1(int attack1);
   void setAttack2(int attack2);
   void setAttack3(int attack3);
+  void setAttack1Name(string attack1Name);
+  void setAttack2Name(string attack2Name);
+  void setAttack3Name(string attack3Name);
 };
 #endif
