@@ -1,30 +1,58 @@
 Different fighting sequences: 
 Cultist  
-NPC Class: 
+NPC Class- 
 Agression: 1
-Attack 1: 
-Attack 2:
-Attack 3: 
-Person Class: 
-name:
-hp:
-armor: 
-Player: 
-skill level: depends
+Attack 1: Holy Water - 3 hp
+Attack 2: Torch - 5 hp
+Attack 3: Crucifix - 8 hp
+name: Cultist
+hp: 20
+armor: 0
+
+Cultist Leader 
+NPC Class- 
+Agression: 1
+Attack 1: Holy Water - 7 hp
+Attack 2: Torch - 9 hp
+Attack 3: Crucifix - 12 hp
+name: Cultist Leader
+hp: 20
+armor: 15
 
 Bandit  
 NPC Class-
 Agression: 1
-Attack 1: Brute Charge - 6 Hp
+Attack 1: a Brute Charge - 6 Hp
 Attack 2: Fist Fighting - 4Hp
-Attack 3: Body slam from above - 8 Hp
+Attack 3: a Body slam from above - 8 Hp
 dodge ability: 0
 Person Class- 
 name: Bandit
 hp: 25 Hp
 armor: 0 Hp
-Player-
-skill level: Higher since they're on the Hill 
+
+cout Oh no, you walked to close to the Bandit Camp!! 
+cout "Bandit/Bandit Leader": You're gonna get it adventurer!
+cout YOU: Yeah right, haha!
+
+cout "Bandit/Bandit" Leader furociously used "attack_name" and dealt "attack_damage" damage. 
+cout YOU attack now: 
+weapon options: 
+cout YOU used "weapon_name" and dealt "weapon_damage".
+
+if(bandit/Bandit_Leader.getHp() == 0 && player.getHp() > 0)
+{
+    player wins
+    cout Congrats 
+}
+else
+{
+    player lost 
+    cout You lost the game. 
+}
+
+
+
 
 Bandit Leader
 NPC Class-
@@ -38,7 +66,7 @@ name: BanditLeader
 hp: 25 Hp
 armor: 10 Hp
 Player-
-skill level: Highest of bandits 
+
 
 if bandit leader is killed, remove Bandit camp
 
@@ -54,7 +82,7 @@ name: Wildlife
 hp: 10
 armor: 0
 Player-
-skill level: depends what your location is
+
 
 King Wook 
 NPC Class-
@@ -67,9 +95,5 @@ name:
 hp:
 armor: 
 Player: 
-skill level: depends
 
-v/////Y/
-x////v/
-vvvvvvv
-raplphie 1 spaces
+
