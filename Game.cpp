@@ -78,11 +78,17 @@ char isNearEnemy(int row,int col,Map map){//make return char
     else if (map.isBanditCampLocation((map.getPlayerRow()+1),(map.getPlayerCol()+1))||map.isBanditCampLocation((map.getPlayerRow()+1),(map.getPlayerCol()-1))||map.isBanditCampLocation((map.getPlayerRow()-1),(map.getPlayerCol()+1))||map.isBanditCampLocation((map.getPlayerRow()-1),(map.getPlayerCol()-1))){
         return 'B';//diagnal directions
     }
+    else if (map.isBanditCampLocation(map.getPlayerRow(),map.getPlayerCol())){
+        return 'B';//camp itself
+    }
     else if (map.isCultistLocation(map.getPlayerRow(),(map.getPlayerCol()+1))||map.isCultistLocation((map.getPlayerRow()+1),map.getPlayerCol())||map.isCultistLocation(map.getPlayerRow(),(map.getPlayerCol()-1))||map.isCultistLocation((map.getPlayerRow()-1),map.getPlayerCol())){
         return 'C';//cardinal directions
     }
     else if (map.isCultistLocation((map.getPlayerRow()+1),(map.getPlayerCol()+1))||map.isCultistLocation((map.getPlayerRow()+1),(map.getPlayerCol()-1))||map.isCultistLocation((map.getPlayerRow()-1),(map.getPlayerCol()+1))||map.isCultistLocation((map.getPlayerRow()-1),(map.getPlayerCol()-1))){
         return 'C';//diagnal directions
+    }
+    else if (map.isCultistLocation(map.getPlayerRow(),map.getPlayerCol())){
+        return 'C';//camp itself
     }
     return 'N';
 }
@@ -218,6 +224,7 @@ int main(){
     system("clear");
     Player player=Player(name,20,0,0);
     Inventory inventory =Inventory(20,0,0,0,0);
+    vector<Item> weaponArr;//making a vector for weapons -- used in the fights
     //adding armor items to inventory array with quantity of 0
     Item csChestplate =Item("CS Chestplate","Armor",0,inventory.getNumItems(),0,6,60,1,0);
     Item biologyHelm =Item("Biology Helmet","Armor",0,inventory.getNumItems(),0,4,40,1,0);
@@ -228,10 +235,11 @@ int main(){
     Item sandals =Item("Sandals","Armor",6,inventory.getNumItems(),0,1,10,1,0);
     Item sunglasses =Item("Sunglasses","Armor",6,inventory.getNumItems(),0,1,10,1,0);
     //adding weapon items to inventory array with quantity of 0
-    Item pencils =Item("Pencils","Weapon",2,inventory.getNumItems(),2,0,-1,4,0);
-    Item scissors =Item("Scissors","Weapon",2,inventory.getNumItems(),3,0,-1,4,0);
-    Item bottle =Item("Broken Bottle","Weapon",0,inventory.getNumItems(),1,0,-1,1,0);
-    Item paddle =Item("Abandoned Paddle","Weapon",0,inventory.getNumItems(),1,0,-1,1,0);
+    Item pencils =Item("Pencils","Weapon",2,inventory.getNumItems(),4,0,-1,4,0);
+    Item scissors =Item("Scissors","Weapon",2,inventory.getNumItems(),6,0,-1,4,0);
+    Item bottle =Item("Broken Bottle","Weapon",0,inventory.getNumItems(),3,0,-1,1,0);
+    Item paddle =Item("Abandoned Paddle","Weapon",0,inventory.getNumItems(),2,0,-1,1,0);
+    Item fist =Item("Fist","Weapon",0,inventory.getNumItems(),1,0,-1,1,1);//for the fight if theres no weapon default to this
     inventory.addItem(csChestplate);
     inventory.addItem(biologyHelm);
     inventory.addItem(historyHelm);
@@ -247,24 +255,24 @@ int main(){
 
 
     mapObject.addMarket(6,15);//farrand market
-    mapObject.addMarket(2,10);//wallgreens market
+    mapObject.addMarket(1,5);//wallgreens market
 
     //adding bandit camps
     int bRow,bCol;
-    for (int i=0;i<(rand()%2)+1;i++){//can be changed to i<2 so its not a random amount of bandit camps
+    for (int i=0;i<(rand()%4)+1;i++){//can be changed to i<2 so its not a random amount of bandit camps
         bRow = (rand()%11);
-        bCol = (rand()%29);
+        bCol = (rand()%14);
         mapObject.addBanditCamp(bRow,bCol);
     }
     //adding cultist camps
-    for (int i=0;i<(rand()%4)+1;i++){//can be changed to i<5 so its not a random amount of cultists
+    for (int i=0;i<(rand()%2)+1;i++){//can be changed to i<5 so its not a random amount of cultists
         bRow = (rand()%11);
-        bCol = (rand()%29);
+        bCol = (rand()%14);
         mapObject.addCultist(bRow,bCol);
     }
     //adding schools
     for (int i=0;i<4;i++){
-        bRow = (rand()%5)+6;
+        bRow = (rand()%11);
         bCol = (rand()%14)+15;
         mapObject.addSchool(bRow,bCol);
     }
@@ -385,7 +393,7 @@ int main(){
                     }
                 }
                 //wallgreens
-                if(mapObject.isMarketLocation(mapObject.getPlayerRow(),mapObject.getPlayerCol())&&mapObject.getPlayerRow()==2&&mapObject.getPlayerCol()==10){
+                if(mapObject.isMarketLocation(mapObject.getPlayerRow(),mapObject.getPlayerCol())&&mapObject.getPlayerRow()==1&&mapObject.getPlayerCol()==5){
                     int item=0;
                     int num;
                     bool wallgreens=true;
@@ -422,7 +430,7 @@ int main(){
                             }break;
                             case 6:{
                                 system("clear");
-                                inventory.buyItem(pencils);
+                                inventory.buyItem(scissors);
                             }break;
                             case 7:{
                                 system("clear");
@@ -471,23 +479,232 @@ int main(){
                 cout << "Invalid input. Please try again." << endl;
             }
         }
+        //updating armor after every move
+        player.setArmor(0);
+        for (int i=0;i<inventory.getNumItems();i++){
+            if(inventory.getItem(i).getItemType()=="Armor"){
+                if(inventory.getItem(i).getQuantity()>0){
+                    player.setArmor(player.getArmor()+inventory.getItem(i).getProtection());
+                }
+            }
+        }
+
+        //updating the weapon array after every move incase they pickup a new weapon
+        weaponArr.clear();
+        weaponArr.push_back(fist);
+        for (int i=0;i<inventory.getNumItems();i++){
+            if(inventory.getItem(i).getItemType()=="Weapon"){
+                if(inventory.getItem(i).getQuantity()>0){
+                    weaponArr.push_back(inventory.getItem(i));
+                }
+            }
+        }
         //if the input was any movement key, check if the space that was moved onto is an enemy space
         int encounterChance=rand()%100;
+        bool battle=true;
+        if(mapObject.isBanditCampLocation(mapObject.getPlayerRow(),mapObject.getPlayerCol())||mapObject.isCultistLocation(mapObject.getPlayerRow(),mapObject.getPlayerCol())){
+            encounterChance=0;
+        }
         if(isNearEnemy(mapObject.getPlayerRow(),mapObject.getPlayerCol(),mapObject)=='B'){
             if(encounterChance>=0&&encounterChance<10){//bandit leader attacks
-                //bandit leader attack code here
+                system("clear");
+                cout<< "Oh no, you walked to close to the Bandit Camp!!"<<endl;
+                cout<< "Bandit Leader:\"You're gonna get it adventurer!\""<<endl;
+                cout<< player.getName()<<": \"Yeah right, haha!\"\n"<<endl;
+                Npc banditLeader =Npc("Bandit",25,10,true,10,4,8,"Brute Charge","Fist Fight","Body Slam"); 
+                while(battle){
+                    cout << "\n======Status======" << endl;
+                    cout << "Health Pts: "<<player.getHp()<<" | Armor: "<<player.getArmor()<<endl<<"Buff Bucks: "<<inventory.getBuffBucks();
+                    cout << " | Skill: "<< player.getSkillLevel()<<endl<<endl; 
+                    
+                    cout<<"Choose an attack:"<<endl;
+                    for (int i=0;i<weaponArr.size();i++){
+                        cout<<(i+1)<<". "<<weaponArr[i].getItemName()<<" - "<<weaponArr[i].getDamage()<<" damage"<<endl;
+                    }
+                    int weaponOption;
+                    cin>>weaponOption;
+                    weaponOption--;
+                    system("clear");
+                    cout<<player.getName()<<" attacks with "<<weaponArr[weaponOption].getItemName()<<" for "<<weaponArr[weaponOption].getDamage()<<" damage"<<endl;
+                    banditLeader.setHp(banditLeader.getHp()-weaponArr[weaponOption].getDamage());
+                    if(banditLeader.getHp()<=0){
+                        system("clear");
+                        cout<<"You defeated the Bandit Leader"<<endl;
+                        battle=false;
+                        cout<<"The bandit camp is now in disarray, and the have bandits fled in terror\n"<<endl;
+                        for (int i=-1;i<=1;i++){
+                            for (int j=-1;j<=1;j++){
+                                mapObject.removeBanditCamp((mapObject.getPlayerRow()+i),(mapObject.getPlayerCol()+j));
+                            }
+                        }
+                        
+                        break;
+                    }
+                    int attackNum=(rand()%3)+1;
+                    int damageNum=banditLeader.getAttack(attackNum);
+                    cout << "Bandit Leader used " <<banditLeader.getAttackName(attackNum)<<" to deal "<<damageNum<<" damage"<<endl;
+                    if(player.getArmor()>=banditLeader.getAttack(attackNum)){
+                        damageNum=0;
+                        cout<<"You blocked "<<player.getArmor()<<" damage with your armor"<<endl;
+                    }
+                    else if(player.getArmor()<=banditLeader.getAttack(attackNum)&&player.getArmor()>0){
+                        damageNum-=player.getArmor();
+                        cout<<"You blocked "<<player.getArmor()<<" damage with your armor"<<endl;
+                    }
+                    player.setHp(player.getHp()-damageNum);
+                    if(player.getHp()<=0){
+                        cout << "You Died\nBetter luck next time!" << endl;
+                        sendScore("playerLogs",player,inventory);
+                        return 0;
+                    }
+                }
             }
             else if(encounterChance>=10&&encounterChance<40){//normal bandit attacks
-                //normal bandit attack code here
+                system("clear");
+                cout<< "Oh no, you walked to close to the Bandit Camp!!"<<endl;
+                cout<< "Bandit:\"You're gonna get it adventurer!\""<<endl;
+                cout<< player.getName()<<": \"Yeah right, haha!\""<<endl;
+                Npc bandit =Npc("Bandit",25,0,true,6,4,8,"Brute Charge","Fist Fight","Body Slam");
+                while(battle){
+                    cout << "\n======Status======" << endl;
+                    cout << "Health Pts: "<<player.getHp()<<" | Armor: "<<player.getArmor()<<endl<<"Buff Bucks: "<<inventory.getBuffBucks();
+                    cout << " | Skill: "<< player.getSkillLevel()<<endl<<endl; 
+                    
+                    cout<<"Choose an attack:"<<endl;
+                    for (int i=0;i<weaponArr.size();i++){
+                        cout<<(i+1)<<". "<<weaponArr[i].getItemName()<<" - "<<weaponArr[i].getDamage()<<" damage"<<endl;
+                    }
+                    int weaponOption;
+                    cin>>weaponOption;
+                    weaponOption--;
+                    system("clear");
+                    cout<<player.getName()<<" attacks with "<<weaponArr[weaponOption].getItemName()<<" for "<<weaponArr[weaponOption].getDamage()<<" damage"<<endl;
+                    bandit.setHp(bandit.getHp()-weaponArr[weaponOption].getDamage());
+                    if(bandit.getHp()<=0){
+                        system("clear");
+                        cout<<"You defeated the Bandit"<<endl;
+                        battle=false;
+                        break;
+                    }
+                    int attackNum=(rand()%3)+1;
+                    int damageNum=bandit.getAttack(attackNum);
+                    cout << "Bandit used " <<bandit.getAttackName(attackNum)<<" to deal "<<damageNum<<" damage"<<endl;
+                    if(player.getArmor()>=bandit.getAttack(attackNum)){
+                        damageNum=0;
+                        cout<<"You blocked "<<player.getArmor()<<" damage with your armor"<<endl;
+                    }
+                    else if(player.getArmor()<=bandit.getAttack(attackNum)&&player.getArmor()>0){
+                        damageNum-=player.getArmor();
+                        cout<<"You blocked "<<player.getArmor()<<" damage with your armor"<<endl;
+                    }
+                    player.setHp(player.getHp()-damageNum);
+                    if(player.getHp()<=0){
+                        cout << "You Died\nBetter luck next time!" << endl;
+                        sendScore("playerLogs",player,inventory);
+                        return 0;
+                    }
+                }
             }
         }
         //again for cult
         if(isNearEnemy(mapObject.getPlayerRow(),mapObject.getPlayerCol(),mapObject)=='C'){
             if(encounterChance>=0&&encounterChance<10){//cultist leader attacks
-                //cultist leader attack code here
+                system("clear");
+                cout<< "Oh no, you walked to close to the Cultist Church!!"<<endl;
+                cout<< "Cultist Leader:\"You're gonna get it adventurer!\""<<endl;
+                cout<< player.getName()<<": \"Yeah right, haha!\"\n"<<endl;
+                Npc cultistLeader =Npc("Cultist",20,15,true,7,9,12,"Holy Water","Torch","Crucifix"); 
+                while(battle){
+                    cout << "\n======Status======" << endl;
+                    cout << "Health Pts: "<<player.getHp()<<" | Armor: "<<player.getArmor()<<endl<<"Buff Bucks: "<<inventory.getBuffBucks();
+                    cout << " | Skill: "<< player.getSkillLevel()<<endl<<endl; 
+                    
+                    cout<<"Choose an attack:"<<endl;
+                    for (int i=0;i<weaponArr.size();i++){
+                        cout<<(i+1)<<". "<<weaponArr[i].getItemName()<<" - "<<weaponArr[i].getDamage()<<" damage"<<endl;
+                    }
+                    int weaponOption;
+                    cin>>weaponOption;
+                    weaponOption--;
+                    system("clear");
+                    cout<<player.getName()<<" attacks with "<<weaponArr[weaponOption].getItemName()<<" for "<<weaponArr[weaponOption].getDamage()<<" damage"<<endl;
+                    cultistLeader.setHp(cultistLeader.getHp()-weaponArr[weaponOption].getDamage());
+                    if(cultistLeader.getHp()<=0){
+                        system("clear");
+                        cout<<"You defeated the Cultist Leader"<<endl;
+                        battle=false;
+                        cout<<"The Cultist Church is now in disarray, and the have cultists fled in terror\n"<<endl;
+                        for (int i=-1;i<=1;i++){
+                            for (int j=-1;j<=1;j++){
+                                mapObject.removeCultistCamp((mapObject.getPlayerRow()+i),(mapObject.getPlayerCol()+j));
+                            }
+                        }
+                        break;
+                    }
+                    int attackNum=(rand()%3)+1;
+                    int damageNum=cultistLeader.getAttack(attackNum);
+                    cout << "Cultist Leader used " <<cultistLeader.getAttackName(attackNum)<<" to deal "<<damageNum<<" damage"<<endl;
+                    if(player.getArmor()>=cultistLeader.getAttack(attackNum)){
+                        damageNum=0;
+                        cout<<"You blocked "<<player.getArmor()<<" damage with your armor"<<endl;
+                    }
+                    else if(player.getArmor()<=cultistLeader.getAttack(attackNum)&&player.getArmor()>0){
+                        damageNum-=player.getArmor();
+                        cout<<"You blocked "<<player.getArmor()<<" damage with your armor"<<endl;
+                    }
+                    player.setHp(player.getHp()-damageNum);
+                    if(player.getHp()<=0){
+                        cout << "You Died\nBetter luck next time!" << endl;
+                        sendScore("playerLogs",player,inventory);
+                        return 0;
+                    }
+                }
             }
             else if(encounterChance>=10&&encounterChance<40){//normal cultist attacks
-                //normal cultist attack code here
+                system("clear");
+                cout<< "Oh no, you walked to close to the Cultist Church!!"<<endl;
+                cout<< "Cultist:\"You're gonna get it adventurer!\""<<endl;
+                cout<< player.getName()<<": \"Yeah right, haha!\""<<endl;
+                Npc cultist =Npc("Cultist",20,0,true,3,5,8,"Holy Water","Torch","Crucifix");
+                while(battle){
+                    cout << "\n======Status======" << endl;
+                    cout << "Health Pts: "<<player.getHp()<<" | Armor: "<<player.getArmor()<<endl<<"Buff Bucks: "<<inventory.getBuffBucks();
+                    cout << " | Skill: "<< player.getSkillLevel()<<endl<<endl; 
+                    
+                    cout<<"Choose an attack:"<<endl;
+                    for (int i=0;i<weaponArr.size();i++){
+                        cout<<(i+1)<<". "<<weaponArr[i].getItemName()<<" - "<<weaponArr[i].getDamage()<<" damage"<<endl;
+                    }
+                    int weaponOption;
+                    cin>>weaponOption;
+                    weaponOption--;
+                    system("clear");
+                    cout<<player.getName()<<" attacks with "<<weaponArr[weaponOption].getItemName()<<" for "<<weaponArr[weaponOption].getDamage()<<" damage"<<endl;
+                    cultist.setHp(cultist.getHp()-weaponArr[weaponOption].getDamage());
+                    if(cultist.getHp()<=0){
+                        system("clear");
+                        cout<<"You defeated the Cultist"<<endl;
+                        battle=false;
+                        break;
+                    }
+                    int attackNum=(rand()%3)+1;
+                    int damageNum=cultist.getAttack(attackNum);
+                    cout << "Cultist used " <<cultist.getAttackName(attackNum)<<" to deal "<<damageNum<<" damage"<<endl;
+                    if(player.getArmor()>=cultist.getAttack(attackNum)){
+                        damageNum=0;
+                        cout<<"You blocked "<<player.getArmor()<<" damage with your armor"<<endl;
+                    }
+                    else if(player.getArmor()<=cultist.getAttack(attackNum)&&player.getArmor()>0){
+                        damageNum-=player.getArmor();
+                        cout<<"You blocked "<<player.getArmor()<<" damage with your armor"<<endl;
+                    }
+                    player.setHp(player.getHp()-damageNum);
+                    if(player.getHp()<=0){
+                        cout << "You Died\nBetter luck next time!" << endl;
+                        sendScore("playerLogs",player,inventory);
+                        return 0;
+                    }
+                }
             }
         }
     }
