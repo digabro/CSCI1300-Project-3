@@ -12,6 +12,7 @@
 #include <ctime>
 #include <climits>
 #include <fstream>
+#include <vector>
 using namespace std;
 
 bool printInventory(Inventory inv,string type){
@@ -24,25 +25,6 @@ bool printInventory(Inventory inv,string type){
                 cout<<count<<". "<<inv.getItem(i).getItemName()<<" - "<<inv.getItem(i).getQuantity()<<"/"<<inv.getItem(i).getMaxQuantity()<<endl;
             }
         }
-    }
-    if (type=="Food"){
-        if (inv.getPedialyte()>0){
-            cout<<"1. "<<"Pedialyte - "<<inv.getPedialyte()<<"/4"<<endl;
-            count++;
-        }
-        if (inv.getEnergyDrink()>0){
-            cout<<"2. "<<"Energy Drink - "<<inv.getEnergyDrink()<<"/2"<<endl;
-            count++;
-        }
-        if (inv.getMuscleMilk()>0){
-            cout<<"3. "<<"Muscle Milk - "<<inv.getMuscleMilk()<<"/1"<<endl;
-            count++;
-        }
-        if (inv.getCupOfNoodles()>0){
-            cout<<"4. "<<"Cup of Noodles - "<<inv.getCupOfNoodles()<<"/5"<<endl;
-            count++;
-        }
-        
     }
     if (count>0){
         return true;
@@ -95,29 +77,27 @@ char isNearEnemy(int row,int col,Map map){//make return char
 
 void randomChances(Map map,Inventory inv,Item bottle){//use the bottle item when calling, needs it as an input to add it to the inventory as its not a global variable
     string animalList[4]={" Black Bear"," Mountain Lion"," Coyote","n Elk"};//supposed to have space before and "n elk"
-    if(!map.isExplored(map.getPlayerRow(),map.getPlayerCol())){
-        int randNum = rand() % 100;//rand num from 0 to 99
-        if (randNum>=0&&randNum<5){//found money
-            int randmoney=(rand()%9)+1;//1 to 10 bucks --can be changed if you want
-            system("clear");
-            cout<<"While investigating, you found $"<<randmoney<<".00"<<endl;
-            inv.setBuffBucks(inv.getBuffBucks()+randmoney);
-        }
-        else if (randNum>=5&&randNum<25){//found broken bottle
-            system("clear");
-            cout<<"While investigating, you found a broken bottle"<<endl;
-        }
-        else if (randNum>=25&&randNum<45){//found raccoon
-            system("clear");
-            cout<<"While investigating, you encountered a raccoon"<<endl;
-            //add in raccoon code
-        }
-        else if (randNum>=45&&randNum<55){//found broken bottle
-            system("clear");
-            string animal = animalList[(rand()%4)];
-            cout<<"While investigating, you encountered a"<<animal<<endl;
-            //add in animal code
-        }
+    int randNum = rand() % 100;//rand num from 0 to 99
+    if (randNum>=0&&randNum<5){//found money
+        int randmoney=(rand()%9)+1;//1 to 10 bucks --can be changed if you want
+        system("clear");
+        cout<<"While investigating, you found $"<<randmoney<<".00"<<endl;
+        inv.setBuffBucks(inv.getBuffBucks()+randmoney);
+    }
+    else if (randNum>=5&&randNum<25){//found broken bottle
+        system("clear");
+        cout<<"While investigating, you found a broken bottle"<<endl;
+    }
+    else if (randNum>=25&&randNum<45){//found raccoon
+        system("clear");
+        cout<<"While investigating, you encountered a raccoon"<<endl;
+        //add in raccoon code
+    }
+    else if (randNum>=45&&randNum<55){//found broken bottle
+        system("clear");
+        string animal = animalList[(rand()%4)];
+        cout<<"While investigating, you encountered a"<<animal<<endl;
+        //add in animal code
     }
 }
 
@@ -223,8 +203,9 @@ int main(){
     getline(cin,name);
     system("clear");
     Player player=Player(name,20,0,0);
-    Inventory inventory =Inventory(20,0,0,0,0);
+    Inventory inventory =Inventory(50,0,0,0,0);
     vector<Item> weaponArr;//making a vector for weapons -- used in the fights
+    vector<Item> foodArr; //making food vector for fights
     //adding armor items to inventory array with quantity of 0
     Item csChestplate =Item("CS Chestplate","Armor",0,inventory.getNumItems(),0,6,60,1,0);
     Item biologyHelm =Item("Biology Helmet","Armor",0,inventory.getNumItems(),0,4,40,1,0);
@@ -238,6 +219,12 @@ int main(){
     Item pencils =Item("Pencils","Weapon",2,inventory.getNumItems(),4,0,-1,4,0);
     Item scissors =Item("Scissors","Weapon",2,inventory.getNumItems(),6,0,-1,4,0);
     Item bottle =Item("Broken Bottle","Weapon",0,inventory.getNumItems(),3,0,-1,1,0);
+    
+    Item pedialyte =Item("Pedialyte","Food",6,inventory.getNumItems(),0,0,-1,4,0);
+    Item cupOfNoodles =Item("Cup Of Noodles","Food",6,inventory.getNumItems(),0,0,-1,5,0);
+    Item muscleMilk =Item("Muscle Milk","Food",6,inventory.getNumItems(),0,0,-1,1,0);
+    Item energyDrink =Item("Energy Drink","Food",6,inventory.getNumItems(),0,0,-1,2,0);
+
     Item paddle =Item("Abandoned Paddle","Weapon",0,inventory.getNumItems(),2,0,-1,1,0);
     Item fist =Item("Fist","Weapon",0,inventory.getNumItems(),1,0,-1,1,1);//for the fight if theres no weapon default to this
     inventory.addItem(csChestplate);
@@ -252,7 +239,10 @@ int main(){
     inventory.addItem(scissors);
     inventory.addItem(bottle);
     inventory.addItem(paddle);
-
+    inventory.addItem(pedialyte);
+    inventory.addItem(cupOfNoodles);
+    inventory.addItem(muscleMilk);
+    inventory.addItem(energyDrink);
 
     mapObject.addMarket(6,15);//farrand market
     mapObject.addMarket(1,5);//wallgreens market
@@ -291,8 +281,9 @@ int main(){
         cout << "D: Move Right" << endl; 
         cout << "E: Inventory" << endl; 
         cout << "I: Investigate" << endl;
+        cout << "C: Consumables" << endl;
         cout << "R: Rules and directions" << endl;
-        cout << "C: Scoreboard" << endl;
+        cout << "F: Scoreboard" << endl;
         cout << "Q: Quit game" << endl;
         cout << "Choose one of the options above." << endl;
         cin >> option;
@@ -318,6 +309,7 @@ int main(){
             case 'e':{
                 string temp;
                 system("clear");
+                cout<<inventory.getEnergyDrink()<<endl;
                 cout<<"======Inventory======"<<endl;
                 cout<<"Buff Bucks: $"<<inventory.getBuffBucks()<<".00"<<endl;
                 if(!printInventory(inventory,"Weapon")){
@@ -334,6 +326,66 @@ int main(){
                 system("clear");
             }
             break;
+            case 'c':{
+                vector<Item> foodArr;
+                bool consume =true;
+                while(consume){
+                    foodArr.clear();
+                    for (int i=0;i<inventory.getNumItems();i++){
+                        if(inventory.getItem(i).getItemType()=="Food"){
+                            if(inventory.getItem(i).getQuantity()>0){
+                                foodArr.push_back(inventory.getItem(i));
+                            }
+                        }
+                    }
+                    int option;
+                    cout<<"\nConsume a food item:"<<endl;
+                    if (foodArr.size()==0){
+                        cout<<"Nothing to consume"<<endl;
+                    }
+                    for (int i=0;i<(foodArr.size());i++){
+                        cout<<(i+1)<<". "<<foodArr[i].getItemName()<<"("<<foodArr[i].getQuantity()<<")"<<endl;
+                    }
+                    cout<<(foodArr.size()+1)<<". Exit"<<endl;
+                    cout<<"Choose an item: ";
+                    if(!(cin>>option)){
+                        system("clear");
+                        cout<<"Invalid Input"<<endl;
+                        cin.clear();
+                        cin.ignore(INT_MAX,'\n');
+                    }
+                    option--;
+
+                    if(option<foodArr.size()){
+                        inventory.activateFood(foodArr[option].getItemName());
+                        system("clear");
+                        cout<<"You consumed 1 "<<foodArr[option].getItemName()<<endl;
+                        for (int i=0;i<inventory.getNumItems();i++){//remove one from inventory
+                            if (inventory.getItem(i).getItemName()==foodArr[option].getItemName()){
+                                inventory.getItem(i).setQuantity(inventory.getItem(i).getQuantity()-1);
+                                foodArr[option].setQuantity(foodArr[option].getQuantity()-1);
+                            }
+                        }
+                    }
+                    else if(option==foodArr.size()){
+                        consume=false;
+                        system("clear");
+                    }
+                    if (inventory.isActive("Pedialyte")){
+                        system("clear");
+                        cout<<"You heal for 10 hp"<<endl;
+                        player.setHp(player.getHp()+10);
+                        inventory.deactivateFood("Pedialyte");
+                    }
+                    if (inventory.isActive("Cup Of Noodles")){
+                        system("clear");
+                        cout<<"You heal for 5 hp"<<endl;
+                        player.setHp(player.getHp()+5);
+                        inventory.deactivateFood("Cup Of Noodles");
+                    }
+                    
+                }
+            }break;
             case 'i':{
                 //farrand market
                 if(mapObject.isMarketLocation(mapObject.getPlayerRow(),mapObject.getPlayerCol())&&mapObject.getPlayerRow()==6&&mapObject.getPlayerCol()==15){
@@ -357,32 +409,20 @@ int main(){
                         }
                         switch(item){
                             case 1:{
-                                    system("clear");
-                                if (inventory.setPedialyte(inventory.getPedialyte()+1)){
-                                    inventory.setBuffBucks(inventory.getBuffBucks()-6);
-                                    cout<<"Successfully Purchased 1 Pedialyte\n"<<endl;
-                                }
+                                system("clear");
+                                inventory.buyItem(pedialyte);
                             }break;
                             case 2:{
-                                    system("clear");
-                                if (inventory.setEnergyDrink(inventory.getEnergyDrink()+1)){
-                                    inventory.setBuffBucks(inventory.getBuffBucks()-6);
-                                    cout<<"Successfully Purchased 1 Energy Drink\n"<<endl;
-                                }
+                                system("clear");
+                                inventory.buyItem(energyDrink);
                             }break;
                             case 3:{
-                                    system("clear");
-                                if (inventory.setMuscleMilk(inventory.getMuscleMilk()+1)){
-                                    inventory.setBuffBucks(inventory.getBuffBucks()-6);
-                                    cout<<"Successfully Purchased 1 Muscle Milk\n"<<endl;
-                                }
+                                system("clear");
+                                inventory.buyItem(muscleMilk);
                             }break;
                             case 4:{
                                 system("clear");
-                                if (inventory.setCupOfNoodles(inventory.getCupOfNoodles()+1)){
-                                    inventory.setBuffBucks(inventory.getBuffBucks()-6);
-                                    cout<<"Successfully Purchased 1 Cup Of Noodles\n"<<endl;
-                                }
+                                inventory.buyItem(cupOfNoodles);
                             }break;
                             case 5:{
                                 system("clear");
@@ -464,7 +504,7 @@ int main(){
                 sendScore("playerLogs",player,inventory);
                 return 0;
             }break;
-            case 'c':{
+            case 'f':{
                 //system("clear");
                 string temp;
                 organizeLogs();
@@ -488,7 +528,15 @@ int main(){
                 }
             }
         }
-
+        //updating the food array after every move incase they pickup a new food item
+        foodArr.clear();
+        for (int i=0;i<inventory.getNumItems();i++){
+            if(inventory.getItem(i).getItemType()=="Food"){
+                if(inventory.getItem(i).getQuantity()>0){
+                    foodArr.push_back(inventory.getItem(i));
+                }
+            }
+        }
         //updating the weapon array after every move incase they pickup a new weapon
         weaponArr.clear();
         weaponArr.push_back(fist);
@@ -503,7 +551,7 @@ int main(){
         int encounterChance=rand()%100;
         bool battle=true;
         if(mapObject.isBanditCampLocation(mapObject.getPlayerRow(),mapObject.getPlayerCol())||mapObject.isCultistLocation(mapObject.getPlayerRow(),mapObject.getPlayerCol())){
-            encounterChance=0;
+            encounterChance=0;//if the space is the camp itself, 100% chance for fighting leader
         }
         if(isNearEnemy(mapObject.getPlayerRow(),mapObject.getPlayerCol(),mapObject)=='B'){
             if(encounterChance>=0&&encounterChance<10){//bandit leader attacks
@@ -516,30 +564,77 @@ int main(){
                     cout << "\n======Status======" << endl;
                     cout << "Health Pts: "<<player.getHp()<<" | Armor: "<<player.getArmor()<<endl<<"Buff Bucks: "<<inventory.getBuffBucks();
                     cout << " | Skill: "<< player.getSkillLevel()<<endl<<endl; 
-                    
-                    cout<<"Choose an attack:"<<endl;
+                    cout<<"Choose what to do:"<<endl;
+                    cout<<"Attack:"<<endl;
                     for (int i=0;i<weaponArr.size();i++){
                         cout<<(i+1)<<". "<<weaponArr[i].getItemName()<<" - "<<weaponArr[i].getDamage()<<" damage"<<endl;
                     }
-                    int weaponOption;
-                    cin>>weaponOption;
-                    weaponOption--;
+                    //option for food or fleeing
+                    if(foodArr.size()>0){
+                        cout<<"\nConsume a food item:"<<endl;
+                        for (int i=0;i<(foodArr.size());i++){
+                            cout<<(i+weaponArr.size()+1)<<". "<<foodArr[i].getItemName()<<"("<<foodArr[i].getQuantity()<<")"<<endl;
+                        }
+                    }
+                    cout<<endl<<(weaponArr.size()+foodArr.size()+1)<<". Flee"<<endl;
+                    int option;
+                    cin>>option;
+                    option--;
                     system("clear");
-                    cout<<player.getName()<<" attacks with "<<weaponArr[weaponOption].getItemName()<<" for "<<weaponArr[weaponOption].getDamage()<<" damage"<<endl;
-                    banditLeader.setHp(banditLeader.getHp()-weaponArr[weaponOption].getDamage());
-                    if(banditLeader.getHp()<=0){
-                        system("clear");
-                        cout<<"You defeated the Bandit Leader"<<endl;
-                        battle=false;
-                        cout<<"The bandit camp is now in disarray, and the have bandits fled in terror\n"<<endl;
-                        for (int i=-1;i<=1;i++){
-                            for (int j=-1;j<=1;j++){
-                                mapObject.removeBanditCamp((mapObject.getPlayerRow()+i),(mapObject.getPlayerCol()+j));
+                    if (option>=0&&option<weaponArr.size()){
+                        cout<<player.getName()<<" attacks with "<<weaponArr[option].getItemName()<<" for "<<weaponArr[option].getDamage()<<" damage"<<endl;
+                        if (inventory.isActive("Muscle Milk")){
+                            cout<<"The muscle milk strengthened your attack dealing "<<weaponArr[option].getDamage()<<" more damage"<<endl;
+                            banditLeader.setHp(banditLeader.getHp()-weaponArr[option].getDamage());
+                        }
+                        banditLeader.setHp(banditLeader.getHp()-weaponArr[option].getDamage());
+                        if(banditLeader.getHp()<=0){
+                            system("clear");
+                            cout<<"You defeated the Bandit Leader"<<endl;
+                            battle=false;
+                            cout<<"The bandit camp is now in disarray, and the have bandits fled in terror\n"<<endl;
+                            for (int i=-1;i<=1;i++){
+                                for (int j=-1;j<=1;j++){
+                                    mapObject.removeBanditCamp((mapObject.getPlayerRow()+i),(mapObject.getPlayerCol()+j));
+                                }
+                            }
+                            break;
+                        }
+                    }
+                    else if(option>=weaponArr.size()&&option<(weaponArr.size()+foodArr.size())){
+                        option-=weaponArr.size();
+                        if (inventory.activateFood(foodArr[option].getItemName())){
+                            cout<<"You consumed 1 "<<foodArr[option].getItemName()<<endl;
+                            for (int i=0;i<inventory.getNumItems();i++){
+                                if (inventory.getItem(i).getItemName()==foodArr[option].getItemName()){
+                                    inventory.getItem(i).setQuantity(inventory.getItem(i).getQuantity()-1);
+                                    foodArr[option].setQuantity(foodArr[option].getQuantity()-1);
+                                }
+                            }
+                            if (inventory.isActive("Pedialyte")){
+                                cout<<"You heal for 10 hp"<<endl;
+                                player.setHp(player.getHp()+10);
+                                inventory.deactivateFood("Pedialyte");
+                            }
+                            if (inventory.isActive("Cup Of Noodles")){
+                                cout<<"You heal for 5 hp"<<endl;
+                                player.setHp(player.getHp()+5);
+                                inventory.deactivateFood("Cup Of Noodles");
                             }
                         }
                         
-                        break;
                     }
+                    else if(option==(weaponArr.size()+foodArr.size())){
+                        cout<<"You attempted to flee\nIn youre attempt, the Bandit Leader makes one last attack"<<endl;
+                        if(inventory.isActive("Energy Drink")){
+                            cout<<"Using your energy drink, you outran the Bandit Leaders final attack"<<endl;
+                            break;
+                        }
+                        battle=false;
+                    }
+
+
+
                     int attackNum=(rand()%3)+1;
                     int damageNum=banditLeader.getAttack(attackNum);
                     cout << "Bandit Leader used " <<banditLeader.getAttackName(attackNum)<<" to deal "<<damageNum<<" damage"<<endl;
@@ -569,23 +664,71 @@ int main(){
                     cout << "\n======Status======" << endl;
                     cout << "Health Pts: "<<player.getHp()<<" | Armor: "<<player.getArmor()<<endl<<"Buff Bucks: "<<inventory.getBuffBucks();
                     cout << " | Skill: "<< player.getSkillLevel()<<endl<<endl; 
-                    
-                    cout<<"Choose an attack:"<<endl;
+                    cout<<"Choose what to do:"<<endl;
+                    cout<<"Attack:"<<endl;
                     for (int i=0;i<weaponArr.size();i++){
                         cout<<(i+1)<<". "<<weaponArr[i].getItemName()<<" - "<<weaponArr[i].getDamage()<<" damage"<<endl;
                     }
-                    int weaponOption;
-                    cin>>weaponOption;
-                    weaponOption--;
-                    system("clear");
-                    cout<<player.getName()<<" attacks with "<<weaponArr[weaponOption].getItemName()<<" for "<<weaponArr[weaponOption].getDamage()<<" damage"<<endl;
-                    bandit.setHp(bandit.getHp()-weaponArr[weaponOption].getDamage());
-                    if(bandit.getHp()<=0){
-                        system("clear");
-                        cout<<"You defeated the Bandit"<<endl;
-                        battle=false;
-                        break;
+                    //option for food or fleeing
+                    if(foodArr.size()>0){
+                        cout<<"\nConsume a food item:"<<endl;
+                        for (int i=0;i<(foodArr.size());i++){
+                            cout<<(i+weaponArr.size()+1)<<". "<<foodArr[i].getItemName()<<"("<<foodArr[i].getQuantity()<<")"<<endl;
+                        }
                     }
+                    cout<<endl<<(weaponArr.size()+foodArr.size()+1)<<". Flee"<<endl;
+                    int option;
+                    cin>>option;
+                    option--;
+                    system("clear");
+                    if (option>=0&&option<weaponArr.size()){
+                        cout<<player.getName()<<" attacks with "<<weaponArr[option].getItemName()<<" for "<<weaponArr[option].getDamage()<<" damage"<<endl;
+                        if (inventory.isActive("Muscle Milk")){
+                            cout<<"The muscle milk strengthened your attack dealing "<<weaponArr[option].getDamage()<<" more damage"<<endl;
+                            bandit.setHp(bandit.getHp()-weaponArr[option].getDamage());
+                        }
+                        bandit.setHp(bandit.getHp()-weaponArr[option].getDamage());
+                        if(bandit.getHp()<=0){
+                            system("clear");
+                            cout<<"You defeated the Bandit "<<endl;
+                            battle=false;
+                            
+                        }
+                    }
+                    else if(option>=weaponArr.size()&&option<(weaponArr.size()+foodArr.size())){
+                        option-=weaponArr.size();
+                        if (inventory.activateFood(foodArr[option].getItemName())){
+                            cout<<"You consumed 1 "<<foodArr[option].getItemName()<<endl;
+                            for (int i=0;i<inventory.getNumItems();i++){
+                                if (inventory.getItem(i).getItemName()==foodArr[option].getItemName()){
+                                    inventory.getItem(i).setQuantity(inventory.getItem(i).getQuantity()-1);
+                                    foodArr[option].setQuantity(foodArr[option].getQuantity()-1);
+                                }
+                            }
+                            if (inventory.isActive("Pedialyte")){
+                                cout<<"You heal for 10 hp"<<endl;
+                                player.setHp(player.getHp()+10);
+                                inventory.deactivateFood("Pedialyte");
+                            }
+                            if (inventory.isActive("Cup Of Noodles")){
+                                cout<<"You heal for 5 hp"<<endl;
+                                player.setHp(player.getHp()+5);
+                                inventory.deactivateFood("Cup Of Noodles");
+                            }
+                        }
+                        
+                    }
+                    else if(option==(weaponArr.size()+foodArr.size())){
+                        cout<<"You attempted to flee\nIn youre attempt, the Bandit makes one last attack"<<endl;
+                        if(inventory.isActive("Energy Drink")){
+                            cout<<"Using your energy drink, you outran the Bandits final attack"<<endl;
+                            break;
+                        }
+                        battle=false;
+                    }
+
+
+
                     int attackNum=(rand()%3)+1;
                     int damageNum=bandit.getAttack(attackNum);
                     cout << "Bandit used " <<bandit.getAttackName(attackNum)<<" to deal "<<damageNum<<" damage"<<endl;
@@ -605,6 +748,7 @@ int main(){
                     }
                 }
             }
+        
         }
         //again for cult
         if(isNearEnemy(mapObject.getPlayerRow(),mapObject.getPlayerCol(),mapObject)=='C'){
@@ -618,29 +762,77 @@ int main(){
                     cout << "\n======Status======" << endl;
                     cout << "Health Pts: "<<player.getHp()<<" | Armor: "<<player.getArmor()<<endl<<"Buff Bucks: "<<inventory.getBuffBucks();
                     cout << " | Skill: "<< player.getSkillLevel()<<endl<<endl; 
-                    
-                    cout<<"Choose an attack:"<<endl;
+                    cout<<"Choose what to do:"<<endl;
+                    cout<<"Attack:"<<endl;
                     for (int i=0;i<weaponArr.size();i++){
                         cout<<(i+1)<<". "<<weaponArr[i].getItemName()<<" - "<<weaponArr[i].getDamage()<<" damage"<<endl;
                     }
-                    int weaponOption;
-                    cin>>weaponOption;
-                    weaponOption--;
+                    //option for food or fleeing
+                    if(foodArr.size()>0){
+                        cout<<"\nConsume a food item:"<<endl;
+                        for (int i=0;i<(foodArr.size());i++){
+                            cout<<(i+weaponArr.size()+1)<<". "<<foodArr[i].getItemName()<<"("<<foodArr[i].getQuantity()<<")"<<endl;
+                        }
+                    }
+                    cout<<endl<<(weaponArr.size()+foodArr.size()+1)<<". Flee"<<endl;
+                    int option;
+                    cin>>option;
+                    option--;
                     system("clear");
-                    cout<<player.getName()<<" attacks with "<<weaponArr[weaponOption].getItemName()<<" for "<<weaponArr[weaponOption].getDamage()<<" damage"<<endl;
-                    cultistLeader.setHp(cultistLeader.getHp()-weaponArr[weaponOption].getDamage());
-                    if(cultistLeader.getHp()<=0){
-                        system("clear");
-                        cout<<"You defeated the Cultist Leader"<<endl;
-                        battle=false;
-                        cout<<"The Cultist Church is now in disarray, and the have cultists fled in terror\n"<<endl;
-                        for (int i=-1;i<=1;i++){
-                            for (int j=-1;j<=1;j++){
-                                mapObject.removeCultistCamp((mapObject.getPlayerRow()+i),(mapObject.getPlayerCol()+j));
+                    if (option>=0&&option<weaponArr.size()){
+                        cout<<player.getName()<<" attacks with "<<weaponArr[option].getItemName()<<" for "<<weaponArr[option].getDamage()<<" damage"<<endl;
+                        if (inventory.isActive("Muscle Milk")){
+                            cout<<"The muscle milk strengthened your attack dealing "<<weaponArr[option].getDamage()<<" more damage"<<endl;
+                            cultistLeader.setHp(cultistLeader.getHp()-weaponArr[option].getDamage());
+                        }
+                        cultistLeader.setHp(cultistLeader.getHp()-weaponArr[option].getDamage());
+                        if(cultistLeader.getHp()<=0){
+                            system("clear");
+                            cout<<"You defeated the Cultist Leader"<<endl;
+                            battle=false;
+                            cout<<"The Cultist church is now in disarray, and the Cultist have fled in terror\n"<<endl;
+                            for (int i=-1;i<=1;i++){
+                                for (int j=-1;j<=1;j++){
+                                    mapObject.removeBanditCamp((mapObject.getPlayerRow()+i),(mapObject.getPlayerCol()+j));
+                                }
+                            }
+                            break;
+                        }
+                    }
+                    else if(option>=weaponArr.size()&&option<(weaponArr.size()+foodArr.size())){
+                        option-=weaponArr.size();
+                        if (inventory.activateFood(foodArr[option].getItemName())){
+                            cout<<"You consumed 1 "<<foodArr[option].getItemName()<<endl;
+                            for (int i=0;i<inventory.getNumItems();i++){
+                                if (inventory.getItem(i).getItemName()==foodArr[option].getItemName()){
+                                    inventory.getItem(i).setQuantity(inventory.getItem(i).getQuantity()-1);
+                                    foodArr[option].setQuantity(foodArr[option].getQuantity()-1);
+                                }
+                            }
+                            if (inventory.isActive("Pedialyte")){
+                                cout<<"You heal for 10 hp"<<endl;
+                                player.setHp(player.getHp()+10);
+                                inventory.deactivateFood("Pedialyte");
+                            }
+                            if (inventory.isActive("Cup Of Noodles")){
+                                cout<<"You heal for 5 hp"<<endl;
+                                player.setHp(player.getHp()+5);
+                                inventory.deactivateFood("Cup Of Noodles");
                             }
                         }
-                        break;
+                        
                     }
+                    else if(option==(weaponArr.size()+foodArr.size())){
+                        cout<<"You attempted to flee\nIn youre attempt, the Cultist Leader makes one last attack"<<endl;
+                        if(inventory.isActive("Energy Drink")){
+                            cout<<"Using your energy drink, you outran the Cultist Leaders final attack"<<endl;
+                            break;
+                        }
+                        battle=false;
+                    }
+
+
+
                     int attackNum=(rand()%3)+1;
                     int damageNum=cultistLeader.getAttack(attackNum);
                     cout << "Cultist Leader used " <<cultistLeader.getAttackName(attackNum)<<" to deal "<<damageNum<<" damage"<<endl;
@@ -670,26 +862,74 @@ int main(){
                     cout << "\n======Status======" << endl;
                     cout << "Health Pts: "<<player.getHp()<<" | Armor: "<<player.getArmor()<<endl<<"Buff Bucks: "<<inventory.getBuffBucks();
                     cout << " | Skill: "<< player.getSkillLevel()<<endl<<endl; 
-                    
-                    cout<<"Choose an attack:"<<endl;
+                    cout<<"Choose what to do:"<<endl;
+                    cout<<"Attack:"<<endl;
                     for (int i=0;i<weaponArr.size();i++){
                         cout<<(i+1)<<". "<<weaponArr[i].getItemName()<<" - "<<weaponArr[i].getDamage()<<" damage"<<endl;
                     }
-                    int weaponOption;
-                    cin>>weaponOption;
-                    weaponOption--;
-                    system("clear");
-                    cout<<player.getName()<<" attacks with "<<weaponArr[weaponOption].getItemName()<<" for "<<weaponArr[weaponOption].getDamage()<<" damage"<<endl;
-                    cultist.setHp(cultist.getHp()-weaponArr[weaponOption].getDamage());
-                    if(cultist.getHp()<=0){
-                        system("clear");
-                        cout<<"You defeated the Cultist"<<endl;
-                        battle=false;
-                        break;
+                    //option for food or fleeing
+                    if(foodArr.size()>0){
+                        cout<<"\nConsume a food item:"<<endl;
+                        for (int i=0;i<(foodArr.size());i++){
+                            cout<<(i+weaponArr.size()+1)<<". "<<foodArr[i].getItemName()<<"("<<foodArr[i].getQuantity()<<")"<<endl;
+                        }
                     }
+                    cout<<endl<<(weaponArr.size()+foodArr.size()+1)<<". Flee"<<endl;
+                    int option;
+                    cin>>option;
+                    option--;
+                    system("clear");
+                    if (option>=0&&option<weaponArr.size()){
+                        cout<<player.getName()<<" attacks with "<<weaponArr[option].getItemName()<<" for "<<weaponArr[option].getDamage()<<" damage"<<endl;
+                        if (inventory.isActive("Muscle Milk")){
+                            cout<<"The muscle milk strengthened your attack dealing "<<weaponArr[option].getDamage()<<" more damage"<<endl;
+                            cultist.setHp(cultist.getHp()-weaponArr[option].getDamage());
+                        }
+                        cultist.setHp(cultist.getHp()-weaponArr[option].getDamage());
+                        if(cultist.getHp()<=0){
+                            system("clear");
+                            cout<<"You defeated the Bandit "<<endl;
+                            battle=false;
+                            
+                        }
+                    }
+                    else if(option>=weaponArr.size()&&option<(weaponArr.size()+foodArr.size())){
+                        option-=weaponArr.size();
+                        if (inventory.activateFood(foodArr[option].getItemName())){
+                            cout<<"You consumed 1 "<<foodArr[option].getItemName()<<endl;
+                            for (int i=0;i<inventory.getNumItems();i++){
+                                if (inventory.getItem(i).getItemName()==foodArr[option].getItemName()){
+                                    inventory.getItem(i).setQuantity(inventory.getItem(i).getQuantity()-1);
+                                    foodArr[option].setQuantity(foodArr[option].getQuantity()-1);
+                                }
+                            }
+                            if (inventory.isActive("Pedialyte")){
+                                cout<<"You heal for 10 hp"<<endl;
+                                player.setHp(player.getHp()+10);
+                                inventory.deactivateFood("Pedialyte");
+                            }
+                            if (inventory.isActive("Cup Of Noodles")){
+                                cout<<"You heal for 5 hp"<<endl;
+                                player.setHp(player.getHp()+5);
+                                inventory.deactivateFood("Cup Of Noodles");
+                            }
+                        }
+                        
+                    }
+                    else if(option==(weaponArr.size()+foodArr.size())){
+                        cout<<"You attempted to flee\nIn youre attempt, the Bandit makes one last attack"<<endl;
+                        if(inventory.isActive("Energy Drink")){
+                            cout<<"Using your energy drink, you outran the Bandits final attack"<<endl;
+                            break;
+                        }
+                        battle=false;
+                    }
+
+
+
                     int attackNum=(rand()%3)+1;
                     int damageNum=cultist.getAttack(attackNum);
-                    cout << "Cultist used " <<cultist.getAttackName(attackNum)<<" to deal "<<damageNum<<" damage"<<endl;
+                    cout << "Bandit used " <<cultist.getAttackName(attackNum)<<" to deal "<<damageNum<<" damage"<<endl;
                     if(player.getArmor()>=cultist.getAttack(attackNum)){
                         damageNum=0;
                         cout<<"You blocked "<<player.getArmor()<<" damage with your armor"<<endl;
