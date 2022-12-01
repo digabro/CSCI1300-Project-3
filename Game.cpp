@@ -275,7 +275,7 @@ bool printHistoryQuestions()
     // history college:     Q#&Q  a   b   c   d   A
     string history[7][6] =
    {{"1. When was the town of Bolder built?","a. 1878","b. 1865","c. 1892","d. 1871","d"}, 
-    {"2. What year was the University of Colorado-Boulder founded?","a. 1676","b. 1870","c. 1895","d. 1909","b"},
+    {"2. What year was the University of Colorado-Boulder founded?","a. 1876","b. 1870","c. 1895","d. 1909","b"},
     {"3. When was the first Ralphie Buffalo introduced to the university?","a. 1919","b. 1957","c. 1892","d. 1909","b"},
     {"4. Why are the flat irons named the flat irons?","a. The pioneers saw that it was flat and filled with with iron.","b. The pioneers thought that it looked flat like an iron used to iron clothes.","c. The pioneers thought they were magnetic and thought their magnetic field would protect them from the sun.","d. When Boulder was founded, there was a large iron deposit found in the mountains.","b"},
     {"5. Who was Alfred Packer?","a. He was a settler on an expedition and became a cannibal after the trip went sour.","b. Famous rooster.","c. Famous Boulderite.","d. none of the above.","a"},
@@ -396,7 +396,7 @@ bool printBiologyQuestions()
     {"4. What does the frontal lobe do?","a. Motor function","b. controls the eyes","c. controls the mouth ","d. main computing","a"}};
 for(int i = 0; i < num_biology_qs; i++){
     if(i == 0){
-        cout << "Welcome to the college of Pre-Med. Today we will be learning the history of this school and Boulder, Colorado." << endl;
+        cout << "Welcome to the college of Pre-Med. Let's see what medical knowledge you have." << endl;
         cout << endl;
     }
     for(int j = 0; j < num_biology_cols - 1; j++){// doesn't print answer
@@ -1439,7 +1439,7 @@ int main(){
     }
 
     system("clear");
-    cout<<"Congrats, you have graduated from CU Boulder"<<endl;
-    cout<<"Have a good day and thank you for playing"<<endl;
+    cout<<"Congrats, you have graduated from CU Boulder!"<<endl;
+    cout<<"Have a good day and thank you for playing!"<<endl;
     return 0;
 }
