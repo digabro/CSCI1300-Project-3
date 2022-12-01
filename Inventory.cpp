@@ -189,16 +189,16 @@ bool Inventory::activateFood(string item){
 }
 void Inventory::deactivateFood(string item){
     if(item=="Pedialyte"){
-        pedialyte_active_==false;
+        pedialyte_active_=false;
     }
     else if(item=="Cup Of Noodles"){
-        cup_of_noodles_active_==false;
+        cup_of_noodles_active_=false;
     }
     else if(item=="Muscle Milk"){
-        muscle_milk_active_==false;
+        muscle_milk_active_=false;
     }
     else if(item=="Energy Drink"){
-        energy_drink_active_==false;
+        energy_drink_active_=false;
     }
 }
 bool Inventory::isActive(string item){
