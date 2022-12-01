@@ -593,6 +593,7 @@ int main(){
 
     while(option != 'Q')
     {
+        cout << "========Map of Boulder========" << endl;
         mapObject.displayMap();
         cout << "\n======Status======" << endl;
         cout << "Health Pts: "<<player.getHp()<<" | Armor: "<<player.getArmor()<<endl<<"Buff Bucks: "<<inventory.getBuffBucks();
