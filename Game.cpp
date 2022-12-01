@@ -1355,7 +1355,7 @@ int main(){
                     cout << endl;
                     cout << "Because you passed this class you won a piece of armor! " << endl;
                     cout << "You got: History Cowboy Hat"<< endl; // we'll print name here and then store in inventory in next line.
-                    inventory.getItem(3).setQuantity(1);
+                    inventory.buyItem(cowboyHat);
                     mapObject.removeSchool(mapObject.getPlayerRow(), mapObject.getPlayerCol());
                 }
             }
@@ -1366,7 +1366,7 @@ int main(){
                     cout << endl;
                     cout << "Because you passed this class you won a piece of armor! " << endl;
                     cout << "You got: Buisness Suit"<< endl; // we'll print name here and then store in inventory in next line.
-                    inventory.getItem(0).setQuantity(1);
+                    inventory.buyItem(buisnessSuit);
                     mapObject.removeSchool(mapObject.getPlayerRow(), mapObject.getPlayerCol());
                 }
             }
@@ -1377,7 +1377,7 @@ int main(){
                     cout << endl;
                     cout << "Because you passed this class you won a piece of armor! " << endl;
                     cout << "You got: Fractal Leggings"<< endl; // we'll print name here and then store in inventory in next line.
-                    inventory.getItem(2).setQuantity(1);
+                    inventory.buyItem(fractalLeggings);
                     mapObject.removeSchool(mapObject.getPlayerRow(), mapObject.getPlayerCol());
                 }
             }
@@ -1389,7 +1389,7 @@ int main(){
                     cout << endl;
                     cout << "Because you passed this class you won a piece of armor! " << endl;
                     cout << "You got: Biology Helmet" << endl; // we'll print name here and then store in inventory in next line.
-                    inventory.getItem(1).setQuantity(1);
+                    inventory.buyItem(biologyHelm);
                     mapObject.removeSchool(mapObject.getPlayerRow(), mapObject.getPlayerCol());
                 }
             }
