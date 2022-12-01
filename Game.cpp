@@ -1358,10 +1358,6 @@ int main(){
                     inventory.getItem(3).setQuantity(1);
                     mapObject.removeSchool(mapObject.getPlayerRow(), mapObject.getPlayerCol());
                 }
-<<<<<<< HEAD
-=======
-                
->>>>>>> c480c7faa892c1bcb3f9b5f76a47ae5ca6d91f9a
             }
             if(mapObject.getSchoolType(mapObject.getPlayerRow(), mapObject.getPlayerCol()) == 1){
                 if(printBusinessQuestions()==1){
@@ -1398,7 +1394,6 @@ int main(){
                 }
             }
         }
-<<<<<<< HEAD
         if(mapObject.isKingWookLocation(mapObject.getPlayerRow(), mapObject.getPlayerCol()) == 1)
         {
             if(doesKingWookTrustThee()==1){
@@ -1407,7 +1402,7 @@ int main(){
             else{
                 player.setKingWookTrust(0);
             }
-=======
+        }
         //checking if the class/fight requirement has been passed
         if(player.getClassesPasses()==4&&player.getFightsWon()>=1){
             system("clear");
@@ -1417,9 +1412,9 @@ int main(){
         }
         if(mapObject.isDungeonExit(mapObject.getPlayerRow(),mapObject.getPlayerCol())){
             option='Q';//quitting out of the while loop
->>>>>>> c480c7faa892c1bcb3f9b5f76a47ae5ca6d91f9a
         }
     }
+
     system("clear");
     cout<<"Congrats, you have graduated from CU Boulder"<<endl;
     cout<<"Have a good day and thank you for playing"<<endl;
