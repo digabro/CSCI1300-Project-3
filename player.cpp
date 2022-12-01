@@ -10,6 +10,8 @@ Player::Player()
     Person::setHp(0);
     Person::setArmor(0);
     skill_level_=0;
+    classes_passed_=0;
+    fights_won_=0;
 }
 Player::Player(string name, int hp, int armor,int skill)
 {
@@ -17,6 +19,8 @@ Player::Player(string name, int hp, int armor,int skill)
     Person::setHp(hp);
     Person::setArmor(armor);
     skill_level_=skill;
+    classes_passed_=0;
+    fights_won_=0;
 }
 
 int Player::getSkillLevel(){ 
@@ -25,7 +29,19 @@ int Player::getSkillLevel(){
 int Player::getMaxSkillLevel(){ 
   return max_skill_level_;
 }
+int Player::getClassesPasses(){
+  return classes_passed_;
+}
+int Player::getFightsWon(){
+  return fights_won_;
+}
 
+void Player::setClassesPassed(int classes){
+  classes_passed_=classes;
+}
+void Player::setFightsWon(int fights){
+  fights_won_=fights;
+}
 void Player::setSkillLevel(int skillLevel){ 
   skill_level_ = skillLevel; 
 }

@@ -8,6 +8,8 @@ using namespace std;
 
 class Player : public Person{
     private:
+        int classes_passed_;
+        int fights_won_;
         int skill_level_;
         static const int max_skill_level_=100;//add in max level
     public:
@@ -15,7 +17,11 @@ class Player : public Person{
         Player(string name,int hp,int armor,int skillLevel);
         int getSkillLevel();
         int getMaxSkillLevel();
+        int getClassesPasses();
+        int getFightsWon();
 
+        void setClassesPassed(int classes);
+        void setFightsWon(int fights);
         void setSkillLevel(int skillLevel);
 };
 
