@@ -1,3 +1,5 @@
+//Lachlan Kotarski and Diego Olin 
+
 #include <fstream>
 #include <iostream>
 #include <ctime>
