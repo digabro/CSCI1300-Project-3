@@ -592,7 +592,7 @@ int main(){
     //adding schools
     for (int i=0;i<4;i++){
         bRow = (rand()%11);
-        bCol = (rand()%14)+15;
+        bCol = (rand()%14)+14;
         mapObject.addSchool(bRow,bCol, i); 
     }
     //add King Wook
@@ -1180,7 +1180,7 @@ int main(){
                             inventory.setBuffBucks(inventory.getBuffBucks()+scavengedmoney);
                             for (int i=-1;i<=1;i++){
                                 for (int j=-1;j<=1;j++){
-                                    mapObject.removeBanditCamp((mapObject.getPlayerRow()+i),(mapObject.getPlayerCol()+j));
+                                    mapObject.removeCultistCamp((mapObject.getPlayerRow()+i),(mapObject.getPlayerCol()+j));
                                 }
                             }
                             player.setFightsWon(player.getFightsWon()+1);
@@ -1398,6 +1398,7 @@ int main(){
         {
             if(doesKingWookTrustThee()==1){
                 player.setKingWookTrust(1);
+                mapObject.removeKingWook(mapObject.getPlayerRow(),mapObject.getPlayerCol());
             }
             else{
                 player.setKingWookTrust(0);
