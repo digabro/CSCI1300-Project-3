@@ -7,9 +7,13 @@ survive the nights on the hill while also maintaining your classes.
 
 Map 
 The map is structured like the map of boulder with certain schools in the
-same area. You must go to all or most of the classes to graduate.
+same area. You must go to all or most of the classes to graduate. classes 
+are on the right hand side of the map and the enemies are mostly one the 
+left hand side. W on the map is King Wook tent, he can help you with 
+enemies if you solve his riddle. Lastly when you land on an M enter 
+i on your keyboard to enter the market.
 
 Goal:
 Survive your nights out on the hill while staying up with all of your classes.
-If you complete all the classes on campus with passing scores and destroy the 
-enemies on campus, then you win. Good luck and have fun. 
+If you complete all the classes on campus with passing scores and destroy at 
+least one of the enemies on campus, then you win. Good luck and have fun. 
