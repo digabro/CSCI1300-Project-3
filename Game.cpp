@@ -197,6 +197,7 @@ bool doesKingWookTrustThee()
     if(randNum <= 0 && randNum <=20){
         cout << wook_riddles[0][0] << endl;
         cin >> answer;
+        system("clear");
         if(answer == wook_riddles[0][1]){
             cout << "King Wook: You got it correct my friend! I shall now help you with your quest. " << endl;
             return true; 
@@ -209,6 +210,7 @@ bool doesKingWookTrustThee()
     if(randNum <= 21 && randNum <=40){
         cout << wook_riddles[1][0] << endl;
         cin >> answer;
+        system("clear");
         if(answer == wook_riddles[1][1]){
             cout << "King Wook: You got it correct my friend! I shall now help you with your quest. " << endl;
             return true; 
@@ -222,6 +224,7 @@ bool doesKingWookTrustThee()
         cout << "King Wook: You got it correct my friend! I shall now help you with your quest. " << endl;
         cout << wook_riddles[2][0] << endl;
         cin >> answer;
+        system("clear");
         if(answer == wook_riddles[2][1]){
             return true; 
         }
@@ -233,6 +236,7 @@ bool doesKingWookTrustThee()
     if(randNum <= 61 && randNum <=80){
         cout << wook_riddles[3][0] << endl;
         cin >> answer;
+        system("clear");
         if(answer == wook_riddles[3][1]){
             cout << "King Wook: You got it correct my friend! I shall now help you with your quest. " << endl;
             return true; 
@@ -245,6 +249,7 @@ bool doesKingWookTrustThee()
     if(randNum <= 81 && randNum <=100){
         cout << wook_riddles[4][0] << endl;
         cin >> answer;
+        system("clear");
         if(answer == wook_riddles[4][1]){
             cout << "King Wook: You got it correct my friend! I shall now help you with your quest. " << endl;
             return true; 
@@ -592,6 +597,8 @@ int main(){
         bCol = (rand()%14)+15;
         mapObject.addSchool(bRow,bCol, i); 
     }
+    //add King Wook
+    mapObject.addKingWook(2,6);
 
     while(option != 'Q')
     {
@@ -1355,10 +1362,6 @@ int main(){
                     
                     mapObject.removeSchool(mapObject.getPlayerRow(), mapObject.getPlayerCol());
                 }
-                else
-                {
-                    system("clear");
-                }
             }
             if(mapObject.getSchoolType(mapObject.getPlayerRow(), mapObject.getPlayerCol()) == 1){
                 if(printBusinessQuestions()==1){
@@ -1370,10 +1373,6 @@ int main(){
                     
                     mapObject.removeSchool(mapObject.getPlayerRow(), mapObject.getPlayerCol());
                 }
-                else
-                {
-                    system("clear");
-                }
             }
             if(mapObject.getSchoolType(mapObject.getPlayerRow(), mapObject.getPlayerCol()) == 2){
                 if(printMathQuestions()==1){
@@ -1384,10 +1383,6 @@ int main(){
                     cout << "You got: "<< endl; // we'll print name here and then store in inventory in next line.
                     
                     mapObject.removeSchool(mapObject.getPlayerRow(), mapObject.getPlayerCol());
-                }
-                else
-                {
-                    system("clear");
                 }
             }
             if(mapObject.getSchoolType(mapObject.getPlayerRow(), mapObject.getPlayerCol()) == 3){
@@ -1401,13 +1396,16 @@ int main(){
                     
                     mapObject.removeSchool(mapObject.getPlayerRow(), mapObject.getPlayerCol());
                 }
-                else
-                {
-                    
-                }
             }
-
-
+        }
+        if(mapObject.isKingWookLocation(mapObject.getPlayerRow(), mapObject.getPlayerCol()) == 1)
+        {
+            if(doesKingWookTrustThee()==1){
+                player.setKingWookTrust(1);
+            }
+            else{
+                player.setKingWookTrust(0);
+            }
         }
     }
     return 0;

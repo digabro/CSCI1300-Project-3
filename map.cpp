@@ -714,6 +714,24 @@ bool Map::removeCultistCamp(int row, int col)
     }
     return false;
 }
+
+bool Map::removeKingWook(int row, int col)
+{
+    if (king_wook_positions[0][0] == row && king_wook_positions[0][1] == col)
+    {
+        // swap i'th room with last room
+        // reset last room
+        king_wook_positions[king_wook_count_ - 1][0] = -1;
+        king_wook_positions[king_wook_count_ - 1][1] = -1;
+        // decrement room_count_
+        king_wook_count_--;
+        // set map data to explored
+        map_data_[row][col] = EXPLORED;
+        return true;
+    }
+    return false;
+}
+
 /*
  * Algorithm: Mark (row, col) as explored, either revealing NPC or empty space
  * if (row, col) is NPC location
