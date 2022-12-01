@@ -488,7 +488,16 @@ bool Map::addMarket(int row, int col)
     return true;
 }
 
-bool Map::addSchool(int row, int col)
+int Map:: getSchoolType(int row, int col)
+{
+    for(int i = 0; i < school_count_; i++){
+        if(school_positions_[i][0] == row && school_positions_[i][1] == col){   
+            return school_positions_[i][2];
+        }
+    }
+}
+
+bool Map::addSchool(int row, int col, int school_type)
 {
 
     if (school_count_ >= max_schools_)
@@ -504,6 +513,7 @@ bool Map::addSchool(int row, int col)
 
     school_positions_[school_count_][0] = row;
     school_positions_[school_count_][1] = col;
+    school_positions_[school_count_][2] = school_type;
     school_count_++;
     map_data_[row][col] = SCHOOL;
     return true;
@@ -587,6 +597,30 @@ bool Map::addFinalBattle(int row, int col)
     final_battle_count_++;
     map_data_[row][col] = FINAL_BATTLE;
     return true;
+}
+
+bool Map::removeSchool(int row, int col)
+{
+    for (int i = 0; i < school_count_; i++)
+    {
+        if (school_positions_[i][0] == row && school_positions_[i][1] == col)
+        {
+            // swap i'th npc with last npc
+            school_positions_[i][0] = school_positions_[school_count_ - 1][0];
+            school_positions_[i][1] = school_positions_[school_count_ - 1][1];
+            school_positions_[i][2] = school_positions_[school_count_ - 1][2];
+            // reset last npc
+            school_positions_[school_count_ - 1][0] = -1;
+            school_positions_[school_count_ - 1][1] = -1;
+            school_positions_[school_count_ - 1][2] = -1;
+            // decrement npc_count_
+            npc_count_--;
+            // set map data to explored
+            map_data_[row][col] = EXPLORED;
+            return true;
+        }
+    }
+    return false;
 }
 
 /*

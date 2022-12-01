@@ -1,6 +1,6 @@
 //Lachlan Kotarski and Diego Olin 
 //compile command:
-//g++ -std=c++17 Inventory.cpp Item.cpp location.cpp person.cpp npc.cpp player.cpp map.cpp Game.cpp -o universityHustle
+//g++ Inventory.cpp Item.cpp location.cpp person.cpp npc.cpp player.cpp map.cpp Game.cpp -std=c++17 -o universityHustle
 
 
 #include "Inventory.h"
@@ -438,11 +438,13 @@ for(int i = 0; i < num_biology_qs; i++){
     {
         cout << "You scored " << score << "/4 on the Biology quiz. Which means you ";
         if(score >= 3){
+            system("clear");
             cout << "passed the quiz!" << endl;
             cout << endl; 
             return true;  
         }
         else{
+            system("clear");
             cout << "didn't pass the quiz, please try again." << endl;
             cout << endl;
             return false;
@@ -599,9 +601,8 @@ int main(){
     for (int i=0;i<4;i++){
         bRow = (rand()%11);
         bCol = (rand()%14)+15;
-        mapObject.addSchool(bRow,bCol);
+        mapObject.addSchool(bRow,bCol, i); 
     }
-
 
     while(option != 'Q')
     {
@@ -1297,6 +1298,71 @@ int main(){
                     }
                 }
             }
+        }
+        if(mapObject.isSchoolLocation(mapObject.getPlayerRow(), mapObject.getPlayerCol()) == 1){
+            if(mapObject.getSchoolType(mapObject.getPlayerRow(), mapObject.getPlayerCol()) == 0){
+                if(printHistoryQuestions()==1){
+                    player.setClassesPassed(player.getClassesPasses()+1);
+                    // give player good armor piece biotech 
+                    cout << endl;
+                    cout << "Because you passed this class you won a piece of armor! " << endl;
+                    cout << "You got: "<< endl; // we'll print name here and then store in inventory in next line.
+                    
+                    mapObject.removeSchool(mapObject.getPlayerRow(), mapObject.getPlayerCol());
+                }
+                else
+                {
+                    system("clear");
+                }
+            }
+            if(mapObject.getSchoolType(mapObject.getPlayerRow(), mapObject.getPlayerCol()) == 1){
+                if(printBusinessQuestions()==1){
+                    player.setClassesPassed(player.getClassesPasses()+1);
+                    // give player good armor piece biotech 
+                    cout << endl;
+                    cout << "Because you passed this class you won a piece of armor! " << endl;
+                    cout << "You got: "<< endl; // we'll print name here and then store in inventory in next line.
+                    
+                    mapObject.removeSchool(mapObject.getPlayerRow(), mapObject.getPlayerCol());
+                }
+                else
+                {
+                    system("clear");
+                }
+            }
+            if(mapObject.getSchoolType(mapObject.getPlayerRow(), mapObject.getPlayerCol()) == 2){
+                if(printMathQuestions()==1){
+                    player.setClassesPassed(player.getClassesPasses()+1);
+                    // give player good armor piece biotech 
+                    cout << endl;
+                    cout << "Because you passed this class you won a piece of armor! " << endl;
+                    cout << "You got: "<< endl; // we'll print name here and then store in inventory in next line.
+                    
+                    mapObject.removeSchool(mapObject.getPlayerRow(), mapObject.getPlayerCol());
+                }
+                else
+                {
+                    system("clear");
+                }
+            }
+            if(mapObject.getSchoolType(mapObject.getPlayerRow(), mapObject.getPlayerCol()) == 3){
+                
+                if(printBiologyQuestions()==1){
+                    player.setClassesPassed(player.getClassesPasses()+1);
+                    // give player good armor piece biotech 
+                    cout << endl;
+                    cout << "Because you passed this class you won a piece of armor! " << endl;
+                    cout << "You got: " << endl; // we'll print name here and then store in inventory in next line.
+                    
+                    mapObject.removeSchool(mapObject.getPlayerRow(), mapObject.getPlayerCol());
+                }
+                else
+                {
+                    
+                }
+            }
+
+
         }
     }
     return 0;

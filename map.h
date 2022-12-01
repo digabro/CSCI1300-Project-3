@@ -40,7 +40,7 @@ private:
     int dungeon_exit_[2];                 // exit location of the dungeon
     int npc_positions_[max_npcs_][3];     // stores the (row,col) positions of NPCs present on map and if they have been found
     int room_positions_[max_rooms_][2];
-    int school_positions_[max_schools_][2]; // sores row,col positions of schools
+    int school_positions_[max_schools_][3]; // sores row,col positions of schools, type
     int bandit_camp_positions_[max_bandit_camp_][2]; // sores row,col positions of bandit camps
     //!
     int cultist_positions_[max_cultist_][2]; // should we make them discoverable? if so the 2nd array will have 3 as its max. 
@@ -68,6 +68,7 @@ public:
     int getPlayerCol(); // important
     int getDungeonExitRow(); // we could use for final battle
     int getDungeonExitCol(); // we could use for final battle
+    int getSchoolType(int row, int col);
     int getRoomCount(); // meh... prolly remove.
     int getNPCCount(); // meh... 
     int getNumRows(); // useful
@@ -95,12 +96,13 @@ public:
     bool move(char);
     bool addNPC(int row, int col); // might need for randomization of spawning enemies
     bool addRoom(int row, int col);
-    bool addSchool(int row, int col);
+    bool addSchool(int row, int col, int school_type);
     bool addBanditCamp(int row, int col);
     bool addCultist(int row, int col);
     bool addKingWook(int row, int col);
     bool addFinalBattle(int row, int col);
     bool addMarket(int row, int col); // use for start of game and adding markets & schools
+    bool removeSchool(int row, int col);
     bool removeNPC(int row, int col); // use for sta
     bool removeBanditCamp(int row, int col); // not use really because our markets & schools won't disappear
     bool removeCultistCamp(int row, int col); // not use really because our markets & schools won't disappear
