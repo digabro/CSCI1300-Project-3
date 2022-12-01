@@ -30,8 +30,8 @@ private:
     static const int max_rooms_ = 8;
     static const int max_markets_ = 5; // max number of rooms
     static const int max_schools_ = 4;
-    static const int max_bandit_camp_ = 2;
-    static const int max_cultist_ = 5;
+    static const int max_bandit_camp_ = 4;
+    static const int max_cultist_ = 2;
     static const int max_king_wook_ = 1;
     static const int max_final_battle_ = 1;
 
@@ -103,6 +103,7 @@ public:
     bool addMarket(int row, int col); // use for start of game and adding markets & schools
     bool removeNPC(int row, int col); // use for sta
     bool removeBanditCamp(int row, int col); // not use really because our markets & schools won't disappear
+    bool removeCultistCamp(int row, int col); // not use really because our markets & schools won't disappear
     void exploreSpace(int row, int col); // use while navigating
 };
 

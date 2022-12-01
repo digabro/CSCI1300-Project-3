@@ -664,6 +664,27 @@ bool Map::removeBanditCamp(int row, int col)
     return false;
 }
 
+bool Map::removeCultistCamp(int row, int col)
+{
+    for (int i = 0; i < cultist_count_; i++)
+    {
+        if (cultist_positions_[i][0] == row && cultist_positions_[i][1] == col)
+        {
+            // swap i'th room with last room
+            cultist_positions_[i][0] = cultist_positions_[cultist_count_ - 1][0];
+            cultist_positions_[i][1] = cultist_positions_[cultist_count_ - 1][1];
+            // reset last room
+            cultist_positions_[cultist_count_ - 1][0] = -1;
+            cultist_positions_[cultist_count_ - 1][1] = -1;
+            // decrement room_count_
+            cultist_count_--;
+            // set map data to explored
+            map_data_[row][col] = EXPLORED;
+            return true;
+        }
+    }
+    return false;
+}
 /*
  * Algorithm: Mark (row, col) as explored, either revealing NPC or empty space
  * if (row, col) is NPC location

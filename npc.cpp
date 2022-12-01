@@ -34,23 +34,37 @@ Npc::Npc(string name, int hp, int armor,bool agression,int att1,int att2, int at
 bool Npc::getAgression(){ 
   return agression_; 
 }
-int Npc::getAttack1(){ 
-  return attack1_; 
+int Npc::getAttack(int num){
+  switch(num){
+    case 1:{
+      return attack1_;
+    }break;
+    case 2:{
+      return attack2_;
+    }break;
+    case 3:{
+      return attack3_;
+    }break;
+    default:{
+      return 0;
+    }
+  }
 }
-int Npc::getAttack2(){ 
-  return attack2_; 
-}
-int Npc::getAttack3(){ 
-  return attack3_; 
-}
-string Npc::getAttack1Name(){
-  return attack1_Name_;
-}
-string Npc::getAttack2Name(){
-  return attack2_Name_;
-}
-string Npc::getAttack3Name(){
-  return attack3_Name_;
+string Npc::getAttackName(int num){
+  switch(num){
+    case 1:{
+      return attack1_Name_;
+    }break;
+    case 2:{
+      return attack2_Name_;
+    }break;
+    case 3:{
+      return attack3_Name_;
+    }break;
+    default:{
+      return "";
+    }
+  }
 }
 
 
