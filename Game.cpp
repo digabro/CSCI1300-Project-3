@@ -444,7 +444,7 @@ bool printMathQuestions()
     string math[num_math_qs][num_math_cols] =
    {{"1. Solve 4 x 4.","a. 1","b. 4","c. 16","d. 20","c"}, 
     {"2. Solve 9 x 9.","a. 63","b. 72","c. 81","d. 90","c"},
-    {"3. Solve 6 x 6.","a. 36","b. 33","c. 27","dd. 39","a"},
+    {"3. Solve 6 x 6.","a. 36","b. 33","c. 27","d. 39","a"},
     {"4. If f(x) = 4x^5 + 7x^3 - 2x, solve f`(x). Pick one of the answers below.","a. f`(x) = 20x + 22x^2 - 4.","b. F(x) = x^5 + (7/4)x^4 -x^2 + c.","c. f`(x) = 20x^4 + 21x^2 - 2. ","d. f`(x) = x^5 + (7/4)x^4 -x^2 + c.","c"},
     {"5. Solve 2 + 2. ","a. 1","b. 2","c. 4","d. 5","c"},
     {"6. Solve 2 - 2. ","a. -1","b. 0","c. 1.99","d. 2.01","b"},
@@ -633,7 +633,6 @@ int main(){
             case 'e':{
                 string temp;
                 system("clear");
-                cout<<inventory.getEnergyDrink()<<endl;
                 cout<<"======Inventory======"<<endl;
                 cout<<"Buff Bucks: $"<<inventory.getBuffBucks()<<".00"<<endl;
                 if(!printInventory(inventory,"Weapon")){
@@ -1062,7 +1061,6 @@ int main(){
                             int scavengedmoney=(rand()%10);
                             cout<<"When searching the bandits pockets, you find "<<scavengedmoney<<" Buffbucks"<<endl;
                             inventory.setBuffBucks(inventory.getBuffBucks()+scavengedmoney);
-                            player.setFightsWon(player.getFightsWon()+1);
                             player.setHp(20);
                             break;
                         }
@@ -1284,7 +1282,6 @@ int main(){
                             int scavengedmoney=(rand()%10);
                             cout<<"When searching the cultists pockets, you find "<<scavengedmoney<<" Buffbucks"<<endl;
                             inventory.setBuffBucks(inventory.getBuffBucks()+scavengedmoney);
-                            player.setFightsWon(player.getFightsWon()+1);
                             player.setHp(20);
                             break;
                         }
@@ -1351,13 +1348,14 @@ int main(){
                     cout << endl;
                     cout << "Because you passed this class you won a piece of armor! " << endl;
                     cout << "You got: History Cowboy Hat"<< endl; // we'll print name here and then store in inventory in next line.
-                    cowboyHat.setQuantity(1);
+                    inventory.getItem(3).setQuantity(1);
                     mapObject.removeSchool(mapObject.getPlayerRow(), mapObject.getPlayerCol());
                 }
                 else
                 {
                     system("clear");
                 }
+                
             }
             if(mapObject.getSchoolType(mapObject.getPlayerRow(), mapObject.getPlayerCol()) == 1){
                 if(printBusinessQuestions()==1){
@@ -1366,7 +1364,7 @@ int main(){
                     cout << endl;
                     cout << "Because you passed this class you won a piece of armor! " << endl;
                     cout << "You got: Buisness Suit"<< endl; // we'll print name here and then store in inventory in next line.
-                    buisnessSuit.setQuantity(1);
+                    inventory.getItem(0).setQuantity(1);
                     mapObject.removeSchool(mapObject.getPlayerRow(), mapObject.getPlayerCol());
                 }
                 else
@@ -1381,7 +1379,7 @@ int main(){
                     cout << endl;
                     cout << "Because you passed this class you won a piece of armor! " << endl;
                     cout << "You got: Fractal Leggings"<< endl; // we'll print name here and then store in inventory in next line.
-                    fractalLeggings.setQuantity(1);
+                    inventory.getItem(2).setQuantity(1);
                     mapObject.removeSchool(mapObject.getPlayerRow(), mapObject.getPlayerCol());
                 }
                 else
@@ -1397,7 +1395,7 @@ int main(){
                     cout << endl;
                     cout << "Because you passed this class you won a piece of armor! " << endl;
                     cout << "You got: Biology Helmet" << endl; // we'll print name here and then store in inventory in next line.
-                    biologyHelm.setQuantity(1);
+                    inventory.getItem(1).setQuantity(1);
                     mapObject.removeSchool(mapObject.getPlayerRow(), mapObject.getPlayerCol());
                 }
                 else
@@ -1405,9 +1403,20 @@ int main(){
                     
                 }
             }
-
-
+        }
+        //checking if the class/fight requirement has been passed
+        if(player.getClassesPasses()==4&&player.getFightsWon()>=1){
+            system("clear");
+            cout<<"You have now passed enough classes and defeated enough enemies to graduate"<<endl;
+            cout<<"Make your way to the exit to graduate"<<endl;
+            mapObject.addCollegeExit();
+        }
+        if(mapObject.isDungeonExit(mapObject.getPlayerRow(),mapObject.getPlayerCol())){
+            option='Q';//quitting out of the while loop
         }
     }
+    system("clear");
+    cout<<"Congrats, you have graduated from CU Boulder"<<endl;
+    cout<<"Have a good day and thank you for playing"<<endl;
     return 0;
 }
