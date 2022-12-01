@@ -35,6 +35,12 @@ int Player::getClassesPasses(){
 int Player::getFightsWon(){
   return fights_won_;
 }
+bool Player::getKingWookTrust(){
+  return doesKingWookTrustThe;
+
+void Player::setKingWookTrust(bool trust){
+  doesKingWookTrustThe=trust;
+}
 
 void Player::setClassesPassed(int classes){
   classes_passed_=classes;

@@ -8,6 +8,7 @@ using namespace std;
 
 class Player : public Person{
     private:
+        bool doesKingWookTrustThe;
         int classes_passed_;
         int fights_won_;
         int skill_level_;
@@ -19,7 +20,9 @@ class Player : public Person{
         int getMaxSkillLevel();
         int getClassesPasses();
         int getFightsWon();
+        bool getKingWookTrust();
 
+        void setKingWookTrust(bool trust);
         void setClassesPassed(int classes);
         void setFightsWon(int fights);
         void setSkillLevel(int skillLevel);
