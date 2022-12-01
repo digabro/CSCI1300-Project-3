@@ -28,12 +28,8 @@ Map::Map()
 void Map::resetMap()
 {
     // resets player position, count values, and initializes values in position arrays to -1
-    player_position_[0] = 0;
-    player_position_[1] = 0;
-
-    // set dungeon exit
-    dungeon_exit_[0] = num_rows_ - 1;
-    dungeon_exit_[1] = num_cols_ / 2;
+    player_position_[0] = 11;
+    player_position_[1] = 29;
 
     for (int i = 0; i < max_npcs_; i++)
     {
@@ -56,7 +52,6 @@ void Map::resetMap()
             map_data_[i][j] = UNEXPLORED;
         }
     }
-    map_data_[dungeon_exit_[0]][dungeon_exit_[1]] = EXIT;
 }
 
 // return player's row position

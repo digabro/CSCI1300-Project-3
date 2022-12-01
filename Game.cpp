@@ -78,36 +78,10 @@ char isNearEnemy(int row,int col,Map map){//make return char
     return 'N';
 }
 
-void randomChances(Map map,Inventory inv,Item bottle){//use the bottle item when calling, needs it as an input to add it to the inventory as its not a global variable
-    string animalList[4]={" Black Bear"," Mountain Lion"," Coyote","n Elk"};//supposed to have space before and "n elk"
-    int randNum = rand() % 100;//rand num from 0 to 99
-    if (randNum>=0&&randNum<5){//found money
-        int randmoney=(rand()%9)+1;//1 to 10 bucks --can be changed if you want
-        system("clear");
-        cout<<"While investigating, you found $"<<randmoney<<".00"<<endl;
-        inv.setBuffBucks(inv.getBuffBucks()+randmoney);
-    }
-    else if (randNum>=5&&randNum<25){//found broken bottle
-        system("clear");
-        cout<<"While investigating, you found a broken bottle"<<endl;
-    }
-    else if (randNum>=25&&randNum<45){//found raccoon
-        system("clear");
-        cout<<"While investigating, you encountered a raccoon"<<endl;
-        //add in raccoon code
-    }
-    else if (randNum>=45&&randNum<55){//found broken bottle
-        system("clear");
-        string animal = animalList[(rand()%4)];
-        cout<<"While investigating, you encountered a"<<animal<<endl;
-        //add in animal code
-    }
-}
-
 void sendScore(string file_name,Player player, Inventory inv){
     ofstream outFile;
     outFile.open(file_name,ios_base::app);
-    outFile<<player.getName()<<","<<player.getHp()<<","<<player.getSkillLevel()<<","<<inv.getBuffBucks()<<endl;//player aspects
+    outFile<<player.getName()<<","<<player.getHp()<<","<<player.getSkillLevel()<<","<<inv.getBuffBucks()<<","<<player.getClassesPasses()<<","<<player.getFightsWon()<<endl;//player aspects
 }
 
 int split(string input, char sep, string arr[], int size){
@@ -146,7 +120,7 @@ int split(string input, char sep, string arr[], int size){
 }
 
 void organizeLogs(){
-    string splitArr[4];
+    string splitArr[6];
     string line;
     ifstream inFile;
     inFile.open("playerLogs");
@@ -154,17 +128,22 @@ void organizeLogs(){
     vector<string> tempLog;
     while(!inFile.eof()){
         getline(inFile,line);
-        split(line,',',splitArr,4);
-        for (int i=0;i<4;i++){
+        split(line,',',splitArr,6);
+        for (int i=0;i<6;i++){
             tempLog.push_back(splitArr[i]);
         }
-        tempLog.push_back(to_string((((stod(tempLog[1])/20.0)*0.3)+((stod(tempLog[2])/10.0)*0.3)+(stod(tempLog[3])/20.0)*0.4)*14.3));//remaining hp 20% skill 30% buffbucks 50% 
+        double health=(stod(tempLog[1])/20.0)*0.3;//base 0.3
+        double armor=(stod(tempLog[2])/10)*0.3;//base 0
+        double money=(stod(tempLog[3])/50.0)*0.4;//base 0.4
+        double classes=stod(tempLog[4])*5;//base 0
+        double fights=stod(tempLog[5])*5;//base 0
+        tempLog.push_back(to_string(((health+armor+money+classes+fights))));//remaining hp 20% skill 30% buffbucks 50% 
         logLines.push_back(tempLog);
         tempLog.clear();
     }
     for (int i=0;i<(logLines.size()-1);i++){
         for (int j=1;j<(logLines.size()-1);j++){
-            if (stoi(logLines[j][4])>=stoi(logLines[j-1][4])){
+            if (stod(logLines[j][6])>=stod(logLines[j-1][6])){
                 tempLog=logLines[j-1];
                 logLines[j-1]=logLines[j];
                 logLines[j]=tempLog;
@@ -173,13 +152,13 @@ void organizeLogs(){
     }
     inFile.close();
     ofstream outFile;
-    outFile.open("scoreboard");
+    outFile.open("scoreboard.txt");
     int numRep=5;
     if(logLines.size()<5){
         numRep=logLines.size()-1;
     }
     for (int i=0;i<numRep;i++){
-        outFile<<(i+1)<<". "<<logLines[i][0]<<" | Total: "<<stoi(logLines[i][4])<<" | Health: "<<logLines[i][1]<<" | Skill: "<<logLines[i][2]<<" | BuffBucks: "<<logLines[i][3]<<endl;
+        outFile<<(i+1)<<". "<<logLines[i][0]<<" | Total: "<<stoi(logLines[i][6])<<" | Health: "<<logLines[i][1]<<" | Skill: "<<logLines[i][2]<<" | BuffBucks: "<<logLines[i][3]<<" | Classes Passed: "<<logLines[i][4]<<" | Fights Won: "<<logLines[i][5]<<endl;
     }
     outFile.close();
 }
@@ -517,6 +496,15 @@ for(int i = 0; i < num_math_qs; i++){
 return false;
 }
 
+int isValidInput(int lastValidInput){
+    int input;
+    while((!(cin>>input))){
+        cout<<"Invalid Input"<<endl;
+        cin.clear();
+        cin.ignore(INT_MAX,'\n');
+    }
+    return input;
+}
 
 
 
@@ -534,6 +522,7 @@ int main(){
     printFile("rules.txt");
     char option;
     Map mapObject=Map();
+
     cout<<"\n\nPlease enter your name: ";
     string name;
     getline(cin,name);
@@ -544,9 +533,9 @@ int main(){
     vector<Item> weaponArr;//making a vector for weapons -- used in the fights
     vector<Item> foodArr; //making food vector for fights
     //adding armor items to inventory array with quantity of 0
-    Item csChestplate =Item("CS Chestplate","Armor",0,inventory.getNumItems(),0,6,60,1,0);
+    Item buisnessSuit =Item("Buisness Suit","Armor",0,inventory.getNumItems(),0,6,60,1,0);
     Item biologyHelm =Item("Biology Helmet","Armor",0,inventory.getNumItems(),0,4,40,1,0);
-    Item historyHelm =Item("History Helmet","Armor",0,inventory.getNumItems(),0,4,40,1,0);
+    Item fractalLeggings =Item("Fractal Leggings","Armor",0,inventory.getNumItems(),0,4,40,1,0);
     Item cowboyHat =Item("Cowboy Hat","Armor",0,inventory.getNumItems(),0,4,40,1,0);
     Item hoodie =Item("Hoodie","Armor",18,inventory.getNumItems(),0,3,30,1,0);
     Item sweatpants =Item("Sweatpants","Armor",12,inventory.getNumItems(),0,2,20,1,0);
@@ -564,9 +553,9 @@ int main(){
 
     Item paddle =Item("Abandoned Paddle","Weapon",0,inventory.getNumItems(),2,0,-1,1,0);
     Item fist =Item("Fist","Weapon",0,inventory.getNumItems(),1,0,-1,1,1);//for the fight if theres no weapon default to this
-    inventory.addItem(csChestplate);
+    inventory.addItem(buisnessSuit);
     inventory.addItem(biologyHelm);
-    inventory.addItem(historyHelm);
+    inventory.addItem(fractalLeggings);
     inventory.addItem(cowboyHat);
     inventory.addItem(hoodie);
     inventory.addItem(sweatpants);
@@ -822,7 +811,31 @@ int main(){
                     }
                 }
                 mapObject.exploreSpace(mapObject.getPlayerRow(),mapObject.getPlayerCol());
-                randomChances(mapObject,inventory,bottle);
+                
+                //checking random chances each time the player investigates
+                string animalList[4]={" Black Bear"," Mountain Lion"," Coyote","n Elk"};//supposed to have space before and "n elk"
+                int randNum = rand() % 100;//rand num from 0 to 99
+                if (randNum>=0&&randNum<5){//found money
+                    int randmoney=(rand()%9)+1;//1 to 10 bucks --can be changed if you want
+                    system("clear");
+                    cout<<"While investigating, you found $"<<randmoney<<".00"<<endl;
+                    inventory.setBuffBucks(inventory.getBuffBucks()+randmoney);
+                }
+                else if (randNum>=5&&randNum<25){//found broken bottle
+                    system("clear");
+                    cout<<"While investigating, you found a broken bottle"<<endl;
+                }
+                else if (randNum>=25&&randNum<45){//found raccoon
+                    system("clear");
+                    cout<<"While investigating, you encountered a raccoon"<<endl;
+                    //add in raccoon code
+                }
+                else if (randNum>=45&&randNum<55){//found broken bottle
+                    system("clear");
+                    string animal = animalList[(rand()%4)];
+                    cout<<"While investigating, you encountered a"<<animal<<endl;
+                    //add in animal code
+                }
 
             }
             break;
@@ -844,11 +857,11 @@ int main(){
                 string temp;
                 organizeLogs();
                 cout<<"======Scoreboard======"<<endl;
-                printFile("scoreboard");
+                printFile("scoreboard.txt");
                 cout<<"\nClick any button to continue..."<<endl;
                 cin>>temp;
                 system("clear");
-            }
+            }break;
             default:{
                 system("clear");
                 cout << "Invalid input. Please try again." << endl;
@@ -874,7 +887,7 @@ int main(){
         }
         //updating the weapon array after every move incase they pickup a new weapon
         weaponArr.clear();
-        weaponArr.push_back(fist);
+        weaponArr.push_back(fist);//adding fist as a default weapon
         for (int i=0;i<inventory.getNumItems();i++){
             if(inventory.getItem(i).getItemType()=="Weapon"){
                 if(inventory.getItem(i).getQuantity()>0){
@@ -882,13 +895,15 @@ int main(){
                 }
             }
         }
+
         //if the input was any movement key, check if the space that was moved onto is an enemy space
         int encounterChance=rand()%100;
         bool battle=true;
         if(mapObject.isBanditCampLocation(mapObject.getPlayerRow(),mapObject.getPlayerCol())||mapObject.isCultistLocation(mapObject.getPlayerRow(),mapObject.getPlayerCol())){
             encounterChance=0;//if the space is the camp itself, 100% chance for fighting leader
         }
-        if(isNearEnemy(mapObject.getPlayerRow(),mapObject.getPlayerCol(),mapObject)=='B'){//check if the space if near an enemy
+        //battling bandits
+        if(isNearEnemy(mapObject.getPlayerRow(),mapObject.getPlayerCol(),mapObject)=='B'){//check if the player if near a bandit
             if(encounterChance>=0&&encounterChance<10){//bandit leader attacks
                 system("clear");
                 cout<< "Oh no, you walked to close to the Bandit Camp!!"<<endl;
@@ -911,9 +926,9 @@ int main(){
                             cout<<(i+weaponArr.size()+1)<<". "<<foodArr[i].getItemName()<<"("<<foodArr[i].getQuantity()<<")"<<endl;
                         }
                     }
-                    cout<<endl<<(weaponArr.size()+foodArr.size()+1)<<". Flee"<<endl;
-                    int option;
-                    cin>>option;
+                    cout<<endl<<"Flee the Battle:\n"<<(weaponArr.size()+foodArr.size()+1)<<". Flee"<<endl;
+                    cout<<"Enter a number: ";                    cout<<"Enter a number: ";
+                    int option=isValidInput(weaponArr.size()+foodArr.size()+1);
                     option--;
                     system("clear");
                     if (option>=0&&option<weaponArr.size()){
@@ -924,9 +939,12 @@ int main(){
                         }
                         banditLeader.setHp(banditLeader.getHp()-weaponArr[option].getDamage());
                         //king wook attack
-
-
-
+                        if(player.getKingWookTrust()){
+                            int WookAttack=(rand()%3)+1;
+                            int WookDamageNum=kingWook.getAttack(WookAttack);
+                            cout << "King Wook used " <<kingWook.getAttackName(WookAttack)<<" to deal "<<WookDamageNum<<" damage"<<endl;
+                            banditLeader.setHp(banditLeader.getHp()-WookDamageNum);
+                        }   
                         if(banditLeader.getHp()<=0){
                             system("clear");
                             cout<<"You defeated the Bandit Leader"<<endl;
@@ -941,6 +959,7 @@ int main(){
                                 }
                             }
                             player.setFightsWon(player.getFightsWon()+1);
+                            player.setHp(20);
                             break;
                         }
                     }
@@ -1018,9 +1037,9 @@ int main(){
                             cout<<(i+weaponArr.size()+1)<<". "<<foodArr[i].getItemName()<<"("<<foodArr[i].getQuantity()<<")"<<endl;
                         }
                     }
-                    cout<<endl<<(weaponArr.size()+foodArr.size()+1)<<". Flee"<<endl;
-                    int option;
-                    cin>>option;
+                    cout<<endl<<"Flee the Battle:\n"<<(weaponArr.size()+foodArr.size()+1)<<". Flee"<<endl;
+                    cout<<"Enter a number: ";
+                    int option=isValidInput(weaponArr.size()+foodArr.size()+1);
                     option--;
                     system("clear");
                     if (option>=0&&option<weaponArr.size()){
@@ -1030,6 +1049,13 @@ int main(){
                             bandit.setHp(bandit.getHp()-weaponArr[option].getDamage());
                         }
                         bandit.setHp(bandit.getHp()-weaponArr[option].getDamage());
+                        //king wook attack
+                        if(player.getKingWookTrust()){
+                            int WookAttack=(rand()%3)+1;
+                            int WookDamageNum=kingWook.getAttack(WookAttack);
+                            cout << "King Wook used " <<kingWook.getAttackName(WookAttack)<<" to deal "<<WookDamageNum<<" damage"<<endl;
+                            bandit.setHp(bandit.getHp()-WookDamageNum);
+                        } 
                         if(bandit.getHp()<=0){
                             system("clear");
                             cout<<"You defeated the Bandit "<<endl;
@@ -1038,6 +1064,8 @@ int main(){
                             cout<<"When searching the bandits pockets, you find "<<scavengedmoney<<" Buffbucks"<<endl;
                             inventory.setBuffBucks(inventory.getBuffBucks()+scavengedmoney);
                             player.setFightsWon(player.getFightsWon()+1);
+                            player.setHp(20);
+                            break;
                         }
                     }
                     else if(option>=weaponArr.size()&&option<(weaponArr.size()+foodArr.size())){
@@ -1096,7 +1124,7 @@ int main(){
         
         }
         //again for cult
-        if(isNearEnemy(mapObject.getPlayerRow(),mapObject.getPlayerCol(),mapObject)=='C'){
+        if(isNearEnemy(mapObject.getPlayerRow(),mapObject.getPlayerCol(),mapObject)=='C'){//check is player is near a cultist
             if(encounterChance>=0&&encounterChance<10){//cultist leader attacks
                 system("clear");
                 cout<< "Oh no, you walked to close to the Cultist Church!!"<<endl;
@@ -1119,9 +1147,9 @@ int main(){
                             cout<<(i+weaponArr.size()+1)<<". "<<foodArr[i].getItemName()<<"("<<foodArr[i].getQuantity()<<")"<<endl;
                         }
                     }
-                    cout<<endl<<(weaponArr.size()+foodArr.size()+1)<<". Flee"<<endl;
-                    int option;
-                    cin>>option;
+                    cout<<endl<<"Flee the Battle:\n"<<(weaponArr.size()+foodArr.size()+1)<<". Flee"<<endl;
+                    cout<<"Enter a number: ";
+                    int option=isValidInput(weaponArr.size()+foodArr.size()+1);
                     option--;
                     system("clear");
                     if (option>=0&&option<weaponArr.size()){
@@ -1131,6 +1159,13 @@ int main(){
                             cultistLeader.setHp(cultistLeader.getHp()-weaponArr[option].getDamage());
                         }
                         cultistLeader.setHp(cultistLeader.getHp()-weaponArr[option].getDamage());
+                        //king wook attack
+                        if(player.getKingWookTrust()){
+                            int WookAttack=(rand()%3)+1;
+                            int WookDamageNum=kingWook.getAttack(WookAttack);
+                            cout << "King Wook used " <<kingWook.getAttackName(WookAttack)<<" to deal "<<WookDamageNum<<" damage"<<endl;
+                            cultistLeader.setHp(cultistLeader.getHp()-WookDamageNum);
+                        } 
                         if(cultistLeader.getHp()<=0){
                             system("clear");
                             cout<<"You defeated the Cultist Leader"<<endl;
@@ -1145,6 +1180,7 @@ int main(){
                                 }
                             }
                             player.setFightsWon(player.getFightsWon()+1);
+                            player.setHp(20);
                             break;
                         }
                     }
@@ -1223,9 +1259,9 @@ int main(){
                             cout<<(i+weaponArr.size()+1)<<". "<<foodArr[i].getItemName()<<"("<<foodArr[i].getQuantity()<<")"<<endl;
                         }
                     }
-                    cout<<endl<<(weaponArr.size()+foodArr.size()+1)<<". Flee"<<endl;
-                    int option;
-                    cin>>option;
+                    cout<<endl<<"Flee the Battle:\n"<<(weaponArr.size()+foodArr.size()+1)<<". Flee"<<endl;
+                    cout<<"Enter a number: ";
+                    int option=isValidInput(weaponArr.size()+foodArr.size()+1);
                     option--;
                     system("clear");
                     if (option>=0&&option<weaponArr.size()){
@@ -1235,6 +1271,13 @@ int main(){
                             cultist.setHp(cultist.getHp()-weaponArr[option].getDamage());
                         }
                         cultist.setHp(cultist.getHp()-weaponArr[option].getDamage());
+                        //king wook attack
+                        if(player.getKingWookTrust()){
+                            int WookAttack=(rand()%3)+1;
+                            int WookDamageNum=kingWook.getAttack(WookAttack);
+                            cout << "King Wook used " <<kingWook.getAttackName(WookAttack)<<" to deal "<<WookDamageNum<<" damage"<<endl;
+                            cultist.setHp(cultist.getHp()-WookDamageNum);
+                        } 
                         if(cultist.getHp()<=0){
                             system("clear");
                             cout<<"You defeated the Cultist "<<endl;
@@ -1243,6 +1286,8 @@ int main(){
                             cout<<"When searching the cultists pockets, you find "<<scavengedmoney<<" Buffbucks"<<endl;
                             inventory.setBuffBucks(inventory.getBuffBucks()+scavengedmoney);
                             player.setFightsWon(player.getFightsWon()+1);
+                            player.setHp(20);
+                            break;
                         }
                     }
                     else if(option>=weaponArr.size()&&option<(weaponArr.size()+foodArr.size())){

@@ -37,7 +37,7 @@ int Player::getFightsWon(){
 }
 bool Player::getKingWookTrust(){
   return doesKingWookTrustThe;
-
+}
 void Player::setKingWookTrust(bool trust){
   doesKingWookTrustThe=trust;
 }
