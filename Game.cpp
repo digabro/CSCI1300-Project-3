@@ -303,13 +303,13 @@ for(int i = 0; i < num_history_qs; i++){
     {
         cout << "You scored " << score << "/6 on the history quiz. Which means you ";
         if(score >= 5){
+            system("clear");
             cout << "passed the quiz!" << endl;
-            cout << endl; 
             return true;  
         }
         else{
+            system("clear");
             cout << "didn't pass the quiz, please try again." << endl;
-            cout << endl;
             return false;
         }
     }  
@@ -360,13 +360,13 @@ for(int i = 0; i < num_business_qs; i++){
     {
         cout << "You scored " << score << "/3 on the Business quiz. Which means you ";
         if(score >= 2){
+            system("clear");
             cout << "passed the quiz!" << endl;
-            cout << endl; 
             return true;  
         }
         else{
+            system("clear");
             cout << "didn't pass the quiz, please try again." << endl;
-            cout << endl;
             return false;
         }
     }  
@@ -419,13 +419,11 @@ for(int i = 0; i < num_biology_qs; i++){
         if(score >= 3){
             system("clear");
             cout << "passed the quiz!" << endl;
-            cout << endl; 
             return true;  
         }
         else{
             system("clear");
             cout << "didn't pass the quiz, please try again." << endl;
-            cout << endl;
             return false;
         }
     }  
@@ -482,13 +480,13 @@ for(int i = 0; i < num_math_qs; i++){
     {
         cout << "You scored " << score << "/10 on the Math quiz. Which means you ";
         if(score >= 7){
+            system("clear");
             cout << "passed the quiz!" << endl;
-            cout << endl; 
             return true;  
         }
         else{
+            system("clear");
             cout << "didn't pass the quiz, please try again." << endl;
-            cout << endl;
             return false;
         }
     }  
@@ -1351,8 +1349,8 @@ int main(){
                     // give player good armor piece biotech 
                     cout << endl;
                     cout << "Because you passed this class you won a piece of armor! " << endl;
-                    cout << "You got: "<< endl; // we'll print name here and then store in inventory in next line.
-                    
+                    cout << "You got: History Cowboy Hat"<< endl; // we'll print name here and then store in inventory in next line.
+                    cowboyHat.setQuantity(1);
                     mapObject.removeSchool(mapObject.getPlayerRow(), mapObject.getPlayerCol());
                 }
                 else
@@ -1366,8 +1364,8 @@ int main(){
                     // give player good armor piece biotech 
                     cout << endl;
                     cout << "Because you passed this class you won a piece of armor! " << endl;
-                    cout << "You got: "<< endl; // we'll print name here and then store in inventory in next line.
-                    
+                    cout << "You got: Buisness Suit"<< endl; // we'll print name here and then store in inventory in next line.
+                    buisnessSuit.setQuantity(1);
                     mapObject.removeSchool(mapObject.getPlayerRow(), mapObject.getPlayerCol());
                 }
                 else
@@ -1381,8 +1379,8 @@ int main(){
                     // give player good armor piece biotech 
                     cout << endl;
                     cout << "Because you passed this class you won a piece of armor! " << endl;
-                    cout << "You got: "<< endl; // we'll print name here and then store in inventory in next line.
-                    
+                    cout << "You got: Fractal Leggings"<< endl; // we'll print name here and then store in inventory in next line.
+                    fractalLeggings.setQuantity(1);
                     mapObject.removeSchool(mapObject.getPlayerRow(), mapObject.getPlayerCol());
                 }
                 else
@@ -1397,8 +1395,8 @@ int main(){
                     // give player good armor piece biotech 
                     cout << endl;
                     cout << "Because you passed this class you won a piece of armor! " << endl;
-                    cout << "You got: " << endl; // we'll print name here and then store in inventory in next line.
-                    
+                    cout << "You got: Biology Helmet" << endl; // we'll print name here and then store in inventory in next line.
+                    biologyHelm.setQuantity(1);
                     mapObject.removeSchool(mapObject.getPlayerRow(), mapObject.getPlayerCol());
                 }
                 else
