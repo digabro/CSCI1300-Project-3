@@ -7,9 +7,7 @@ survive the nights on the hill while also maintaining your classes.
 
 Map 
 The map is structured like the map of boulder with certain schools in the
-same area. You must go to all or most of the classes to graduate. In order
-to win the game, go to the NorthWestern part of the map, which is where all
-the enemies are. 
+same area. You must go to all or most of the classes to graduate.
 
 Goal:
 Survive your nights out on the hill while staying up with all of your classes.
