@@ -537,6 +537,7 @@ int main(){
     getline(cin,name);
     system("clear");
     Player player=Player(name,20,0,0);
+    Npc kingWook =Npc("King Wook",25,10,true,10,5,8,"Truth Bomb","Magic Projectile","Body Slam");
     Inventory inventory =Inventory(50,0,0,0,0);
     vector<Item> weaponArr;//making a vector for weapons -- used in the fights
     vector<Item> foodArr; //making food vector for fights
@@ -886,7 +887,7 @@ int main(){
         if(mapObject.isBanditCampLocation(mapObject.getPlayerRow(),mapObject.getPlayerCol())||mapObject.isCultistLocation(mapObject.getPlayerRow(),mapObject.getPlayerCol())){
             encounterChance=0;//if the space is the camp itself, 100% chance for fighting leader
         }
-        if(isNearEnemy(mapObject.getPlayerRow(),mapObject.getPlayerCol(),mapObject)=='B'){
+        if(isNearEnemy(mapObject.getPlayerRow(),mapObject.getPlayerCol(),mapObject)=='B'){//check if the space if near an enemy
             if(encounterChance>=0&&encounterChance<10){//bandit leader attacks
                 system("clear");
                 cout<< "Oh no, you walked to close to the Bandit Camp!!"<<endl;
@@ -921,6 +922,10 @@ int main(){
                             banditLeader.setHp(banditLeader.getHp()-weaponArr[option].getDamage());
                         }
                         banditLeader.setHp(banditLeader.getHp()-weaponArr[option].getDamage());
+                        //king wook attack
+
+
+
                         if(banditLeader.getHp()<=0){
                             system("clear");
                             cout<<"You defeated the Bandit Leader"<<endl;
@@ -969,8 +974,7 @@ int main(){
                         }
                         battle=false;
                     }
-
-
+                    //enemy attacking
 
                     int attackNum=(rand()%3)+1;
                     int damageNum=banditLeader.getAttack(attackNum);
