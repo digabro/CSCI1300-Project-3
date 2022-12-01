@@ -592,12 +592,16 @@ int main(){
                             system("clear");
                             cout<<"You defeated the Bandit Leader"<<endl;
                             battle=false;
-                            cout<<"The bandit camp is now in disarray, and the have bandits fled in terror\n"<<endl;
+                            cout<<"The bandit camp is now in disarray, and the have bandits fled in terror"<<endl;
+                            int scavengedmoney=(rand()%10)+10;
+                            cout<<"When scavenging the camp, you find "<<scavengedmoney<<" Buffbucks\n"<<endl;
+                            inventory.setBuffBucks(inventory.getBuffBucks()+scavengedmoney);
                             for (int i=-1;i<=1;i++){
                                 for (int j=-1;j<=1;j++){
                                     mapObject.removeBanditCamp((mapObject.getPlayerRow()+i),(mapObject.getPlayerCol()+j));
                                 }
                             }
+                            player.setFightsWon(player.getFightsWon()+1);
                             break;
                         }
                     }
@@ -692,7 +696,10 @@ int main(){
                             system("clear");
                             cout<<"You defeated the Bandit "<<endl;
                             battle=false;
-                            
+                            int scavengedmoney=(rand()%10);
+                            cout<<"When searching the bandits pockets, you find "<<scavengedmoney<<" Buffbucks"<<endl;
+                            inventory.setBuffBucks(inventory.getBuffBucks()+scavengedmoney);
+                            player.setFightsWon(player.getFightsWon()+1);
                         }
                     }
                     else if(option>=weaponArr.size()&&option<(weaponArr.size()+foodArr.size())){
@@ -790,12 +797,16 @@ int main(){
                             system("clear");
                             cout<<"You defeated the Cultist Leader"<<endl;
                             battle=false;
-                            cout<<"The Cultist church is now in disarray, and the Cultist have fled in terror\n"<<endl;
+                            cout<<"The Cultist church is now in disarray, and the Cultist have fled in terror"<<endl;
+                            int scavengedmoney=(rand()%10)+10;
+                            cout<<"When scavenging the church, you find "<<scavengedmoney<<" Buffbucks\n"<<endl;
+                            inventory.setBuffBucks(inventory.getBuffBucks()+scavengedmoney);
                             for (int i=-1;i<=1;i++){
                                 for (int j=-1;j<=1;j++){
                                     mapObject.removeBanditCamp((mapObject.getPlayerRow()+i),(mapObject.getPlayerCol()+j));
                                 }
                             }
+                            player.setFightsWon(player.getFightsWon()+1);
                             break;
                         }
                     }
@@ -888,9 +899,12 @@ int main(){
                         cultist.setHp(cultist.getHp()-weaponArr[option].getDamage());
                         if(cultist.getHp()<=0){
                             system("clear");
-                            cout<<"You defeated the Bandit "<<endl;
+                            cout<<"You defeated the Cultist "<<endl;
                             battle=false;
-                            
+                            int scavengedmoney=(rand()%10);
+                            cout<<"When searching the cultists pockets, you find "<<scavengedmoney<<" Buffbucks"<<endl;
+                            inventory.setBuffBucks(inventory.getBuffBucks()+scavengedmoney);
+                            player.setFightsWon(player.getFightsWon()+1);
                         }
                     }
                     else if(option>=weaponArr.size()&&option<(weaponArr.size()+foodArr.size())){
