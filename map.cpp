@@ -53,7 +53,12 @@ void Map::resetMap()
         }
     }
 }
-
+void Map::addCollegeExit(){
+    // set dungeon exit
+    dungeon_exit_[0] = num_rows_ - 1;
+    dungeon_exit_[1] = num_cols_ / 2;
+    map_data_[dungeon_exit_[0]][dungeon_exit_[1]] = EXIT;
+}
 // return player's row position
 int Map::getPlayerRow()
 {
@@ -490,6 +495,7 @@ int Map:: getSchoolType(int row, int col)
             return school_positions_[i][2];
         }
     }
+    return -1;
 }
 
 bool Map::addSchool(int row, int col, int school_type)

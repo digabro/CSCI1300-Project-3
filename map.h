@@ -108,6 +108,7 @@ public:
     bool removeCultistCamp(int row, int col); // not use really because our markets & schools won't disappear
     bool removeKingWook(int row, int col);
     void exploreSpace(int row, int col); // use while navigating
+    void addCollegeExit();
 };
 
 #endif
