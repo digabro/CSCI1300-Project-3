@@ -490,6 +490,7 @@ int Map:: getSchoolType(int row, int col)
             return school_positions_[i][2];
         }
     }
+    return -1;
 }
 
 bool Map::addSchool(int row, int col, int school_type)
