@@ -1351,10 +1351,6 @@ int main(){
                     inventory.getItem(3).setQuantity(1);
                     mapObject.removeSchool(mapObject.getPlayerRow(), mapObject.getPlayerCol());
                 }
-                else
-                {
-                    system("clear");
-                }
                 
             }
             if(mapObject.getSchoolType(mapObject.getPlayerRow(), mapObject.getPlayerCol()) == 1){
@@ -1381,10 +1377,6 @@ int main(){
                     cout << "You got: Fractal Leggings"<< endl; // we'll print name here and then store in inventory in next line.
                     inventory.getItem(2).setQuantity(1);
                     mapObject.removeSchool(mapObject.getPlayerRow(), mapObject.getPlayerCol());
-                }
-                else
-                {
-                    system("clear");
                 }
             }
             if(mapObject.getSchoolType(mapObject.getPlayerRow(), mapObject.getPlayerCol()) == 3){
