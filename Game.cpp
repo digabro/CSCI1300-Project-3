@@ -833,7 +833,29 @@ int main(){
                 else if (randNum>=25&&randNum<45){//found raccoon
                     system("clear");
                     cout<<"While investigating, you encountered a raccoon"<<endl;
-                    //add in raccoon code
+                    cout<<"What would you like to do"<<endl;
+                    cout<<"1. Give the Raccoon a snack"<<endl;
+                    cout<<"2. Kick the Raccoon"<<endl;
+                    cout<<"3. Run away"<<endl;
+                    int option =isValidInput(3);
+                    system("clear");
+                    switch(option){
+                        case 1:{
+                            cout<<"The raccoon nods in thanks and scurries away"<<endl;
+                        }break;
+                        case 2:{
+                            cout<<"In anger, the raccoon bites you then runs off"<<endl;
+                            player.setHp(player.getHp()-1);
+                            if(player.getHp()<=0){
+                                cout<<"You died\nBetter luck next time"<<endl;
+                                return 0;
+                            }
+                        }break;
+                        case 3:{
+                            cout<<"You run away leaving the raccoon in the dust"<<endl;
+                        }break;
+                    }
+
                 }
                 else if (randNum>=45&&randNum<55){//found broken bottle
                     system("clear");
