@@ -3,12 +3,6 @@
 #include <string>
 using namespace std;
 
-int split(int j)
-{
-    //ex
-    return j;
-}
-
 bool isValidAnswer(string answer){
     if(answer == "a"||answer == "b"||answer == "c"||answer == "d"){
         return true;
@@ -26,6 +20,81 @@ bool isAnswerRight(string answer, int i, int j, string array[6][6]){
     else{
         return false;
     }
+}
+
+bool doesKingWookTrustThee()
+{
+    string answer;
+    string wook_riddles[5][2] = 
+    {{"What has keys but no locks space but no room you can enter but you can't exit?","keyboard"},
+    {"What gets wet while drying?","towel"},
+    {"What has a tongue but can't talk?","shoe"},
+    {"What bus could cross the ocean?","columbus"},
+    {"What disappears as soon as you say its name?","silence"}};
+    srand(time(NULL));
+    int randNum = rand() % 100; 
+    cout << "Grettings traveler! I am King Wook, the sorcerer of Boulder who lives under the Broadway Bridge. I am able to protect you if you solve my riddle." << endl;
+    if(randNum <= 0 && randNum <=20){
+        cout << wook_riddles[0][0] << endl;
+        cin >> answer;
+        if(answer == wook_riddles[0][1]){
+            cout << "King Wook: You got it correct my friend! I shall now help you with your quest. " << endl;
+            return true; 
+        }
+        else{
+            cout << "King Wook: Sorry please try again some other time. " << endl;
+            return false;
+        }
+    }
+    if(randNum <= 21 && randNum <=40){
+        cout << wook_riddles[1][0] << endl;
+        cin >> answer;
+        if(answer == wook_riddles[1][1]){
+            cout << "King Wook: You got it correct my friend! I shall now help you with your quest. " << endl;
+            return true; 
+        }
+        else{
+            cout << "King Wook: Sorry please try again some other time. " << endl;
+            return false;
+        }
+    }
+    if(randNum <= 41 && randNum <=60){
+        cout << "King Wook: You got it correct my friend! I shall now help you with your quest. " << endl;
+        cout << wook_riddles[2][0] << endl;
+        cin >> answer;
+        if(answer == wook_riddles[2][1]){
+            return true; 
+        }
+        else{
+            cout << "King Wook: Sorry please try again some other time. " << endl;
+            return false;
+        }
+    }
+    if(randNum <= 61 && randNum <=80){
+        cout << wook_riddles[3][0] << endl;
+        cin >> answer;
+        if(answer == wook_riddles[3][1]){
+            cout << "King Wook: You got it correct my friend! I shall now help you with your quest. " << endl;
+            return true; 
+        }
+        else{
+            cout << "King Wook: Sorry please try again some other time. " << endl;
+            return false;
+        }
+    }
+    if(randNum <= 81 && randNum <=100){
+        cout << wook_riddles[4][0] << endl;
+        cin >> answer;
+        if(answer == wook_riddles[4][1]){
+            cout << "King Wook: You got it correct my friend! I shall now help you with your quest. " << endl;
+            return true; 
+        }
+        else{
+            cout << "King Wook: Sorry please try again some other time. " << endl;
+            return false;
+        }
+    }
+    return false;
 }
 
 bool printHistoryQuestions()
@@ -265,15 +334,10 @@ for(int i = 0; i < num_math_qs; i++){
 return false;
 }
 
-
-
-
-
-
-
 int main(){
 
-    printMathQuestions();
+    doesKingWookTrustThee();
+
 
     return 0;
 }
