@@ -1,0 +1,5 @@
+1. -asd asd | Total: 0 | Health: 20 | Skill: 0 | BuffBucks: 50 | Classes Passed: 0 | Fights Won: 0
+2. g++ asdsadas | Total: 0 | Health: 20 | Skill: 0 | BuffBucks: 50 | Classes Passed: 0 | Fights Won: 0
+3. tets\ntest | Total: 0 | Health: 20 | Skill: 0 | BuffBucks: 50 | Classes Passed: 0 | Fights Won: 0
+4. c | Total: 0 | Health: 20 | Skill: 0 | BuffBucks: 50 | Classes Passed: 0 | Fights Won: 0
+5.  | Total: 0 | Health: 20 | Skill: 0 | BuffBucks: 50 | Classes Passed: 0 | Fights Won: 0

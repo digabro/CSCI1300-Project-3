@@ -123,7 +123,7 @@ void organizeLogs(){
     string splitArr[6];
     string line;
     ifstream inFile;
-    inFile.open("playerLogs");
+    inFile.open("playerLogs.txt");
     vector<vector<string>> logLines;
     vector<string> tempLog;
     while(!inFile.eof()){
@@ -617,7 +617,8 @@ int main(){
         cout << "F: Scoreboard" << endl;
         cout << "Q: Quit game" << endl;
         cout << "Choose one of the options above." << endl;
-        cin >> option;
+        cin>>option;
+        cin.ignore(INT_MAX,'\n');
         system("clear");
         switch(tolower(option))
         {
@@ -967,7 +968,7 @@ int main(){
                         player.setHp(player.getHp()-damageNum);
                         if(player.getHp()<=0){
                             cout << "You Died\nBetter luck next time!" << endl;
-                            sendScore("playerLogs",player,inventory);
+                            sendScore("playerLogs.txt",player,inventory);
                             return 0;
                         }
                         for (int i=0;i<inventory.getNumItems();i++){
@@ -993,7 +994,7 @@ int main(){
             break;
             case 'q':{
                 cout << "Better luck next time!" << endl;
-                sendScore("playerLogs",player,inventory);
+                sendScore("playerLogs.txt",player,inventory);
                 return 0;
             }break;
             case 'f':{
@@ -1175,7 +1176,7 @@ int main(){
                     player.setHp(player.getHp()-damageNum);
                     if(player.getHp()<=0){
                         cout << "You Died\nBetter luck next time!" << endl;
-                        sendScore("playerLogs",player,inventory);
+                        sendScore("playerLogs.txt",player,inventory);
                         return 0;
                     }
                     for (int i=0;i<inventory.getNumItems();i++){
@@ -1300,8 +1301,8 @@ int main(){
                     }
                     player.setHp(player.getHp()-damageNum);
                     if(player.getHp()<=0){
-                        cout << "You Died\nBetter luck next time!" << endl;
-                        sendScore("playerLogs",player,inventory);
+                        cout << "You Died\nTO DEFEAT ME YOU MUST TRAIN FOR ANOTHER 1000 YEARS!!!" << endl;
+                        sendScore("playerLogs.txt",player,inventory);
                         return 0;
                     }
                     for (int i=0;i<inventory.getNumItems();i++){
@@ -1438,7 +1439,7 @@ int main(){
                     player.setHp(player.getHp()-damageNum);
                     if(player.getHp()<=0){
                         cout << "You Died\nBetter luck next time!" << endl;
-                        sendScore("playerLogs",player,inventory);
+                        sendScore("playerLogs.txt",player,inventory);
                         return 0;
                     }
                     for (int i=0;i<inventory.getNumItems();i++){
@@ -1563,7 +1564,7 @@ int main(){
                     player.setHp(player.getHp()-damageNum);
                     if(player.getHp()<=0){
                         cout << "You Died\nBetter luck next time!" << endl;
-                        sendScore("playerLogs",player,inventory);
+                        sendScore("playerLogs.txt",player,inventory);
                         return 0;
                     }
                     for (int i=0;i<inventory.getNumItems();i++){
