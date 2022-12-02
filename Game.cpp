@@ -275,7 +275,7 @@ bool printHistoryQuestions()
     // history college:     Q#&Q  a   b   c   d   A
     string history[7][6] =
    {{"1. When was the town of Bolder built?","a. 1878","b. 1865","c. 1892","d. 1871","d"}, 
-    {"2. What year was the University of Colorado-Boulder founded?","a. 1876","b. 1870","c. 1895","d. 1909","b"},
+    {"2. What year was the University of Colorado-Boulder founded?","a. 1876","b. 1870","c. 1895","d. 1909","a"},
     {"3. When was the first Ralphie Buffalo introduced to the university?","a. 1919","b. 1957","c. 1892","d. 1909","b"},
     {"4. Why are the flat irons named the flat irons?","a. The pioneers saw that it was flat and filled with with iron.","b. The pioneers thought that it looked flat like an iron used to iron clothes.","c. The pioneers thought they were magnetic and thought their magnetic field would protect them from the sun.","d. When Boulder was founded, there was a large iron deposit found in the mountains.","b"},
     {"5. Who was Alfred Packer?","a. He was a settler on an expedition and became a cannibal after the trip went sour.","b. Famous rooster.","c. Famous Boulderite.","d. none of the above.","a"},
@@ -731,12 +731,7 @@ int main(){
                         cout<<"Welcome to Farrand Market\nCurrent money: "<<inventory.getBuffBucks()<<"\n\nItems to buy:"<<endl;
                         cout<<"1.Pedialyte - $6\n2.Energy Drink - $6\n3.Muscle Milk - $6";
                         cout<<"\n4.Cup of Noodles - $6\n5.Exit\nSelect an item: ";
-                        if(!(cin>>item)){
-                            system("clear");
-                            cout<<"Invalid Input"<<endl;
-                            cin.clear();
-                            cin.ignore(INT_MAX,'\n');//https://stackoverflow.com/questions/257091/how-do-i-flush-the-cin-buffer – error with clearing cin buffer
-                        }
+                        item =isValidInput(5);
                         if (inventory.getBuffBucks()<6&&item<=4&&item>=1){
                             system("clear");
                             cout<<"You do not have enough Buff Bucks to purchase this.\n"<<endl;
@@ -776,12 +771,7 @@ int main(){
                         cout<<"Welcome to Wallgreens\nCurrent money: "<<inventory.getBuffBucks()<<"\n\nItems to buy:"<<endl;
                         cout<<"1.Hoodie - $18\n2.Sweatpants - $12\n3.Sandals - $6";
                         cout<<"\n4.Sunglasses - $6\n5.Pencil - $2\n6.Scissors - $2\n7.Exit\nSelect an item: ";
-                        if(!(cin>>item)){
-                            system("clear");
-                            cout<<"Invalid Input"<<endl;
-                            cin.clear();
-                            cin.ignore(INT_MAX,'\n');//https://stackoverflow.com/questions/257091/how-do-i-flush-the-cin-buffer – error with clearing cin buffer
-                        }
+                        item =isValidInput(7);
                         switch(item){
                             case 1:{
                                     system("clear");
@@ -981,7 +971,8 @@ int main(){
                             return 0;
                         }
                         for (int i=0;i<inventory.getNumItems();i++){
-                            if (inventory.getItem(i).getItemType()=="Armor"&&inventory.getItem(i).getDurability()==0){
+                            if (inventory.getItem(i).getItemType()=="Armor"&&inventory.getItem(i).getDurability()<=0){
+                                system("clear");
                                 inventory.getItem(i).setQuantity(0);
                                 cout<<"Your "<<inventory.getItem(i).getItemName()<<"broke"<<endl;
                             }
@@ -1018,6 +1009,13 @@ int main(){
             default:{
                 system("clear");
                 cout << "Invalid input. Please try again." << endl;
+            }
+        }
+        //checking if any armor durability is 0
+        for (int i=0;i<inventory.getNumItems();i++){
+            if (inventory.getItem(i).getItemType()=="Armor"&&inventory.getItem(i).getDurability()==0){
+                inventory.getItem(i).setQuantity(0);
+                cout<<"Your "<<inventory.getItem(i).getItemName()<<"broke"<<endl;
             }
         }
         //updating armor after every move
@@ -1154,7 +1152,7 @@ int main(){
                     //enemy attacking
 
                     int attackNum=(rand()%3)+1;
-                    int damageNum=banditLeader.getAttack(attackNum);
+                    double damageNum=banditLeader.getAttack(attackNum);
                     cout << "Bandit Leader used " <<banditLeader.getAttackName(attackNum)<<" to deal "<<damageNum<<" damage"<<endl;
                     if(player.getArmor()>=banditLeader.getAttack(attackNum)){
                         damageNum=0;
@@ -1166,7 +1164,7 @@ int main(){
                         }
                     }
                     else if(player.getArmor()<=banditLeader.getAttack(attackNum)&&player.getArmor()>0){
-                        damageNum-=player.getArmor();
+                        damageNum=(damageNum/player.getArmor());
                         cout<<"You blocked "<<player.getArmor()<<" damage with your armor"<<endl;
                         for (int i=0;i<inventory.getNumItems();i++){
                             if (inventory.getItem(i).getItemType()=="Armor"){
@@ -1181,8 +1179,9 @@ int main(){
                         return 0;
                     }
                     for (int i=0;i<inventory.getNumItems();i++){
-                        if (inventory.getItem(i).getItemType()=="Armor"&&inventory.getItem(i).getDurability()==0){
+                        if (inventory.getItem(i).getItemType()=="Armor"&&inventory.getItem(i).getDurability()<=0){
                             inventory.getItem(i).setQuantity(0);
+                            system("clear");
                             cout<<"Your "<<inventory.getItem(i).getItemName()<<"broke"<<endl;
                         }
                     }
@@ -1279,7 +1278,7 @@ int main(){
 
 
                     int attackNum=(rand()%3)+1;
-                    int damageNum=bandit.getAttack(attackNum);
+                    double damageNum=bandit.getAttack(attackNum);
                     cout << "Bandit used " <<bandit.getAttackName(attackNum)<<" to deal "<<damageNum<<" damage"<<endl;
                     if(player.getArmor()>=bandit.getAttack(attackNum)){
                         damageNum=0;
@@ -1291,7 +1290,7 @@ int main(){
                         }
                     }
                     else if(player.getArmor()<=bandit.getAttack(attackNum)&&player.getArmor()>0){
-                        damageNum-=player.getArmor();
+                        damageNum=(damageNum/player.getArmor());
                         cout<<"You blocked "<<player.getArmor()<<" damage with your armor"<<endl;
                         for (int i=0;i<inventory.getNumItems();i++){
                             if (inventory.getItem(i).getItemType()=="Armor"){
@@ -1306,7 +1305,7 @@ int main(){
                         return 0;
                     }
                     for (int i=0;i<inventory.getNumItems();i++){
-                        if (inventory.getItem(i).getItemType()=="Armor"&&inventory.getItem(i).getDurability()==0){
+                        if (inventory.getItem(i).getItemType()=="Armor"&&inventory.getItem(i).getDurability()<=0){
                             inventory.getItem(i).setQuantity(0);
                             cout<<"Your "<<inventory.getItem(i).getItemName()<<"broke"<<endl;
                         }
@@ -1416,7 +1415,7 @@ int main(){
 
 
                     int attackNum=(rand()%3)+1;
-                    int damageNum=cultistLeader.getAttack(attackNum);
+                    double damageNum=cultistLeader.getAttack(attackNum);
                     cout << "Cultist Leader used " <<cultistLeader.getAttackName(attackNum)<<" to deal "<<damageNum<<" damage"<<endl;
                     if(player.getArmor()>=cultistLeader.getAttack(attackNum)){
                         damageNum=0;
@@ -1428,7 +1427,7 @@ int main(){
                         }
                     }
                     else if(player.getArmor()<=cultistLeader.getAttack(attackNum)&&player.getArmor()>0){
-                        damageNum-=player.getArmor();
+                        damageNum=(damageNum/player.getArmor());
                         cout<<"You blocked "<<player.getArmor()<<" damage with your armor"<<endl;
                         for (int i=0;i<inventory.getNumItems();i++){
                             if (inventory.getItem(i).getItemType()=="Armor"){
@@ -1443,7 +1442,7 @@ int main(){
                         return 0;
                     }
                     for (int i=0;i<inventory.getNumItems();i++){
-                        if (inventory.getItem(i).getItemType()=="Armor"&&inventory.getItem(i).getDurability()==0){
+                        if (inventory.getItem(i).getItemType()=="Armor"&&inventory.getItem(i).getDurability()<=0){
                             inventory.getItem(i).setQuantity(0);
                             cout<<"Your "<<inventory.getItem(i).getItemName()<<"broke"<<endl;
                         }
@@ -1541,7 +1540,7 @@ int main(){
 
 
                     int attackNum=(rand()%3)+1;
-                    int damageNum=cultist.getAttack(attackNum);
+                    double damageNum=cultist.getAttack(attackNum);
                     cout << "Bandit used " <<cultist.getAttackName(attackNum)<<" to deal "<<damageNum<<" damage"<<endl;
                     if(player.getArmor()>=cultist.getAttack(attackNum)){
                         damageNum=0;
@@ -1553,7 +1552,7 @@ int main(){
                         }
                     }
                     else if(player.getArmor()<=cultist.getAttack(attackNum)&&player.getArmor()>0){
-                        damageNum-=player.getArmor();
+                        damageNum=(damageNum/player.getArmor());
                         cout<<"You blocked "<<player.getArmor()<<" damage with your armor"<<endl;
                         for (int i=0;i<inventory.getNumItems();i++){
                             if (inventory.getItem(i).getItemType()=="Armor"){
@@ -1568,7 +1567,7 @@ int main(){
                         return 0;
                     }
                     for (int i=0;i<inventory.getNumItems();i++){
-                        if (inventory.getItem(i).getItemType()=="Armor"&&inventory.getItem(i).getDurability()==0){
+                        if (inventory.getItem(i).getItemType()=="Armor"&&inventory.getItem(i).getDurability()<=0){
                             inventory.getItem(i).setQuantity(0);
                             cout<<"Your "<<inventory.getItem(i).getItemName()<<"broke"<<endl;
                         }
