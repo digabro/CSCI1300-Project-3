@@ -913,6 +913,10 @@ int main(){
                                 cout<<"You defeated a"<<animal.getName()<<endl;
                                 battle=false;
                                 player.setHp(20);
+                                inventory.deactivateFood("Pedialyte");
+                                inventory.deactivateFood("Cup Of Noodles");
+                                inventory.deactivateFood("Muscle Milk");
+                                inventory.deactivateFood("Energy Drink");
                                 break;
                             }
                         }
@@ -1109,6 +1113,10 @@ int main(){
                             }
                             player.setFightsWon(player.getFightsWon()+1);
                             player.setHp(20);
+                            inventory.deactivateFood("Pedialyte");
+                            inventory.deactivateFood("Cup Of Noodles");
+                            inventory.deactivateFood("Muscle Milk");
+                            inventory.deactivateFood("Energy Drink");
                             break;
                         }
                     }
@@ -1229,6 +1237,10 @@ int main(){
                             cout<<"When searching the bandits pockets, you find "<<scavengedmoney<<" Buffbucks"<<endl;
                             inventory.setBuffBucks(inventory.getBuffBucks()+scavengedmoney);
                             player.setHp(20);
+                            inventory.deactivateFood("Pedialyte");
+                            inventory.deactivateFood("Cup Of Noodles");
+                            inventory.deactivateFood("Muscle Milk");
+                            inventory.deactivateFood("Energy Drink");
                             break;
                         }
                     }
@@ -1362,6 +1374,10 @@ int main(){
                             }
                             player.setFightsWon(player.getFightsWon()+1);
                             player.setHp(20);
+                            inventory.deactivateFood("Pedialyte");
+                            inventory.deactivateFood("Cup Of Noodles");
+                            inventory.deactivateFood("Muscle Milk");
+                            inventory.deactivateFood("Energy Drink");
                             break;
                         }
                     }
@@ -1483,6 +1499,10 @@ int main(){
                             cout<<"When searching the cultists pockets, you find "<<scavengedmoney<<" Buffbucks"<<endl;
                             inventory.setBuffBucks(inventory.getBuffBucks()+scavengedmoney);
                             player.setHp(20);
+                            inventory.deactivateFood("Pedialyte");
+                            inventory.deactivateFood("Cup Of Noodles");
+                            inventory.deactivateFood("Muscle Milk");
+                            inventory.deactivateFood("Energy Drink");
                             break;
                         }
                     }
