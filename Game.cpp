@@ -531,7 +531,7 @@ int main(){
     getline(cin,name);
     system("clear");
     Player player=Player(name,20,0,0);
-    Npc kingWook =Npc("King Wook",25,10,true,10,5,8,"Truth Bomb","Magic Projectile","Body Slam");
+    Npc kingWook =Npc("King Wook",25,10,true,5,3,4,"Truth Bomb","Magic Projectile","Body Slam");
     Inventory inventory =Inventory(50,0,0,0,0);
     vector<Item> weaponArr;//making a vector for weapons -- used in the fights
     vector<Item> foodArr; //making food vector for fights
@@ -818,7 +818,12 @@ int main(){
                 mapObject.exploreSpace(mapObject.getPlayerRow(),mapObject.getPlayerCol());
                 
                 //checking random chances each time the player investigates
-                string animalList[4]={" Black Bear"," Mountain Lion"," Coyote","n Elk"};//supposed to have space before and "n elk"
+                //making the animal list arr of npcs rather than strings
+                Npc blackBear = Npc(" Black Bear",10,0,true,3,6,1,"Paw Swipe","Bear Charge","Bees");
+                Npc mountainLion =Npc(" Mountain Lion",8,0,true,3,5,6,"Paw Swipe","Mountain Pounce","Lion Charge");
+                Npc coyote =Npc(" Coyote",5,0,true,1,3,4,"Paw Swipe","Coyote Charge","Coyote Bite");
+                Npc elk=Npc("n Elk",8,0,true,4,5,8,"Elk Kick","Antler Toss","Charge");//names supposed to have space before and "n elk"
+                Npc animalList[4]={blackBear,mountainLion,coyote,elk};
                 int randNum = rand() % 100;//rand num from 0 to 99
                 if (randNum>=0&&randNum<5){//found money
                     int randmoney=(rand()%9)+1;//1 to 10 bucks --can be changed if you want
@@ -829,6 +834,12 @@ int main(){
                 else if (randNum>=5&&randNum<25){//found broken bottle
                     system("clear");
                     cout<<"While investigating, you found a broken bottle"<<endl;
+                    for (int i=0;i<inventory.getNumItems();i++){
+                        if(inventory.getItem(i).getItemName()=="Broken Bottle"&&inventory.getItem(i).getQuantity()==0){
+                            inventory.addItem(bottle);
+                        }
+                    }
+                    
                 }
                 else if (randNum>=25&&randNum<45){//found raccoon
                     system("clear");
@@ -859,10 +870,121 @@ int main(){
                 }
                 else if (randNum>=45&&randNum<55){//found broken bottle
                     system("clear");
-                    string animal = animalList[(rand()%4)];
-                    cout<<"While investigating, you encountered a"<<animal<<endl;
-                    //add in animal code
+                    Npc animal =animalList[(rand()%4)];
+                    cout<<"While investigating, you encountered a"<<animal.getName()<<endl;
+                    bool battle=true;
+                    while(battle){//animal battles
+                        cout << "\n======Status======" << endl;
+                        cout << "Health Pts: "<<player.getHp()<<" | Armor: "<<player.getArmor()<<endl<<"Buff Bucks: "<<inventory.getBuffBucks();
+                        cout << " | Skill: "<< player.getSkillLevel()<<endl<<endl; 
+                        cout<<"Choose what to do:"<<endl;
+                        cout<<"Attack:"<<endl;
+                        for (int i=0;i<weaponArr.size();i++){
+                            cout<<(i+1)<<". "<<weaponArr[i].getItemName()<<" - "<<weaponArr[i].getDamage()<<" damage"<<endl;
+                        }
+                        //option for food or fleeing
+                        if(foodArr.size()>0){
+                            cout<<"\nConsume a food item:"<<endl;
+                            for (int i=0;i<(foodArr.size());i++){
+                                cout<<(i+weaponArr.size()+1)<<". "<<foodArr[i].getItemName()<<"("<<foodArr[i].getQuantity()<<")"<<endl;
+                            }
+                        }
+                        cout<<endl<<"Flee the Battle:\n"<<(weaponArr.size()+foodArr.size()+1)<<". Flee"<<endl;
+                        cout<<"Enter a number: ";                    cout<<"Enter a number: ";
+                        int option=isValidInput(weaponArr.size()+foodArr.size()+1);
+                        option--;
+                        system("clear");
+                        if (option>=0&&option<weaponArr.size()){
+                            cout<<player.getName()<<" attacks with "<<weaponArr[option].getItemName()<<" for "<<weaponArr[option].getDamage()<<" damage"<<endl;
+                            if (inventory.isActive("Muscle Milk")){
+                                cout<<"The muscle milk strengthened your attack dealing "<<weaponArr[option].getDamage()<<" more damage"<<endl;
+                                animal.setHp(animal.getHp()-weaponArr[option].getDamage());
+                            }
+                            animal.setHp(animal.getHp()-weaponArr[option].getDamage());
+                            //king wook attack
+                            if(player.getKingWookTrust()){
+                                int WookAttack=(rand()%3)+1;
+                                int WookDamageNum=kingWook.getAttack(WookAttack);
+                                cout << "King Wook used " <<kingWook.getAttackName(WookAttack)<<" to deal "<<WookDamageNum<<" damage"<<endl;
+                                animal.setHp(animal.getHp()-WookDamageNum);
+                            }   
+                            if(animal.getHp()<=0){
+                                system("clear");
+                                cout<<"You defeated a"<<animal.getName()<<endl;
+                                battle=false;
+                                player.setHp(20);
+                                break;
+                            }
+                        }
+                        else if(option>=weaponArr.size()&&option<(weaponArr.size()+foodArr.size())){
+                            option-=weaponArr.size();
+                            if (inventory.activateFood(foodArr[option].getItemName())){
+                                cout<<"You consumed 1 "<<foodArr[option].getItemName()<<endl;
+                                for (int i=0;i<inventory.getNumItems();i++){
+                                    if (inventory.getItem(i).getItemName()==foodArr[option].getItemName()){
+                                        inventory.getItem(i).setQuantity(inventory.getItem(i).getQuantity()-1);
+                                        foodArr[option].setQuantity(foodArr[option].getQuantity()-1);
+                                    }
+                                }
+                                if (inventory.isActive("Pedialyte")){
+                                    cout<<"You heal for 10 hp"<<endl;
+                                    player.setHp(player.getHp()+10);
+                                    inventory.deactivateFood("Pedialyte");
+                                }
+                                if (inventory.isActive("Cup Of Noodles")){
+                                    cout<<"You heal for 5 hp"<<endl;
+                                    player.setHp(player.getHp()+5);
+                                    inventory.deactivateFood("Cup Of Noodles");
+                                }
+                            }
+                            
+                        }
+                        else if(option==(weaponArr.size()+foodArr.size())){
+                            cout<<"You attempted to flee\nIn youre attempt, the animal makes one last attack"<<endl;
+                            if(inventory.isActive("Energy Drink")){
+                                cout<<"Using your energy drink, you outran the animals final attack"<<endl;
+                                break;
+                            }
+                            battle=false;
+                        }
+                        //enemy attacking
+
+                        int attackNum=(rand()%3)+1;
+                        int damageNum=animal.getAttack(attackNum);
+                        cout << "The animal used " <<animal.getAttackName(attackNum)<<" to deal "<<damageNum<<" damage"<<endl;
+                        if(player.getArmor()>=animal.getAttack(attackNum)){
+                            damageNum=0;
+                            cout<<"You blocked "<<player.getArmor()<<" damage with your armor"<<endl;
+                            for (int i=0;i<inventory.getNumItems();i++){
+                                if (inventory.getItem(i).getItemType()=="Armor"){
+                                    inventory.getItem(i).setDurability(inventory.getItem(i).getDurability()-animal.getAttack(attackNum));
+                                }
+                            }
+                        }
+                        else if(player.getArmor()<=animal.getAttack(attackNum)&&player.getArmor()>0){
+                            damageNum-=player.getArmor();
+                            cout<<"You blocked "<<player.getArmor()<<" damage with your armor"<<endl;
+                            for (int i=0;i<inventory.getNumItems();i++){
+                                if (inventory.getItem(i).getItemType()=="Armor"){
+                                    inventory.getItem(i).setDurability(inventory.getItem(i).getDurability()-animal.getAttack(attackNum));
+                                }
+                            }
+                        }
+                        player.setHp(player.getHp()-damageNum);
+                        if(player.getHp()<=0){
+                            cout << "You Died\nBetter luck next time!" << endl;
+                            sendScore("playerLogs",player,inventory);
+                            return 0;
+                        }
+                        for (int i=0;i<inventory.getNumItems();i++){
+                            if (inventory.getItem(i).getItemType()=="Armor"&&inventory.getItem(i).getDurability()==0){
+                                inventory.getItem(i).setQuantity(0);
+                                cout<<"Your "<<inventory.getItem(i).getItemName()<<"broke"<<endl;
+                            }
+                        }
+                    }
                 }
+
 
             }
             break;
@@ -1029,16 +1151,32 @@ int main(){
                     if(player.getArmor()>=banditLeader.getAttack(attackNum)){
                         damageNum=0;
                         cout<<"You blocked "<<player.getArmor()<<" damage with your armor"<<endl;
+                        for (int i=0;i<inventory.getNumItems();i++){
+                            if (inventory.getItem(i).getItemType()=="Armor"){
+                                inventory.getItem(i).setDurability(inventory.getItem(i).getDurability()-banditLeader.getAttack(attackNum));
+                            }
+                        }
                     }
                     else if(player.getArmor()<=banditLeader.getAttack(attackNum)&&player.getArmor()>0){
                         damageNum-=player.getArmor();
                         cout<<"You blocked "<<player.getArmor()<<" damage with your armor"<<endl;
+                        for (int i=0;i<inventory.getNumItems();i++){
+                            if (inventory.getItem(i).getItemType()=="Armor"){
+                                inventory.getItem(i).setDurability(inventory.getItem(i).getDurability()-banditLeader.getAttack(attackNum));
+                            }
+                        }
                     }
                     player.setHp(player.getHp()-damageNum);
                     if(player.getHp()<=0){
                         cout << "You Died\nBetter luck next time!" << endl;
                         sendScore("playerLogs",player,inventory);
                         return 0;
+                    }
+                    for (int i=0;i<inventory.getNumItems();i++){
+                        if (inventory.getItem(i).getItemType()=="Armor"&&inventory.getItem(i).getDurability()==0){
+                            inventory.getItem(i).setQuantity(0);
+                            cout<<"Your "<<inventory.getItem(i).getItemName()<<"broke"<<endl;
+                        }
                     }
                 }
             }
@@ -1134,10 +1272,20 @@ int main(){
                     if(player.getArmor()>=bandit.getAttack(attackNum)){
                         damageNum=0;
                         cout<<"You blocked "<<player.getArmor()<<" damage with your armor"<<endl;
+                        for (int i=0;i<inventory.getNumItems();i++){
+                            if (inventory.getItem(i).getItemType()=="Armor"){
+                                inventory.getItem(i).setDurability(inventory.getItem(i).getDurability()-bandit.getAttack(attackNum));
+                            }
+                        }
                     }
                     else if(player.getArmor()<=bandit.getAttack(attackNum)&&player.getArmor()>0){
                         damageNum-=player.getArmor();
                         cout<<"You blocked "<<player.getArmor()<<" damage with your armor"<<endl;
+                        for (int i=0;i<inventory.getNumItems();i++){
+                            if (inventory.getItem(i).getItemType()=="Armor"){
+                                inventory.getItem(i).setDurability(inventory.getItem(i).getDurability()-bandit.getAttack(attackNum));
+                            }
+                        }
                     }
                     player.setHp(player.getHp()-damageNum);
                     if(player.getHp()<=0){
@@ -1145,6 +1293,13 @@ int main(){
                         sendScore("playerLogs",player,inventory);
                         return 0;
                     }
+                    for (int i=0;i<inventory.getNumItems();i++){
+                        if (inventory.getItem(i).getItemType()=="Armor"&&inventory.getItem(i).getDurability()==0){
+                            inventory.getItem(i).setQuantity(0);
+                            cout<<"Your "<<inventory.getItem(i).getItemName()<<"broke"<<endl;
+                        }
+                    }
+                    
                 }
             }
         
@@ -1250,16 +1405,32 @@ int main(){
                     if(player.getArmor()>=cultistLeader.getAttack(attackNum)){
                         damageNum=0;
                         cout<<"You blocked "<<player.getArmor()<<" damage with your armor"<<endl;
+                        for (int i=0;i<inventory.getNumItems();i++){
+                            if (inventory.getItem(i).getItemType()=="Armor"){
+                                inventory.getItem(i).setDurability(inventory.getItem(i).getDurability()-cultistLeader.getAttack(attackNum));
+                            }
+                        }
                     }
                     else if(player.getArmor()<=cultistLeader.getAttack(attackNum)&&player.getArmor()>0){
                         damageNum-=player.getArmor();
                         cout<<"You blocked "<<player.getArmor()<<" damage with your armor"<<endl;
+                        for (int i=0;i<inventory.getNumItems();i++){
+                            if (inventory.getItem(i).getItemType()=="Armor"){
+                                inventory.getItem(i).setDurability(inventory.getItem(i).getDurability()-cultistLeader.getAttack(attackNum));
+                            }
+                        }
                     }
                     player.setHp(player.getHp()-damageNum);
                     if(player.getHp()<=0){
                         cout << "You Died\nBetter luck next time!" << endl;
                         sendScore("playerLogs",player,inventory);
                         return 0;
+                    }
+                    for (int i=0;i<inventory.getNumItems();i++){
+                        if (inventory.getItem(i).getItemType()=="Armor"&&inventory.getItem(i).getDurability()==0){
+                            inventory.getItem(i).setQuantity(0);
+                            cout<<"Your "<<inventory.getItem(i).getItemName()<<"broke"<<endl;
+                        }
                     }
                 }
             }
@@ -1355,16 +1526,32 @@ int main(){
                     if(player.getArmor()>=cultist.getAttack(attackNum)){
                         damageNum=0;
                         cout<<"You blocked "<<player.getArmor()<<" damage with your armor"<<endl;
+                        for (int i=0;i<inventory.getNumItems();i++){
+                            if (inventory.getItem(i).getItemType()=="Armor"){
+                                inventory.getItem(i).setDurability(inventory.getItem(i).getDurability()-cultist.getAttack(attackNum));
+                            }
+                        }
                     }
                     else if(player.getArmor()<=cultist.getAttack(attackNum)&&player.getArmor()>0){
                         damageNum-=player.getArmor();
                         cout<<"You blocked "<<player.getArmor()<<" damage with your armor"<<endl;
+                        for (int i=0;i<inventory.getNumItems();i++){
+                            if (inventory.getItem(i).getItemType()=="Armor"){
+                                inventory.getItem(i).setDurability(inventory.getItem(i).getDurability()-cultist.getAttack(attackNum));
+                            }
+                        }
                     }
                     player.setHp(player.getHp()-damageNum);
                     if(player.getHp()<=0){
                         cout << "You Died\nBetter luck next time!" << endl;
                         sendScore("playerLogs",player,inventory);
                         return 0;
+                    }
+                    for (int i=0;i<inventory.getNumItems();i++){
+                        if (inventory.getItem(i).getItemType()=="Armor"&&inventory.getItem(i).getDurability()==0){
+                            inventory.getItem(i).setQuantity(0);
+                            cout<<"Your "<<inventory.getItem(i).getItemName()<<"broke"<<endl;
+                        }
                     }
                 }
             }
