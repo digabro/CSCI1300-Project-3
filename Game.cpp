@@ -132,9 +132,9 @@ void organizeLogs(){
         for (int i=0;i<6;i++){
             tempLog.push_back(splitArr[i]);
         }
-        double health=(stod(tempLog[1])/20.0)*0.3;//base 0.3
-        double armor=(stod(tempLog[2])/10)*0.3;//base 0
-        double money=(stod(tempLog[3])/50.0)*0.4;//base 0.4
+        double health=(stod(tempLog[1])/20.0)*0.4;//base 0.3
+        double armor=(stod(tempLog[2])/10.0);//base 0
+        double money=(stod(tempLog[3])/50.0)*0.6;//base 0.4
         double classes=stod(tempLog[4])*5;//base 0
         double fights=stod(tempLog[5])*5;//base 0
         tempLog.push_back(to_string(((health+armor+money+classes+fights))));//remaining hp 20% skill 30% buffbucks 50% 
@@ -158,7 +158,7 @@ void organizeLogs(){
         numRep=logLines.size()-1;
     }
     for (int i=0;i<numRep;i++){
-        outFile<<(i+1)<<". "<<logLines[i][0]<<" | Total: "<<stoi(logLines[i][6])<<" | Health: "<<logLines[i][1]<<" | Skill: "<<logLines[i][2]<<" | BuffBucks: "<<logLines[i][3]<<" | Classes Passed: "<<logLines[i][4]<<" | Fights Won: "<<logLines[i][5]<<endl;
+        outFile<<(i+1)<<". "<<logLines[i][0]<<" | Total: "<<stod(logLines[i][6])<<" | Health: "<<logLines[i][1]<<" | Skill: "<<logLines[i][2]<<" | BuffBucks: "<<logLines[i][3]<<" | Classes Passed: "<<logLines[i][4]<<" | Fights Won: "<<logLines[i][5]<<endl;
     }
     outFile.close();
 }
